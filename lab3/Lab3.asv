@@ -96,18 +96,18 @@ hold off
 %% Experiment 2
 % Find U_T and I_s for the didoe
 
-Experiment_2_200 = load('Experiment_2-200.mat');
-Experiment_2_200.Ib = fliplr(Experiment_2_200.Ib);
+Experiment_2_200 = load('Experiment_2-200_NEW.mat');
+Experiment_2_200.Ib = fliplr(Experiment_2_200.Ib)+5.4e-9;
 Experiment_2_200.Ie = (-1)*fliplr(Experiment_2_200.Ie);
 Experiment_2_200.Vb = fliplr(Experiment_2_200.Vb);
 
-Experiment_2_2k = load('Experiment_2-2k.mat');
-Experiment_2_2k.Ib = fliplr(Experiment_2_2k.Ib);
+Experiment_2_2k = load('Experiment_2-2k_NEW.mat');
+Experiment_2_2k.Ib = fliplr(Experiment_2_2k.Ib)+4.77e-10;
 Experiment_2_2k.Ie = (-1)*fliplr(Experiment_2_2k.Ie);
 Experiment_2_2k.Vb = fliplr(Experiment_2_2k.Vb);
 
-Experiment_2_20k = load('Experiment_2-20k.mat');
-Experiment_2_20k.Ib = fliplr(Experiment_2_20k.Ib);
+Experiment_2_20k = load('Experiment_2-20k_NEW.mat');
+Experiment_2_20k.Ib = fliplr(Experiment_2_20k.Ib)+1e-8;
 Experiment_2_20k.Ie = (-1)*fliplr(Experiment_2_20k.Ie);
 Experiment_2_20k.Vb = fliplr(Experiment_2_20k.Vb);
 
@@ -157,9 +157,10 @@ legend('Experimental R = 20k \Omega','Location','Southeast')
 grid on
 hold off
 
+Theoretical_Beta = 150;
 % Rb for each resistor
 figure
-loglog(Experiment_2_200.Ib(2:end),diff(Experiment_2_200.Vb)./diff(Experiment_2_200.Ib),'b*')
+loglog(Experiment_2_200.Ib,Theoretical_Beta*200*(1 + U_T./(200*Theoretical_Beta*Experiment_2_200.Ib)),'b*')
 hold on
 title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 200 \Omega')
 xlabel('Base Current [A]')
@@ -169,7 +170,7 @@ grid on
 hold off
 
 figure
-loglog(Experiment_2_2k.Ib(2:end),diff(Experiment_2_2k.Vb)./diff(Experiment_2_2k.Ib),'b*')
+loglog(Experiment_2_2k.Ib,Theoretical_Beta*2000*(1 + U_T./(2000*Theoretical_Beta*Experiment_2_2k.Ib)),'b*')
 hold on
 title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 2 k\Omega')
 xlabel('Base Current [A]')
@@ -179,7 +180,7 @@ grid on
 hold off
 
 figure
-loglog(Experiment_2_20k.Ib(2:end),diff(Experiment_2_20k.Vb)./diff(Experiment_2_20k.Ib),'b*')
+loglog(Experiment_2_20k.Ib,Theoretical_Beta*20000*(1 + U_T./(20000*Theoretical_Beta*Experiment_2_20k.Ib)),'b*')
 hold on
 title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 20 k\Omega')
 xlabel('Base Current [A]')
@@ -188,18 +189,9 @@ legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resist
 grid on
 hold off
 
-
-Experiment_2_20k.Ib = fliplr(Experiment_2_20k.Ib);
-Experiment_2_20k.Ie = (-1)*fliplr(Experiment_2_20k.Ie);
-Experiment_2_20k.Vb = fliplr(Experiment_2_20k.Vb);
-
-Experiment_2_200.Ic = Experiment_2_200.Ie - Experiment_2_200.Ib;
-Experiment_2_2k.Ic = Experiment_2_2k.Ie - Experiment_2_2k.Ib;
-Experiment_2_20k.Ic = Experiment_2_20k.Ie - Experiment_2_20k.Ib;
-
 % Gm for each resistor
 figure
-loglog(Experiment_2_200.Ic(2:end),diff(Experiment_2_200.Ic)./diff(Experiment_2_200.Vb),'b*')
+loglog(Experiment_2_200.Ic,iff(Experiment_2_200.Vb),'b*')
 hold on
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 200 \Omega')
 xlabel('Collector Current [A]')
@@ -246,20 +238,25 @@ U_T = 1/(fit(1));
 I_s = exp(fit(2));
 %--
 
-Experiment_3 = load('Experiment_3-20k.mat');
+Experiment_3 = load('Experiment_3-20k_NEW.mat');
 Experiment_3.Ib = fliplr(Experiment_3.Ib);
 Experiment_3.Vb = fliplr(Experiment_3.Vb);
 Experiment_3.Ve = fliplr(Experiment_3.Ve);
 
-y = linspace(0.5,5,200);
-fit = polyfit(Experiment_3.Vb(11:end),Experiment_3.Ib()
+x = linspace(0.5,5,200);
+fit2 = polyfit(Experiment_3.Vb(11:end),Experiment_3.Ve(11:end),1);
+line2 = fit2(1)*x + fit2(2);
+slope2 = fit2(1);
+intercept2 = fit2(2);
 
 figure
-plot(Experiment_3.Vb,Experiment_3.Ve,'*')
+plot(Experiment_3.Vb(1:2:end),Experiment_3.Ve(1:2:end),'b*')
 hold on
+plot(x, line2, 'r-');
 xlabel('V_{in} [V]')
 ylabel('V_{out} [V]')
 title('Voltage Transfer Characteristics for Common-Collector Amplifier Circuit')
+legend('Experimental V_{in} vs. V_{out}','Theoretical V_{in} vs. V_{out}','Location','Southeast')
 %legend('Experimental R_1 = 51 k\Omega','Experimental R_1 = 60 k\Omega','Experimental R_1 = 71 k\Omega','Location','Northwest')
 grid on
 hold off
@@ -288,26 +285,74 @@ Experiment_4_51k.Ib = fliplr(Experiment_4_51k.Ib);
 Experiment_4_51k.Vb = fliplr(Experiment_4_51k.Vb);
 Experiment_4_51k.Vout = fliplr(Experiment_4_51k.Vout);
 
+x51 = linspace(0.5,3.6,200);
+fit51 = polyfit(Experiment_4_51k.Vb(10:70),Experiment_4_51k.Vout(10:70),1);
+line51 = fit51(1)*x51 + fit51(2);
+slope51 = fit51(1);
+intercept51 = fit51(2);
+
+x512 = linspace(3.5,5,200);
+fit512 = polyfit(Experiment_4_51k.Vb(70:end),Experiment_4_51k.Vout(70:end),1);
+line512 = fit512(1)*x512 + fit512(2); 
+slope512 = fit512(1);
+intercept512 = fit512(2);
+
 Experiment_4_60k = load('Experiment_4-60k.mat');
 Experiment_4_60k.Ib = fliplr(Experiment_4_60k.Ib);
 Experiment_4_60k.Vb = fliplr(Experiment_4_60k.Vb);
 Experiment_4_60k.Vout = fliplr(Experiment_4_60k.Vout);
+
+x60 = linspace(0.5,3.3,200);
+fit60 = polyfit(Experiment_4_60k.Vb(10:70),Experiment_4_60k.Vout(10:70),1);
+line60 = fit60(1)*x60 + fit60(2);
+slope60= fit60(1);
+intercept60 = fit60(2);
+
+x602 = linspace(3.3,5,200);
+fit602 = polyfit(Experiment_4_60k.Vb(70:end),Experiment_4_60k.Vout(70:end),1);
+line602 = fit602(1)*x602 + fit602(2); 
+slope602 = fit602(1);
+intercept602 = fit602(2);
 
 Experiment_4_71k = load('Experiment_4-71k.mat');
 Experiment_4_71k.Ib = fliplr(Experiment_4_71k.Ib);
 Experiment_4_71k.Vb = fliplr(Experiment_4_71k.Vb);
 Experiment_4_71k.Vout = fliplr(Experiment_4_71k.Vout);
 
+x71 = linspace(0.5,3.1,200);
+fit71 = polyfit(Experiment_4_71k.Vb(10:60),Experiment_4_71k.Vout(10:60),1);
+line71 = fit71(1)*x71 + fit71(2);
+slope71= fit71(1);
+intercept71 = fit71(2);
+
+x712 = linspace(3.1,5,200);
+fit712 = polyfit(Experiment_4_71k.Vb(60:end),Experiment_4_71k.Vout(60:end),1);
+line712 = fit712(1)*x712 + fit712(2); 
+slope712 = fit712(1);
+intercept712 = fit712(2);
 
 figure
-plot(Experiment_4_51k.Vb,Experiment_4_51k.Vout,'*')
+plot(Experiment_4_51k.Vb,Experiment_4_51k.Vout,'b*')
 hold on
-plot(Experiment_4_60k.Vb,Experiment_4_60k.Vout,'*')
-plot(Experiment_4_71k.Vb,Experiment_4_71k.Vout,'*')
+plot(x51, line51, 'r-');
+plot(x512, line512, 'r-');
+plot(Experiment_4_60k.Vb,Experiment_4_60k.Vout,'g*')
+plot(x60, line60, 'k-');
+plot(x602, line602, 'k-');
+plot(Experiment_4_71k.Vb,Experiment_4_71k.Vout,'m*')
+plot(x71, line71, 'c-');
+plot(x712, line712, 'c-');
+plot(Experiment_3.Vb(1:2:end),Experiment_3.Ve(1:2:end),'y*')
 xlabel('V_{in} [V]')
 ylabel('V_{out} [V]')
 title('Voltage Transfer Characteristics for Inverter Circuit')
-legend('Experimental R_1 = 51 k\Omega','Experimental R_1 = 60 k\Omega','Experimental R_1 = 71 k\Omega','Location','Northeast')
+legend('Experimental R_1 = 51 k\Omega','Theoretical Line of Best Fit for Mode 1 operation (R_1 = 51 k\Omega)'...
+    ,'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 51 k\Omega)','Experimental R_1 = 60 k\Omega',...
+    'Theoretical Line of Best Fit for Mode 1 operation (R_1 = 60 k\Omega)',...
+    'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 60 k\Omega)','Experimental R_1 = 71 k\Omega',...
+    'Theoretical Line of Best Fit for Mode 1 operation (R_1 = 71 k\Omega)',...
+    'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 71 k\Omega)',...
+    'Emitter-Follower VTC from Experiment 3','Location','Southoutside','NumColumns',2)
 grid on
 hold off
 
