@@ -80,18 +80,68 @@ hold off
 %% Experiment 2
 Experiment_2_200 = load('Experiment_2-200.mat');
 Experiment_2_200.Ib = fliplr(Experiment_2_200.Ib);
-Experiment_2_200.Ie = fliplr(Experiment_2_200.Ie);
+Experiment_2_200.Ie = (-1)*fliplr(Experiment_2_200.Ie);
 Experiment_2_200.Vb = fliplr(Experiment_2_200.Vb);
 
 Experiment_2_2k = load('Experiment_2-2k.mat');
 Experiment_2_2k.Ib = fliplr(Experiment_2_2k.Ib);
-Experiment_2_2k.Ie = fliplr(Experiment_2_2k.Ie);
+Experiment_2_2k.Ie = (-1)*fliplr(Experiment_2_2k.Ie);
 Experiment_2_2k.Vb = fliplr(Experiment_2_2k.Vb);
 
 Experiment_2_20k = load('Experiment_2-20k.mat');
 Experiment_2_20k.Ib = fliplr(Experiment_2_20k.Ib);
-Experiment_2_20k.Ie = fliplr(Experiment_2_20k.Ie);
+Experiment_2_20k.Ie = (-1)*fliplr(Experiment_2_20k.Ie);
 Experiment_2_20k.Vb = fliplr(Experiment_2_20k.Vb);
+
+Experiment_2_200.Ic = Experiment_2_200.Ie - Experiment_2_200.Ib;
+Experiment_2_2k.Ic = Experiment_2_2k.Ie - Experiment_2_2k.Ib;
+Experiment_2_20k.Ic = Experiment_2_20k.Ie - Experiment_2_20k.Ib;
+
+figure
+semilogy(Experiment_2_200.Vb,Experiment_2_200.Ic,'b*')
+hold on
+semilogy(Experiment_2_2k.Vb,Experiment_2_2k.Ic,'r*')
+semilogy(Experiment_2_20k.Vb,Experiment_2_20k.Ic,'g*')
+title('Emitter-Degenerated Bipolar Collector Current Characteristics')
+xlabel('Base Voltage [V]')
+ylabel('Collector Current [A]')
+legend('Experimental R = 200 \Omega','Experimental R = 2k \Omega','Experimental R = 20k \Omega','Location','Southeast')
+grid on
+hold off
+
+figure
+plot(Experiment_2_200.Vb,Experiment_2_200.Ic,'b*')
+hold on
+title('Emitter-Degenerated Bipolar Collector Current Characteristics R = 200 \Omega')
+xlabel('Base Voltage [V]')
+ylabel('Collector Current [A]')
+legend('Experimental R = 200 \Omega','Location','Southeast')
+grid on
+hold off
+
+figure
+plot(Experiment_2_2k.Vb,Experiment_2_2k.Ic,'b*')
+hold on
+title('Emitter-Degenerated Bipolar Collector Current Characteristics R = 2k \Omega')
+xlabel('Base Voltage [V]')
+ylabel('Collector Current [A]')
+legend('Experimental R = 2k \Omega','Location','Southeast')
+grid on
+hold off
+
+figure
+plot(Experiment_2_20k.Vb,Experiment_2_20k.Ic,'b*')
+hold on
+title('Emitter-Degenerated Bipolar Collector Current Characteristics R = 20k \Omega')
+xlabel('Base Voltage [V]')
+ylabel('Collector Current [A]')
+legend('Experimental R = 20k \Omega','Location','Southeast')
+grid on
+hold off
+
+% Rb for each resistor
+% Gm for each resistor
+
 
 
 %% Experiment 3
