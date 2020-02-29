@@ -34,6 +34,48 @@ legend('Experimental Collector Current','Experimental Base Current','Base Curren
 grid on
 hold off
 
+figure
+semilogy(Experiment_1.Vb(16:55),Experiment_1.Ic(16:55),'b*')
+hold on
+semilogy(Experiment_1.Vb(16:55),Experiment_1.Ib(16:55),'r*')
+semilogy(x(16:end),line(16:end),'g-','LineWidth',1.5);
+semilogy(Experiment_1.Vb(16:55),theoretical_Ic(16:55),'g*')
+title('Experimental I-V Characteristic of a Bipolar Transistor Terminals')
+xlabel('Voltage [V]')
+ylabel('Current [A]')
+legend('Experimental Collector Current','Experimental Base Current','Base Current Line of Best Fit','Location','Southeast')
+grid on
+hold off
+
+figure
+semilogx(Experiment_1.Ib,Experiment_1.Ic./Experiment_1.Ib,'b*')
+hold on
+title('Experimental I-V Characteristic of a Bipolar Transistor Terminals')
+xlabel('Base Current [A]')
+ylabel('Beta')
+legend('Experimental Collector Current','Experimental Base Current','Base Current Line of Best Fit','Location','Southeast')
+grid on
+hold off
+
+figure
+loglog(Experiment_1.Ib(2:end),diff(Experiment_1.Vb)./diff(Experiment_1.Ib),'b*')
+hold on
+title('Experimental I-V Characteristic of a Bipolar Transistor Terminals')
+xlabel('Base Current [A]')
+ylabel('R_{b}')
+legend('Experimental Collector Current','Experimental Base Current','Base Current Line of Best Fit','Location','Southeast')
+grid on
+hold off
+
+figure
+loglog(Experiment_1.Ic(2:end),diff(Experiment_1.Ic)./diff(Experiment_1.Vb),'b*')
+hold on
+title('Experimental I-V Characteristic of a Bipolar Transistor Terminals')
+xlabel('Collector Current [A]')
+ylabel('g_{m}')
+legend('Experimental Collector Current','Experimental Base Current','Base Current Line of Best Fit','Location','Southeast')
+grid on
+hold off
 
 %% Experiment 2
 Experiment_2_200 = load('Experiment_2-200.mat');
