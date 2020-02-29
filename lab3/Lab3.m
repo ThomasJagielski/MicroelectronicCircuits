@@ -1,11 +1,10 @@
 %% Experiment 1
 Experiment_1 = load('Experiment_1_NEW.mat');
-Experiment_1.Ib = fliplr(Experiment_1.Ib);
-% Experiment_1.Ib(1:18) = Experiment_1.Ib(1:18) + 1.17e-09;
+Experiment_1.Ib = fliplr(Experiment_1.Ib) + 1.35e-09;
 Experiment_1.Ie = (-1)*fliplr(Experiment_1.Ie);
 Experiment_1.Vb = fliplr(Experiment_1.Vb);
 Experiment_1.Ic = Experiment_1.Ie - Experiment_1.Ib;
-Theoretical_Ib = Experiment_1.Ib;
+Theoretical_Ib = ;
 Theoretical_v = Experiment_1.Vb;
 
 x = linspace(0.35, 0.65, 100);
