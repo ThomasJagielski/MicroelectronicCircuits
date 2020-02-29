@@ -1,14 +1,12 @@
 %% Experiment 1
-Experiment_1 = load('Experiment_1.mat');
+Experiment_1 = load('Experiment_1_NEW.mat');
 Experiment_1.Ib = fliplr(Experiment_1.Ib);
-Experiment_1.Ib(1:35) = Experiment_1.Ib(1:35) + 1.350e-09;
+% Experiment_1.Ib(1:18) = Experiment_1.Ib(1:18) + 1.17e-09;
 Experiment_1.Ie = (-1)*fliplr(Experiment_1.Ie);
 Experiment_1.Vb = fliplr(Experiment_1.Vb);
-
 Experiment_1.Ic = Experiment_1.Ie - Experiment_1.Ib;
-
-Theoretical_Ib = Experiment_1.Ib(16:45);
-Theoretical_v = Experiment_1.Vb(16:45);
+Theoretical_Ib = Experiment_1.Ib;
+Theoretical_v = Experiment_1.Vb;
 
 x = linspace(0.35, 0.65, 100);
 fit = polyfit(Theoretical_v,log(Theoretical_Ib),1);
@@ -34,18 +32,18 @@ grid on
 hold off
 
 % If we want to plot a range of Currents
-% figure
-% semilogy(Experiment_1.Vb(16:55),Experiment_1.Ic(16:55),'b*')
-% hold on
-% semilogy(Experiment_1.Vb(16:55),Experiment_1.Ib(16:55),'r*')
-% semilogy(x(16:end),line(16:end),'g-','LineWidth',1.5);
-% semilogy(Experiment_1.Vb(16:55),theoretical_Ic(16:55),'g*')
-% title('Experimental I-V Characteristic of a Bipolar Transistor Terminals')
-% xlabel('Voltage [V]')
-% ylabel('Current [A]')
-% legend('Experimental Collector Current','Experimental Base Current','Base Current Line of Best Fit','Location','Southeast')
-% grid on
-% hold off
+figure
+semilogy(Experiment_1.Vb,Experiment_1.Ic,'b*')
+hold on
+semilogy(Experiment_1.Vb,Experiment_1.Ib,'r*')
+semilogy(x,line,'g-','LineWidth',1.5);
+semilogy(Experiment_1.Vb,theoretical_Ic,'g*')
+title('Experimental I-V Characteristic of a Bipolar Transistor Terminals')
+xlabel('Voltage [V]')
+ylabel('Current [A]')
+legend('Experimental Collector Current','Experimental Base Current','Base Current Line of Best Fit','Location','Southeast')
+grid on
+hold off
 
 figure
 semilogx(Experiment_1.Ib,Experiment_1.Ic./Experiment_1.Ib,'b*')
