@@ -230,17 +230,41 @@ hold off
 
 
 %% Experiment 3
+
+%--
+Experiment_1 = load('Experiment_1_NEW.mat');
+Experiment_1.Ib = fliplr(Experiment_1.Ib);
+Experiment_1.Ib = Experiment_1.Ib + 1.350e-09;
+Experiment_1.Ie = (-1)*fliplr(Experiment_1.Ie);
+Experiment_1.Vb = fliplr(Experiment_1.Vb);
+Experiment_1.Ic = Experiment_1.Ie - Experiment_1.Ib;
+Theoretical_1.Vb = Experiment_1.Vb(16:37);
+x = linspace(0.3, 0.8, 100);
+fit = polyfit(Theoretical_1.Vb,log(Experiment_1.Ic(16:37)),1);
+line = exp(fit(1) * x + fit(2));
+U_T = 1/(fit(1));
+I_s = exp(fit(2));
+%--
+
 Experiment_3 = load('Experiment_3-20k.mat');
 Experiment_3.Ib = fliplr(Experiment_3.Ib);
 Experiment_3.Vb = fliplr(Experiment_3.Vb);
 Experiment_3.Ve = fliplr(Experiment_3.Ve);
 
+x = linspace(0.5,5,200);
+fit2 = polyfit(Experiment_3.Vb(11:end),Experiment_3.Ve(11:end),1);
+line2 = fit2(1)*x + fit2(2);
+slope2 = fit2(1);
+intercept2 = fit2(2);
+
 figure
-plot(Experiment_3.Vb,Experiment_3.Ve,'*')
+plot(Experiment_3.Vb,Experiment_3.Ve,'b*')
 hold on
+plot(x, line2, 'r-');
 xlabel('V_{in} [V]')
 ylabel('V_{out} [V]')
 title('Voltage Transfer Characteristics for Common-Collector Amplifier Circuit')
+legend('Experimental V_{in} vs. V_{out}','Theoretical V_{in} vs. V_{out}','Location','Southeast')
 %legend('Experimental R_1 = 51 k\Omega','Experimental R_1 = 60 k\Omega','Experimental R_1 = 71 k\Omega','Location','Northwest')
 grid on
 hold off
@@ -248,15 +272,55 @@ hold off
 
 
 %% Experiment 4
+
+%--
+Experiment_1 = load('Experiment_1_NEW.mat');
+Experiment_1.Ib = fliplr(Experiment_1.Ib);
+Experiment_1.Ib = Experiment_1.Ib + 1.350e-09;
+Experiment_1.Ie = (-1)*fliplr(Experiment_1.Ie);
+Experiment_1.Vb = fliplr(Experiment_1.Vb);
+Experiment_1.Ic = Experiment_1.Ie - Experiment_1.Ib;
+Theoretical_1.Vb = Experiment_1.Vb(16:37);
+x = linspace(0.3, 0.8, 100);
+fit = polyfit(Theoretical_1.Vb,log(Experiment_1.Ic(16:37)),1);
+line = exp(fit(1) * x + fit(2));
+U_T = 1/(fit(1));
+I_s = exp(fit(2));
+%--
+
 Experiment_4_51k = load('Experiment_4-51k.mat');
 Experiment_4_51k.Ib = fliplr(Experiment_4_51k.Ib);
 Experiment_4_51k.Vb = fliplr(Experiment_4_51k.Vb);
 Experiment_4_51k.Vout = fliplr(Experiment_4_51k.Vout);
 
+x51 = linspace(0.5,3.6,200);
+fit51 = polyfit(Experiment_4_51k.Vb(10:70),Experiment_4_51k.Vout(10:70),1);
+line51 = fit51(1)*x51 + fit51(2);
+slope51 = fit51(1);
+intercept51 = fit51(2);
+
+x512 = linspace(3.5,5,200);
+fit512 = polyfit(Experiment_4_51k.Vb(70:end),Experiment_4_51k.Vout(70:end),1);
+line512 = fit512(1)*x512 + fit512(2); 
+slope512 = fit512(1);
+intercept512 = fit512(2);
+
 Experiment_4_60k = load('Experiment_4-60k.mat');
 Experiment_4_60k.Ib = fliplr(Experiment_4_60k.Ib);
 Experiment_4_60k.Vb = fliplr(Experiment_4_60k.Vb);
 Experiment_4_60k.Vout = fliplr(Experiment_4_60k.Vout);
+
+x60 = linspace(0.5,3.4,200);
+fit60 = polyfit(Experiment_4_60k.Vb(10:70),Experiment_4_60k.Vout(10:70),1);
+line60 = fit60(1)*x60 + fit60(2);
+slope60= fit60(1);
+intercept60 = fit60(2);
+
+x602 = linspace(3.3,5,200);
+fit602 = polyfit(Experiment_4_60k.Vb(70:end),Experiment_4_60k.Vout(70:end),1);
+line602 = fit602(1)*x602 + fit602(2); 
+slope602 = fit602(1);
+intercept602 = fit602(2);
 
 Experiment_4_71k = load('Experiment_4-71k.mat');
 Experiment_4_71k.Ib = fliplr(Experiment_4_71k.Ib);
@@ -265,14 +329,23 @@ Experiment_4_71k.Vout = fliplr(Experiment_4_71k.Vout);
 
 
 figure
-plot(Experiment_4_51k.Vb,Experiment_4_51k.Vout,'*')
+plot(Experiment_4_51k.Vb,Experiment_4_51k.Vout,'b*')
 hold on
-plot(Experiment_4_60k.Vb,Experiment_4_60k.Vout,'*')
-plot(Experiment_4_71k.Vb,Experiment_4_71k.Vout,'*')
+plot(x51, line51, 'r-');
+plot(x512, line512, 'r-');
+plot(Experiment_4_60k.Vb,Experiment_4_60k.Vout,'g*')
+plot(x60, line60, 'c-');
+plot(x602, line602, 'c-');
+plot(Experiment_4_71k.Vb,Experiment_4_71k.Vout,'m*')
+% plot(Experiment_3.Vb,Experiment_3.Ve,'*')
 xlabel('V_{in} [V]')
 ylabel('V_{out} [V]')
 title('Voltage Transfer Characteristics for Inverter Circuit')
-legend('Experimental R_1 = 51 k\Omega','Experimental R_1 = 60 k\Omega','Experimental R_1 = 71 k\Omega','Location','Northeast')
+legend('Experimental R_1 = 51 k\Omega','Theoretical Line of Best Fit for Mode 1 operation (R_1 = 51 k\Omega)'...
+    ,'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 51 k\Omega)','Experimental R_1 = 60 k\Omega',...
+    'Theoretical Line of Best Fit for Mode 1 operation (R_1 = 60 k\Omega)',...
+    'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 60 k\Omega)''Experimental R_1 = 71 k\Omega',...
+    'Location','Northeast')
 grid on
 hold off
 
