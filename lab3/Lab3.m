@@ -1,14 +1,14 @@
 %% Experiment 1
-Experiment_1 = load('Experiment_1.mat');
+Experiment_1 = load('Experiment_1_NEW.mat');
 Experiment_1.Ib = fliplr(Experiment_1.Ib);
-Experiment_1.Ib(1:35) = Experiment_1.Ib(1:35) + 1.350e-09;
+Experiment_1.Ib = Experiment_1.Ib + 1.350e-09;
 Experiment_1.Ie = (-1)*fliplr(Experiment_1.Ie);
 Experiment_1.Vb = fliplr(Experiment_1.Vb);
 
 Experiment_1.Ic = Experiment_1.Ie - Experiment_1.Ib;
 
-Theoretical_Ib = Experiment_1.Ib(16:45);
-Theoretical_v = Experiment_1.Vb(16:45);
+Theoretical_Ib = Experiment_1.Ib(22:96);
+Theoretical_v = Experiment_1.Vb(22:96);
 
 x = linspace(0.35, 0.65, 100);
 fit = polyfit(Theoretical_v,log(Theoretical_Ib),1);
@@ -50,17 +50,17 @@ hold off
 figure
 semilogx(Experiment_1.Ib,Experiment_1.Ic./Experiment_1.Ib,'b*')
 hold on
-title('Experimental I-V Characteristic of a Bipolar Transistor Terminals')
+title('\beta Forward Current Gain')
 xlabel('Base Current [A]')
-ylabel('\Beta')
-legend('Experimental \Beta','Location','Southeast')
+ylabel('\beta')
+legend('Experimental \beta','Location','Southeast')
 grid on
 hold off
 
 figure
 loglog(Experiment_1.Ib(2:end),diff(Experiment_1.Vb)./diff(Experiment_1.Ib),'b*')
 hold on
-title('Experimental I-V Characteristic of a Bipolar Transistor Terminals')
+title('Incremental Base Resistance (R_{b})')
 xlabel('Base Current [A]')
 ylabel('R_{b}')
 legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resistance(R_{b})','Location','Southeast')
@@ -70,7 +70,7 @@ hold off
 figure
 loglog(Experiment_1.Ic(2:end),diff(Experiment_1.Ic)./diff(Experiment_1.Vb),'b*')
 hold on
-title('Experimental I-V Characteristic of a Bipolar Transistor Terminals')
+title('Incremental Transconductance Gain (g_{m})')
 xlabel('Collector Current [A]')
 ylabel('g_{m}')
 legend('Experimental Incremental Transconductance Gain (g_{m})','Theoretical Incremental Transconductance Gain (g_{m})','Location','Southeast')
@@ -132,7 +132,7 @@ hold off
 figure
 plot(Experiment_2_20k.Vb,Experiment_2_20k.Ic,'b*')
 hold on
-title('Emitter-Degenerated Bipolar Collector Current Characteristics R = 20k \Omega')
+title('Emitter-Degenerated Bipolar Collector Current Characteristics with R = 20k \Omega')
 xlabel('Base Voltage [V]')
 ylabel('Collector Current [A]')
 legend('Experimental R = 20k \Omega','Location','Southeast')
@@ -140,8 +140,75 @@ grid on
 hold off
 
 % Rb for each resistor
-% Gm for each resistor
+figure
+loglog(Experiment_2_200.Ib(2:end),diff(Experiment_2_200.Vb)./diff(Experiment_2_200.Ib),'b*')
+hold on
+title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 200 \Omega')
+xlabel('Base Current [A]')
+ylabel('R_{b}')
+legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resistance(R_{b})','Location','Southeast')
+grid on
+hold off
 
+figure
+loglog(Experiment_2_2k.Ib(2:end),diff(Experiment_2_2k.Vb)./diff(Experiment_2_2k.Ib),'b*')
+hold on
+title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 2 k\Omega')
+xlabel('Base Current [A]')
+ylabel('R_{b}')
+legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resistance(R_{b})','Location','Southeast')
+grid on
+hold off
+
+figure
+loglog(Experiment_2_20k.Ib(2:end),diff(Experiment_2_20k.Vb)./diff(Experiment_2_20k.Ib),'b*')
+hold on
+title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 20 k\Omega')
+xlabel('Base Current [A]')
+ylabel('R_{b}')
+legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resistance(R_{b})','Location','Southeast')
+grid on
+hold off
+
+
+Experiment_2_20k.Ib = fliplr(Experiment_2_20k.Ib);
+Experiment_2_20k.Ie = (-1)*fliplr(Experiment_2_20k.Ie);
+Experiment_2_20k.Vb = fliplr(Experiment_2_20k.Vb);
+
+Experiment_2_200.Ic = Experiment_2_200.Ie - Experiment_2_200.Ib;
+Experiment_2_2k.Ic = Experiment_2_2k.Ie - Experiment_2_2k.Ib;
+Experiment_2_20k.Ic = Experiment_2_20k.Ie - Experiment_2_20k.Ib;
+
+% Gm for each resistor
+figure
+loglog(Experiment_2_200.Ic(2:end),diff(Experiment_2_200.Ic)./diff(Experiment_2_200.Vb),'b*')
+hold on
+title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 200 \Omega')
+xlabel('Collector Current [A]')
+ylabel('G_{m}')
+legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Southeast')
+grid on
+hold off
+
+figure
+loglog(Experiment_2_2k.Ic(2:end),diff(Experiment_2_2k.Ic)./diff(Experiment_2_2k.Vb),'b*')
+hold on
+title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 2 k\Omega')
+xlabel('Collector Current [A]')
+ylabel('G_{m}')
+legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Southeast')
+grid on
+hold off
+
+figure
+loglog(Experiment_2_20k.Ic(2:end),diff(Experiment_2_20k.Ic)./diff(Experiment_2_20k.Vb),'b*')
+hold on
+title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 20 k\Omega')
+xlabel('Collector Current [A]')
+ylabel('G_{m}')
+legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Southeast')
+grid on
+hold off
 
 
 %% Experiment 3
