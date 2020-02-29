@@ -1,7 +1,7 @@
 %% Experiment 1
 Experiment_1 = load('Experiment_1.mat');
 Experiment_1.Ib = fliplr(Experiment_1.Ib);
-Experiment_1.Ib(1:35) = Experiment_1.Ib(1:35) + 1.35000000000000e-09;
+Experiment_1.Ib(1:35) = Experiment_1.Ib(1:35) + 1.350e-09;
 Experiment_1.Ie = (-1)*fliplr(Experiment_1.Ie);
 Experiment_1.Vb = fliplr(Experiment_1.Vb);
 
@@ -58,6 +58,17 @@ Experiment_3.Ib = fliplr(Experiment_3.Ib);
 Experiment_3.Vb = fliplr(Experiment_3.Vb);
 Experiment_3.Ve = fliplr(Experiment_3.Ve);
 
+figure
+plot(Experiment_3.Vb,Experiment_3.Ve,'*')
+hold on
+xlabel('V_{in} [V]')
+ylabel('V_{out} [V]')
+title('Voltage Transfer Characteristics for Common-Collector Amplifier Circuit')
+%legend('Experimental R_1 = 51 k\Omega','Experimental R_1 = 60 k\Omega','Experimental R_1 = 71 k\Omega','Location','Northwest')
+grid on
+hold off
+
+
 
 %% Experiment 4
 Experiment_4_51k = load('Experiment_4-51k.mat');
@@ -74,3 +85,17 @@ Experiment_4_71k = load('Experiment_4-71k.mat');
 Experiment_4_71k.Ib = fliplr(Experiment_4_71k.Ib);
 Experiment_4_71k.Vb = fliplr(Experiment_4_71k.Vb);
 Experiment_4_71k.Vout = fliplr(Experiment_4_71k.Vout);
+
+
+figure
+plot(Experiment_4_51k.Vb,Experiment_4_51k.Vout,'*')
+hold on
+plot(Experiment_4_60k.Vb,Experiment_4_60k.Vout,'*')
+plot(Experiment_4_71k.Vb,Experiment_4_71k.Vout,'*')
+xlabel('V_{in} [V]')
+ylabel('V_{out} [V]')
+title('Voltage Transfer Characteristics for Inverter Circuit')
+legend('Experimental R_1 = 51 k\Omega','Experimental R_1 = 60 k\Omega','Experimental R_1 = 71 k\Omega','Location','Northeast')
+grid on
+hold off
+
