@@ -6,9 +6,9 @@ Experiment_1.Ie = (-1)*fliplr(Experiment_1.Ie);
 Experiment_1.Vb = fliplr(Experiment_1.Vb);
 Experiment_1.Ic = Experiment_1.Ie - Experiment_1.Ib;
 
-Theoretical_1.Vb = Experiment_1.Vb(22:95);
-x = linspace(0.3, 0.8, 100);
-fit = polyfit(Theoretical_1.Vb,log(Experiment_1.Ic(22:95)),1);
+Theoretical_1.Vb = Experiment_1.Vb(22:96);
+x = linspace(0.35, 0.65, 100);
+fit = polyfit(Theoretical_1.Vb,log(Experiment_1.Ib(22:96)),1);
 line = exp(fit(1) * x + fit(2));
 
 %U_T = (0.026);
@@ -16,8 +16,8 @@ U_T = 1/(fit(1));
 I_s = exp(fit(2));
 
 % Beta is assumed to be 100~.
-Theoretical_Beta = 150;
-Theoretical_1.Ib = (I_s./Theoretical_Beta)*exp(Experiment_1.Vb/U_T);
+Theoretical_Beta = 200;
+Theoretical_1.Ib = (I_s/Theoretical_Beta)*exp(Experiment_1.Vb/U_T);
 Theoretical_1.Ic = I_s*exp((Experiment_1.Vb)/U_T);
 Theoretical_1.Ie = Theoretical_1.Ic + Theoretical_1.Ib;
 Theoretical_1.rb = diff(Experiment_1.Vb)./diff(Theoretical_1.Ib);
@@ -26,24 +26,14 @@ Theoretical_1.gm = diff(Theoretical_1.Ic)./diff(Experiment_1.Vb);
 figure
 semilogy(Experiment_1.Vb,Experiment_1.Ic,'b*')
 hold on
-semilogy(x,line,'r-');
-title('Transistor Parameter Extraction Plot')
-xlabel('Voltage [V]')
-ylabel('Current [A]')
-legend('Experimental Collector Current','Collector Current Line of Best Fit','Location','Southeast')
-grid on
-hold off
-
-figure
-semilogy(Experiment_1.Vb,Experiment_1.Ic,'b*')
-hold on
-semilogy(Experiment_1.Vb,Experiment_1.Ib,'m*')
-semilogy(Experiment_1.Vb,Theoretical_1.Ic,'r-')
-semilogy(Experiment_1.Vb,Theoretical_1.Ib,'g-')
+semilogy(Experiment_1.Vb,Experiment_1.Ib,'r*')
+semilogy(x,line,'g-','LineWidth',1.5);
+semilogy(Experiment_1.Vb,Theoretical_1.Ic,'c')
+semilogy(Experiment_1.Vb,Theoretical_1.Ib,'m*')
 title('Experimental I-V Characteristic of a Bipolar Transistor Terminals')
 xlabel('Voltage [V]')
 ylabel('Current [A]')
-legend('Experimental Collector Current','Experimental Base Current','Theoretical Collector Current','Theoretical Base Current','Location','Southeast')
+legend('Experimental Collector Current','Experimental Base Current','Base Current Line of Best Fit','Theoretical Collector Current','Theoretical Base Current','Location','Southeast')
 grid on
 hold off
 
@@ -74,7 +64,6 @@ hold off
 figure
 loglog(Experiment_1.Ib(2:end),diff(Experiment_1.Vb)./diff(Experiment_1.Ib),'b*')
 hold on
-loglog(Theoretical_1.Ib(2:end),diff(Experiment_1.Vb)./diff(Theoretical_1.Ib),'r-')
 title('Incremental Base Resistance (R_{b})')
 xlabel('Base Current [A]')
 ylabel('R_{b}')
@@ -85,7 +74,6 @@ hold off
 figure
 loglog(Experiment_1.Ic(2:end),diff(Experiment_1.Ic)./diff(Experiment_1.Vb),'b*')
 hold on
-loglog(Theoretical_1.Ic(2:end),diff(Theoretical_1.Ic)./diff(Experiment_1.Vb),'r-')
 title('Incremental Transconductance Gain (g_{m})')
 xlabel('Collector Current [A]')
 ylabel('g_{m}')
