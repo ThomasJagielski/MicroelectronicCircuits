@@ -96,18 +96,18 @@ hold off
 %% Experiment 2
 % Find U_T and I_s for the didoe
 
-Experiment_2_200 = load('Experiment_2-200.mat');
-Experiment_2_200.Ib = fliplr(Experiment_2_200.Ib);
+Experiment_2_200 = load('Experiment_2-200_NEW.mat');
+Experiment_2_200.Ib = fliplr(Experiment_2_200.Ib)+5.4e-9;
 Experiment_2_200.Ie = (-1)*fliplr(Experiment_2_200.Ie);
 Experiment_2_200.Vb = fliplr(Experiment_2_200.Vb);
 
-Experiment_2_2k = load('Experiment_2-2k.mat');
-Experiment_2_2k.Ib = fliplr(Experiment_2_2k.Ib);
+Experiment_2_2k = load('Experiment_2-2k_NEW.mat');
+Experiment_2_2k.Ib = fliplr(Experiment_2_2k.Ib)+4.77e-10;
 Experiment_2_2k.Ie = (-1)*fliplr(Experiment_2_2k.Ie);
 Experiment_2_2k.Vb = fliplr(Experiment_2_2k.Vb);
 
-Experiment_2_20k = load('Experiment_2-20k.mat');
-Experiment_2_20k.Ib = fliplr(Experiment_2_20k.Ib);
+Experiment_2_20k = load('Experiment_2-20k_NEW.mat');
+Experiment_2_20k.Ib = fliplr(Experiment_2_20k.Ib)+1e-8;
 Experiment_2_20k.Ie = (-1)*fliplr(Experiment_2_20k.Ie);
 Experiment_2_20k.Vb = fliplr(Experiment_2_20k.Vb);
 
@@ -157,9 +157,10 @@ legend('Experimental R = 20k \Omega','Location','Southeast')
 grid on
 hold off
 
+Theoretical_Beta = 150;
 % Rb for each resistor
 figure
-loglog(Experiment_2_200.Ib(2:end),diff(Experiment_2_200.Vb)./diff(Experiment_2_200.Ib),'b*')
+loglog(Experiment_2_200.Ib,Theoretical_Beta*200*(1 + U_T./(200*Theoretical_Beta*Experiment_2_200.Ib)),'b*')
 hold on
 title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 200 \Omega')
 xlabel('Base Current [A]')
@@ -169,7 +170,7 @@ grid on
 hold off
 
 figure
-loglog(Experiment_2_2k.Ib(2:end),diff(Experiment_2_2k.Vb)./diff(Experiment_2_2k.Ib),'b*')
+loglog(Experiment_2_2k.Ib,Theoretical_Beta*2000*(1 + U_T./(2000*Theoretical_Beta*Experiment_2_2k.Ib)),'b*')
 hold on
 title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 2 k\Omega')
 xlabel('Base Current [A]')
@@ -179,7 +180,7 @@ grid on
 hold off
 
 figure
-loglog(Experiment_2_20k.Ib(2:end),diff(Experiment_2_20k.Vb)./diff(Experiment_2_20k.Ib),'b*')
+loglog(Experiment_2_20k.Ib,Theoretical_Beta*20000*(1 + U_T./(20000*Theoretical_Beta*Experiment_2_20k.Ib)),'b*')
 hold on
 title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 20 k\Omega')
 xlabel('Base Current [A]')
@@ -188,18 +189,9 @@ legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resist
 grid on
 hold off
 
-
-Experiment_2_20k.Ib = fliplr(Experiment_2_20k.Ib);
-Experiment_2_20k.Ie = (-1)*fliplr(Experiment_2_20k.Ie);
-Experiment_2_20k.Vb = fliplr(Experiment_2_20k.Vb);
-
-Experiment_2_200.Ic = Experiment_2_200.Ie - Experiment_2_200.Ib;
-Experiment_2_2k.Ic = Experiment_2_2k.Ie - Experiment_2_2k.Ib;
-Experiment_2_20k.Ic = Experiment_2_20k.Ie - Experiment_2_20k.Ib;
-
 % Gm for each resistor
 figure
-loglog(Experiment_2_200.Ic(2:end),diff(Experiment_2_200.Ic)./diff(Experiment_2_200.Vb),'b*')
+loglog(Experiment_2_200.Ic,(1/200)*(1+((U_T/200)./Experiment_2_200.Ic)),'b*')
 hold on
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 200 \Omega')
 xlabel('Collector Current [A]')
@@ -209,7 +201,7 @@ grid on
 hold off
 
 figure
-loglog(Experiment_2_2k.Ic(2:end),diff(Experiment_2_2k.Ic)./diff(Experiment_2_2k.Vb),'b*')
+loglog(Experiment_2_2k.Ic,(1/2000)*(1+((U_T/2000)./Experiment_2_2k.Ic)),'b*')
 hold on
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 2 k\Omega')
 xlabel('Collector Current [A]')
@@ -219,7 +211,7 @@ grid on
 hold off
 
 figure
-loglog(Experiment_2_20k.Ic(2:end),diff(Experiment_2_20k.Ic)./diff(Experiment_2_20k.Vb),'b*')
+loglog(Experiment_2_20k.Ic,(1/20000)*(1+((U_T/20000)./Experiment_2_20k.Ic)),'b*')
 hold on
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 20 k\Omega')
 xlabel('Collector Current [A]')
