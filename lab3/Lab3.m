@@ -246,7 +246,7 @@ U_T = 1/(fit(1));
 I_s = exp(fit(2));
 %--
 
-Experiment_3 = load('Experiment_3-20k.mat');
+Experiment_3 = load('Experiment_3-20k_NEW.mat');
 Experiment_3.Ib = fliplr(Experiment_3.Ib);
 Experiment_3.Vb = fliplr(Experiment_3.Vb);
 Experiment_3.Ve = fliplr(Experiment_3.Ve);
@@ -258,7 +258,7 @@ slope2 = fit2(1);
 intercept2 = fit2(2);
 
 figure
-plot(Experiment_3.Vb,Experiment_3.Ve,'b*')
+plot(Experiment_3.Vb(1:2:end),Experiment_3.Ve(1:2:end),'b*')
 hold on
 plot(x, line2, 'r-');
 xlabel('V_{in} [V]')
@@ -310,7 +310,7 @@ Experiment_4_60k.Ib = fliplr(Experiment_4_60k.Ib);
 Experiment_4_60k.Vb = fliplr(Experiment_4_60k.Vb);
 Experiment_4_60k.Vout = fliplr(Experiment_4_60k.Vout);
 
-x60 = linspace(0.5,3.4,200);
+x60 = linspace(0.5,3.3,200);
 fit60 = polyfit(Experiment_4_60k.Vb(10:70),Experiment_4_60k.Vout(10:70),1);
 line60 = fit60(1)*x60 + fit60(2);
 slope60= fit60(1);
@@ -327,6 +327,17 @@ Experiment_4_71k.Ib = fliplr(Experiment_4_71k.Ib);
 Experiment_4_71k.Vb = fliplr(Experiment_4_71k.Vb);
 Experiment_4_71k.Vout = fliplr(Experiment_4_71k.Vout);
 
+x71 = linspace(0.5,3.1,200);
+fit71 = polyfit(Experiment_4_71k.Vb(10:60),Experiment_4_71k.Vout(10:60),1);
+line71 = fit71(1)*x71 + fit71(2);
+slope71= fit71(1);
+intercept71 = fit71(2);
+
+x712 = linspace(3.1,5,200);
+fit712 = polyfit(Experiment_4_71k.Vb(60:end),Experiment_4_71k.Vout(60:end),1);
+line712 = fit712(1)*x712 + fit712(2); 
+slope712 = fit712(1);
+intercept712 = fit712(2);
 
 figure
 plot(Experiment_4_51k.Vb,Experiment_4_51k.Vout,'b*')
@@ -334,18 +345,22 @@ hold on
 plot(x51, line51, 'r-');
 plot(x512, line512, 'r-');
 plot(Experiment_4_60k.Vb,Experiment_4_60k.Vout,'g*')
-plot(x60, line60, 'c-');
-plot(x602, line602, 'c-');
+plot(x60, line60, 'k-');
+plot(x602, line602, 'k-');
 plot(Experiment_4_71k.Vb,Experiment_4_71k.Vout,'m*')
-% plot(Experiment_3.Vb,Experiment_3.Ve,'*')
+plot(x71, line71, 'c-');
+plot(x712, line712, 'c-');
+plot(Experiment_3.Vb(1:2:end),Experiment_3.Ve(1:2:end),'y*')
 xlabel('V_{in} [V]')
 ylabel('V_{out} [V]')
 title('Voltage Transfer Characteristics for Inverter Circuit')
 legend('Experimental R_1 = 51 k\Omega','Theoretical Line of Best Fit for Mode 1 operation (R_1 = 51 k\Omega)'...
     ,'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 51 k\Omega)','Experimental R_1 = 60 k\Omega',...
     'Theoretical Line of Best Fit for Mode 1 operation (R_1 = 60 k\Omega)',...
-    'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 60 k\Omega)''Experimental R_1 = 71 k\Omega',...
-    'Location','Northeast')
+    'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 60 k\Omega)','Experimental R_1 = 71 k\Omega',...
+    'Theoretical Line of Best Fit for Mode 1 operation (R_1 = 71 k\Omega)',...
+    'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 71 k\Omega)',...
+    'Emitter-Follower VTC from Experiment 3','Location','Southoutside','NumColumns',2)
 grid on
 hold off
 
