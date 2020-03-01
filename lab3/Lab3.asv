@@ -206,7 +206,7 @@ Theoretical_Beta = 150;
 
 x200Rb = linspace(5e-9,5e-6,100);
 fit200Rb = polyfit(log(Experiment_2_200.Ib(11:13)),log(Theoretical_Beta*200*(1 + U_T./(200*Theoretical_Beta*Experiment_2_200.Ib(11:13)))),1);
-line200Rb = exp((fit200Rb(1))*(x200Rb) + ((fit200Rb(2)));
+line200Rb = exp((fit200Rb(1))*log(x200Rb) + ((fit200Rb(2))));
 slope200Rb = fit200Rb(1);
 intercept200Rb = exp(fit200Rb(2));
 
@@ -222,9 +222,16 @@ legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resist
 grid on
 hold off
 
+x2kRb = linspace(1e-10,1e-6,100);
+fit2kRb = polyfit(log(Experiment_2_2k.Ib(10:13)),log(Theoretical_Beta*2000*(1 + U_T./(2000*Theoretical_Beta*Experiment_2_2k.Ib(10:13)))),1);
+line2kRb = exp((fit2kRb(1))*log(x2kRb) + ((fit2kRb(2))));
+slope2kRb = fit2kRb(1);
+intercept2kRb = exp(fit2kRb(2));
+
 figure
 loglog(Experiment_2_2k.Ib,Theoretical_Beta*2000*(1 + U_T./(2000*Theoretical_Beta*Experiment_2_2k.Ib)),'b*')
 hold on
+loglog(x2kRb,line2kRb,'-r')
 title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 2 k\Omega')
 xlabel('Base Current [A]')
 ylabel('R_{b}')
@@ -232,9 +239,16 @@ legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resist
 grid on
 hold off
 
+x20kRb = linspace(1e-9,5e-8,100);
+fit20kRb = polyfit(log(Experiment_2_20k.Ib(9:11)),log(Theoretical_Beta*20000*(1 + U_T./(20000*Theoretical_Beta*Experiment_2_20k.Ib(9:11)))),1);
+line20kRb = exp((fit20kRb(1))*log(x20kRb) + ((fit20kRb(2))));
+slope20kRb = fit20kRb(1);
+intercept20kRb = exp(fit20kRb(2));
+
 figure
 loglog(Experiment_2_20k.Ib,Theoretical_Beta*20000*(1 + U_T./(20000*Theoretical_Beta*Experiment_2_20k.Ib)),'b*')
 hold on
+loglog(x20kRb,line20kRb,'-r')
 title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 20 k\Omega')
 xlabel('Base Current [A]')
 ylabel('R_{b}')
@@ -242,20 +256,34 @@ legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resist
 grid on
 hold off
 
+x200Gm = linspace(1e-9,5e-4,200);
+fit200Gm = polyfit(log(Experiment_2_200.Ic(1:13)),log((1/200)*(1+((U_T/200)./Experiment_2_200.Ic(1:13)))),1);
+line200Gm = exp((fit200Gm(1))*log(x200Gm) + ((fit200Gm(2))));
+slope200Gm = fit200Gm(1);
+intercept200Gm = exp(fit200Gm(2));
+
 % Gm for each resistor
 figure
 loglog(Experiment_2_200.Ic,(1/200)*(1+((U_T/200)./Experiment_2_200.Ic)),'b*')
 hold on
+loglog(x200Gm,line200Gm,'-r')
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 200 \Omega')
 xlabel('Collector Current [A]')
 ylabel('G_{m}')
-legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Southeast')
+legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Northeast')
 grid on
 hold off
+
+x2kGm = linspace(1e-9,1e-5,100);
+fit2kGm  = polyfit(log(Experiment_2_2k.Ic(9:12)),log((1/2000)*(1+((U_T/2000)./Experiment_2_2k.Ic(9:12)))),1);
+line2kGm  = exp((fit2kGm(1))*log(x2kGm)+((fit2kGm(2))));
+slope2kGm  = fit2kGm(1);
+intercept2kGm  = exp(fit2kGm(2));
 
 figure
 loglog(Experiment_2_2k.Ic,(1/2000)*(1+((U_T/2000)./Experiment_2_2k.Ic)),'b*')
 hold on
+loglog(x2kGm,line2kGm,'-r')
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 2 k\Omega')
 xlabel('Collector Current [A]')
 ylabel('G_{m}')

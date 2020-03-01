@@ -274,23 +274,37 @@ legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Inc
 grid on
 hold off
 
+x2kGm = linspace(1e-9,1e-5,100);
+fit2kGm  = polyfit(log(Experiment_2_2k.Ic(9:12)),log((1/2000)*(1+((U_T/2000)./Experiment_2_2k.Ic(9:12)))),1);
+line2kGm  = exp((fit2kGm(1))*log(x2kGm)+((fit2kGm(2))));
+slope2kGm  = fit2kGm(1);
+intercept2kGm  = exp(fit2kGm(2));
+
 figure
 loglog(Experiment_2_2k.Ic,(1/2000)*(1+((U_T/2000)./Experiment_2_2k.Ic)),'b*')
 hold on
+loglog(x2kGm,line2kGm,'-r')
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 2 k\Omega')
 xlabel('Collector Current [A]')
 ylabel('G_{m}')
-legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Southeast')
+legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Northeast')
 grid on
 hold off
+
+x20kGm = linspace(1e-10,1e-5,100);
+fit20kGm  = polyfit(log(Experiment_2_20k.Ic(8:11)),log((1/20000)*(1+((U_T/20000)./Experiment_2_20k.Ic(8:11)))),1);
+line20kGm  = exp((fit20kGm(1))*log(x20kGm)+((fit20kGm(2))));
+slope20kGm  = fit20kGm(1);
+intercept20kGm  = exp(fit20kGm(2));
 
 figure
 loglog(Experiment_2_20k.Ic,(1/20000)*(1+((U_T/20000)./Experiment_2_20k.Ic)),'b*')
 hold on
+loglog(x20kGm,line20kGm,'-r')
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 20 k\Omega')
 xlabel('Collector Current [A]')
 ylabel('G_{m}')
-legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Southeast')
+legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Northeast')
 grid on
 hold off
 
