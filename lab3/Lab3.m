@@ -94,10 +94,21 @@ grid on
 hold off
 
 %% Experiment 2
-% Find U_T and I_s for the didoe
+% Find U_T and I_s for the didoe from Experiment 1
+Experiment_1 = load('Experiment_1_NEW.mat');
+Experiment_1.Ib = fliplr(Experiment_1.Ib);
+Experiment_1.Ib = Experiment_1.Ib + 1.350e-09;
+Experiment_1.Ie = (-1)*fliplr(Experiment_1.Ie);
+Experiment_1.Vb = fliplr(Experiment_1.Vb);
+Experiment_1.Ic = Experiment_1.Ie - Experiment_1.Ib;
+Theoretical_1.Vb = Experiment_1.Vb(22:95);
+x = linspace(0.3, 0.8, 100);
+fit = polyfit(Theoretical_1.Vb,log(Experiment_1.Ic(22:95)),1);
+line = exp(fit(1) * x + fit(2));
+U_T = 1/(fit(1));
+I_s = exp(fit(2));
 
-U_T = 0.024923146021446;
-
+% Experiment 2 Code
 Experiment_2_200 = load('Experiment_2-200_NEW.mat');
 Experiment_2_200.Ib = fliplr(Experiment_2_200.Ib)+5.4e-9;
 Experiment_2_200.Ie = (-1)*fliplr(Experiment_2_200.Ie);
@@ -140,18 +151,22 @@ semilogy(Experiment_2_200.Vb,Experiment_2_200.Ic,'b*')
 hold on
 semilogy(Experiment_2_2k.Vb,Experiment_2_2k.Ic,'g*')
 semilogy(Experiment_2_20k.Vb,Experiment_2_20k.Ic,'m*')
-semilogy(x200,line200,'r-');
-semilogy(x2k,line2k,'k-');
-semilogy(x20k,line20k,'c-');
+semilogy(x,line,'r-')
+%semilogy(x200,line200,'r-');
+%semilogy(x2k,line2k,'k-');
+%semilogy(x20k,line20k,'c-');
 title('Emitter-Degenerated Bipolar Collector Current Characteristics')
 xlabel('Base Voltage [V]')
 ylabel('Collector Current [A]')
+%legend('Experimental R = 200 \Omega','Experimental R = 2k \Omega','Experimental R = 20k \Omega',...
+%    'Theoretical R = 200 \Omega','Theoretical R = 2k \Omega','Theoretical R = 20k \Omega','Location','Southeast')
 legend('Experimental R = 200 \Omega','Experimental R = 2k \Omega','Experimental R = 20k \Omega',...
-    'Theoretical R = 200 \Omega','Theoretical R = 2k \Omega','Theoretical R = 20k \Omega','Location','Southeast')
+    'Theoretical Collector Current Characteristics from Experiment 1','Location','Southeast')
 grid on
 hold off
 
-x200Ic = linspace(0.6,4.85,200);
+%x200Ic = linspace(0.6,4.85,200);
+x200Ic = linspace(0.6,5,200);
 fit200Ic = polyfit(Experiment_2_200.Vb(13:98),(Experiment_2_200.Ic(13:98)),1);
 line200Ic = (fit200Ic(1)*x200Ic + fit200Ic(2));
 slope200Ic = fit200Ic(1);
@@ -168,7 +183,8 @@ legend('Experimental R = 200 \Omega','Theoretical R = 200 \Omega','Location','So
 grid on
 hold off
 
-x2kIc = linspace(0.6,4.85,200);
+%x2kIc = linspace(0.6,4.85,200);
+x2kIc = linspace(0.6,5,200);
 fit2kIc = polyfit(Experiment_2_2k.Vb(13:98),(Experiment_2_2k.Ic(13:98)),1);
 line2kIc = (fit2kIc(1)*x2kIc + fit2kIc(2));
 slope2kIc = fit2kIc(1);
@@ -185,7 +201,8 @@ legend('Experimental R = 2k \Omega','Theoretical R = 2k \Omega','Location','Sout
 grid on
 hold off
 
-x20kIc = linspace(0.6,4.85,200);
+%x20kIc = linspace(0.6,4.85,200);
+x20kIc = linspace(0.6,5,200);
 fit20kIc = polyfit(Experiment_2_20k.Vb(13:98),(Experiment_2_20k.Ic(13:98)),1);
 line20kIc = (fit20kIc(1)*x20kIc + fit20kIc(2));
 slope20kIc = fit20kIc(1);
