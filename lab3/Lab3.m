@@ -202,17 +202,18 @@ legend('Experimental R = 20k \Omega','Theoretical R = 20k \Omega','Location','So
 grid on
 hold off
 
-x20kIc = linspace(0.6,4.85,200);
-fit20kIc = polyfit(Experiment_2_20k.Vb(13:98),(Experiment_2_20k.Ic(13:98)),1);
-line20kIc = (fit20kIc(1)*x20kIc + fit20kIc(2));
-slope20kIc = fit20kIc(1);
-intercept20kIc = (fit20kIc(2));
+x200Rb = linspace(5e-9,5e-6,200);
+fit200Rb = polyfit(log(Experiment_2_200.Ib(11:13)),log(Theoretical_Beta*200*(1 + U_T./(200*Theoretical_Beta*Experiment_2_200.Ib(11:13)))),1);
+line200Rb = exp(fit200Rb(1)*x200Rb + fit200Rb(2));
+slope200Rb = fit200Rb(1);
+intercept200Rb = exp(fit200Rb(2));
 
 Theoretical_Beta = 150;
 % Rb for each resistor
 figure
 loglog(Experiment_2_200.Ib,Theoretical_Beta*200*(1 + U_T./(200*Theoretical_Beta*Experiment_2_200.Ib)),'b*')
 hold on
+plot(x200Rb,line200Rb,'-r')
 title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 200 \Omega')
 xlabel('Base Current [A]')
 ylabel('R_{b}')
