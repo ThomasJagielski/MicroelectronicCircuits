@@ -71,10 +71,14 @@ legend('Experimental \beta','Location','Southeast')
 grid on
 hold off
 
+fit1rb = polyfit(log(Theoretical_1.Ib(2:end)),log(Theoretical_1.rb),1);
+sloperb = exp(fit1rb(1));
+interceptrb = exp(fit1rb(2));
+
 figure
 loglog(Experiment_1.Ib(2:end),diff(Experiment_1.Vb)./diff(Experiment_1.Ib),'b*')
 hold on
-loglog(Theoretical_1.Ib(2:end),diff(Experiment_1.Vb)./diff(Theoretical_1.Ib),'r-')
+loglog(Theoretical_1.Ib(2:end),Theoretical_1.rb,'r-')
 title('Incremental Base Resistance (r_{b})')
 xlabel('Base Current [A]')
 ylabel('r_{b}')
@@ -85,7 +89,7 @@ hold off
 figure
 loglog(Experiment_1.Ic(2:end),diff(Experiment_1.Ic)./diff(Experiment_1.Vb),'b*')
 hold on
-loglog(Theoretical_1.Ic(2:end),diff(Theoretical_1.Ic)./diff(Experiment_1.Vb),'r-')
+loglog(Theoretical_1.Ic(2:end),Theoretical_1.gm,'r-')
 title('Incremental Transconductance Gain (g_{m})')
 xlabel('Collector Current [A]')
 ylabel('g_{m}')
