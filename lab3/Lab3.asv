@@ -393,13 +393,13 @@ Experiment_4_60k.Ib = fliplr(Experiment_4_60k.Ib);
 Experiment_4_60k.Vb = fliplr(Experiment_4_60k.Vb);
 Experiment_4_60k.Vout = fliplr(Experiment_4_60k.Vout);
 
-x60 = linspace(0.56,1.87,200);
-fit60 = polyfit(Experiment_4_60k.Vb(13:25),Experiment_4_60k.Vout(13:25),1);
+x60 = linspace(0.5,3.3,200);
+fit60 = polyfit(Experiment_4_60k.Vb(11:27),Experiment_4_60k.Vout(11:27),1);
 line60 = fit60(1)*x60 + fit60(2);
 slope60= fit60(1);
 intercept60 = fit60(2);
 
-x602 = linspace(1.87,5,200);
+x602 = linspace(3.3,5,200);
 fit602 = polyfit(Experiment_4_60k.Vb(70:end),Experiment_4_60k.Vout(70:end),1);
 line602 = fit602(1)*x602 + fit602(2); 
 slope602 = fit602(1);
@@ -410,13 +410,13 @@ Experiment_4_80k.Ib = fliplr(Experiment_4_80k.Ib);
 Experiment_4_80k.Vb = fliplr(Experiment_4_80k.Vb);
 Experiment_4_80k.Vout = fliplr(Experiment_4_80k.Vout);
 
-x80 = linspace(0.56,1.6,200);
-fit80 = polyfit(Experiment_4_80k.Vb(13:25),Experiment_4_80k.Vout(13:25),1);
+x80 = linspace(0.5,3.1,200);
+fit80 = polyfit(Experiment_4_80k.Vb(10:60),Experiment_4_80k.Vout(10:60),1);
 line80 = fit80(1)*x80 + fit80(2);
 slope80= fit80(1);
 intercept80 = fit80(2);
 
-x802 = linspace(1.6,5,200);
+x802 = linspace(3.1,5,200);
 fit802 = polyfit(Experiment_4_80k.Vb(60:end),Experiment_4_80k.Vout(60:end),1);
 line802 = fit802(1)*x802 + fit802(2); 
 slope802 = fit802(1);
@@ -427,13 +427,13 @@ Experiment_4_100k.Ib = fliplr(Experiment_4_100k.Ib);
 Experiment_4_100k.Vb = fliplr(Experiment_4_100k.Vb);
 Experiment_4_100k.Vout = fliplr(Experiment_4_100k.Vout);
 
-x100 = linspace(0.56,1.45,200);
-fit100 = polyfit(Experiment_4_100k.Vb(13:25),Experiment_4_100k.Vout(13:25),1);
+x100 = linspace(0.5,3.6,200);
+fit100 = polyfit(Experiment_4_100k.Vb(10:70),Experiment_4_100k.Vout(10:70),1);
 line100 = fit100(1)*x100 + fit100(2);
 slope100 = fit100(1);
 intercept100 = fit100(2);
 
-x1002 = linspace(1.45,5,200);
+x1002 = linspace(3.5,5,200);
 fit1002 = polyfit(Experiment_4_100k.Vb(70:end),Experiment_4_100k.Vout(70:end),1);
 line1002 = fit1002(1)*x1002 + fit1002(2); 
 slope1002 = fit1002(1);
@@ -454,12 +454,12 @@ plot(Experiment_3.Vb(1:2:end),Experiment_3.Ve(1:2:end),'y*')
 xlabel('V_{in} [V]')
 ylabel('V_{out} [V]')
 title('Voltage Transfer Characteristics for Inverter Circuit')
-legend('Experimental R_1 = 60.4 k\Omega','Theoretical Line of Best Fit for Mode 1 operation (R_1 = 60.4 k\Omega)'...
-    ,'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 60.4 k\Omega)','Experimental R_1 = 82.5 k\Omega',...
-    'Theoretical Line of Best Fit for Mode 1 operation (R_1 = 82.5 k\Omega)',...
-    'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 82.5 k\Omega)','Experimental R_1 = 100 k\Omega',...
-    'Theoretical Line of Best Fit for Mode 1 operation (R_1 = 100 k\Omega)',...
-    'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 100 k\Omega)',...
+legend('Experimental R_1 = 60 k\Omega','Theoretical Line of Best Fit for Mode 1 operation (R_1 = 51 k\Omega)'...
+    ,'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 51 k\Omega)','Experimental R_1 = 60 k\Omega',...
+    'Theoretical Line of Best Fit for Mode 1 operation (R_1 = 60 k\Omega)',...
+    'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 60 k\Omega)','Experimental R_1 = 71 k\Omega',...
+    'Theoretical Line of Best Fit for Mode 1 operation (R_1 = 71 k\Omega)',...
+    'Theoretical Line of Best Fit for Mode 2 operation (R_1 = 71 k\Omega)',...
     'Emitter-Follower VTC from Experiment 3','Location','Southoutside','NumColumns',2)
 grid on
 hold off
