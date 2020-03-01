@@ -103,21 +103,33 @@ Experiment_2_200.Ib = fliplr(Experiment_2_200.Ib)+5.4e-9;
 Experiment_2_200.Ie = (-1)*fliplr(Experiment_2_200.Ie);
 Experiment_2_200.Vb = fliplr(Experiment_2_200.Vb);
 
-x200 = linspace(0.3,0.6,200);
-fit200 = polyfit(Experiment_2_200.Vb(8:13),Experiment_2_200.Ie(8:13),1);
+x200 = linspace(0.35,0.75,200);
+fit200 = polyfit(Experiment_2_200.Vb(8:13),log(Experiment_2_200.Ie(8:13)),1);
 line200 = exp(fit200(1)*x200 + fit200(2));
 slope200 = fit200(1);
-intercept200 = 10^fit200(2);
+intercept200 = exp(fit200(2));
 
 Experiment_2_2k = load('Experiment_2-2k_NEW.mat');
 Experiment_2_2k.Ib = fliplr(Experiment_2_2k.Ib)+4.77e-10;
 Experiment_2_2k.Ie = (-1)*fliplr(Experiment_2_2k.Ie);
 Experiment_2_2k.Vb = fliplr(Experiment_2_2k.Vb);
 
+x2k = linspace(0.35,0.65,200);
+fit2k = polyfit(Experiment_2_2k.Vb(8:13),log(Experiment_2_2k.Ie(8:13)),1);
+line2k = exp(fit2k(1)*x2k + fit2k(2));
+slope2k = fit2k(1);
+intercept2k = exp(fit2k(2));
+
 Experiment_2_20k = load('Experiment_2-20k_NEW.mat');
 Experiment_2_20k.Ib = fliplr(Experiment_2_20k.Ib)+1e-8;
 Experiment_2_20k.Ie = (-1)*fliplr(Experiment_2_20k.Ie);
 Experiment_2_20k.Vb = fliplr(Experiment_2_20k.Vb);
+
+x20k = linspace(0.4,0.65,200);
+fit20k = polyfit(Experiment_2_20k.Vb(9:13),log(Experiment_2_20k.Ie(9:13)),1);
+line20k = exp(fit20k(1)*x20k + fit20k(2));
+slope20k = fit20k(1);
+intercept20k = exp(fit20k(2));
 
 Experiment_2_200.Ic = Experiment_2_200.Ie - Experiment_2_200.Ib;
 Experiment_2_2k.Ic = Experiment_2_2k.Ie - Experiment_2_2k.Ib;
@@ -126,23 +138,33 @@ Experiment_2_20k.Ic = Experiment_2_20k.Ie - Experiment_2_20k.Ib;
 figure
 semilogy(Experiment_2_200.Vb,Experiment_2_200.Ic,'b*')
 hold on
-semilogy(Experiment_2_2k.Vb,Experiment_2_2k.Ic,'r*')
-semilogy(Experiment_2_20k.Vb,Experiment_2_20k.Ic,'g*')
-semilogy(x200,line200,'-');
+semilogy(Experiment_2_2k.Vb,Experiment_2_2k.Ic,'g*')
+semilogy(Experiment_2_20k.Vb,Experiment_2_20k.Ic,'m*')
+semilogy(x200,line200,'r-');
+semilogy(x2k,line2k,'k-');
+semilogy(x20k,line20k,'c-');
 title('Emitter-Degenerated Bipolar Collector Current Characteristics')
 xlabel('Base Voltage [V]')
 ylabel('Collector Current [A]')
-legend('Experimental R = 200 \Omega','Experimental R = 2k \Omega','Experimental R = 20k \Omega','Location','Southeast')
+legend('Experimental R = 200 \Omega','Experimental R = 2k \Omega','Experimental R = 20k \Omega',...
+    'Theoretical R = 200 \Omega','Theoretical R = 2k \Omega','Theoretical R = 20k \Omega','Location','Southeast')
 grid on
 hold off
+
+x200Ic = linspace(0.6,4.85,200);
+fit200Ic = polyfit(Experiment_2_200.Vb(13:98),(Experiment_2_200.Ic(13:98)),1);
+line200Ic = (fit200Ic(1)*x200Ic + fit200Ic(2));
+slope200Ic = fit200Ic(1);
+intercept200Ic = (fit200Ic(2));
 
 figure
 plot(Experiment_2_200.Vb,Experiment_2_200.Ic,'b*')
 hold on
+plot(x200Ic,line200Ic,'r-')
 title('Emitter-Degenerated Bipolar Collector Current Characteristics R = 200 \Omega')
 xlabel('Base Voltage [V]')
 ylabel('Collector Current [A]')
-legend('Experimental R = 200 \Omega','Location','Southeast')
+legend('Experimental R = 200 \Omega','','Location','Southeast')
 grid on
 hold off
 

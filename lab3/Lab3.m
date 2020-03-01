@@ -151,33 +151,54 @@ legend('Experimental R = 200 \Omega','Experimental R = 2k \Omega','Experimental 
 grid on
 hold off
 
+x200Ic = linspace(0.6,4.85,200);
+fit200Ic = polyfit(Experiment_2_200.Vb(13:98),(Experiment_2_200.Ic(13:98)),1);
+line200Ic = (fit200Ic(1)*x200Ic + fit200Ic(2));
+slope200Ic = fit200Ic(1);
+intercept200Ic = (fit200Ic(2));
+
 figure
 plot(Experiment_2_200.Vb,Experiment_2_200.Ic,'b*')
 hold on
+plot(x200Ic,line200Ic,'r-')
 title('Emitter-Degenerated Bipolar Collector Current Characteristics R = 200 \Omega')
 xlabel('Base Voltage [V]')
 ylabel('Collector Current [A]')
-legend('Experimental R = 200 \Omega','Location','Southeast')
+legend('Experimental R = 200 \Omega','Theoretical R = 200 \Omega','Location','Southeast')
 grid on
 hold off
+
+x2kIc = linspace(0.6,4.85,200);
+fit2kIc = polyfit(Experiment_2_2k.Vb(13:98),(Experiment_2_2k.Ic(13:98)),1);
+line2kIc = (fit2kIc(1)*x2kIc + fit2kIc(2));
+slope2kIc = fit2kIc(1);
+intercept2kIc = (fit2kIc(2));
 
 figure
 plot(Experiment_2_2k.Vb,Experiment_2_2k.Ic,'b*')
 hold on
+plot(x2kIc,line2kIc,'r-')
 title('Emitter-Degenerated Bipolar Collector Current Characteristics R = 2k \Omega')
 xlabel('Base Voltage [V]')
 ylabel('Collector Current [A]')
-legend('Experimental R = 2k \Omega','Location','Southeast')
+legend('Experimental R = 2k \Omega','Theoretical R = 2k \Omega','Location','Southeast')
 grid on
 hold off
+
+x20kIc = linspace(0.6,4.85,200);
+fit20kIc = polyfit(Experiment_2_20k.Vb(13:98),(Experiment_2_20k.Ic(13:98)),1);
+line20kIc = (fit20kIc(1)*x20kIc + fit20kIc(2));
+slope20kIc = fit20kIc(1);
+intercept20kIc = (fit20kIc(2));
 
 figure
 plot(Experiment_2_20k.Vb,Experiment_2_20k.Ic,'b*')
 hold on
+plot(x20kIc,line20kIc,'r-')
 title('Emitter-Degenerated Bipolar Collector Current Characteristics with R = 20k \Omega')
 xlabel('Base Voltage [V]')
 ylabel('Collector Current [A]')
-legend('Experimental R = 20k \Omega','Location','Southeast')
+legend('Experimental R = 20k \Omega','Theoretical R = 20k \Omega','Location','Southeast')
 grid on
 hold off
 
