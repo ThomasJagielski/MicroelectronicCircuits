@@ -96,10 +96,18 @@ hold off
 %% Experiment 2
 % Find U_T and I_s for the didoe
 
+U_T = 0.024923146021446;
+
 Experiment_2_200 = load('Experiment_2-200_NEW.mat');
 Experiment_2_200.Ib = fliplr(Experiment_2_200.Ib)+5.4e-9;
 Experiment_2_200.Ie = (-1)*fliplr(Experiment_2_200.Ie);
 Experiment_2_200.Vb = fliplr(Experiment_2_200.Vb);
+
+x200 = linspace(0.3,0.6,200);
+fit200 = polyfit(Experiment_2_200.Vb(8:13),Experiment_2_200.Ie(8:13),1);
+line200 = exp(fit200(1)*x200 + fit200(2));
+slope200 = fit200(1);
+intercept200 = 10^fit200(2);
 
 Experiment_2_2k = load('Experiment_2-2k_NEW.mat');
 Experiment_2_2k.Ib = fliplr(Experiment_2_2k.Ib)+4.77e-10;
@@ -120,6 +128,7 @@ semilogy(Experiment_2_200.Vb,Experiment_2_200.Ic,'b*')
 hold on
 semilogy(Experiment_2_2k.Vb,Experiment_2_2k.Ic,'r*')
 semilogy(Experiment_2_20k.Vb,Experiment_2_20k.Ic,'g*')
+semilogy(x200,line200,'-');
 title('Emitter-Degenerated Bipolar Collector Current Characteristics')
 xlabel('Base Voltage [V]')
 ylabel('Collector Current [A]')
@@ -191,7 +200,7 @@ hold off
 
 % Gm for each resistor
 figure
-loglog(Experiment_2_200.Ic,iff(Experiment_2_200.Vb),'b*')
+loglog(Experiment_2_200.Ic,(1/200)*(1+((U_T/200)./Experiment_2_200.Ic)),'b*')
 hold on
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 200 \Omega')
 xlabel('Collector Current [A]')
@@ -201,7 +210,7 @@ grid on
 hold off
 
 figure
-loglog(Experiment_2_2k.Ic(2:end),diff(Experiment_2_2k.Ic)./diff(Experiment_2_2k.Vb),'b*')
+loglog(Experiment_2_2k.Ic,(1/2000)*(1+((U_T/2000)./Experiment_2_2k.Ic)),'b*')
 hold on
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 2 k\Omega')
 xlabel('Collector Current [A]')
@@ -211,7 +220,7 @@ grid on
 hold off
 
 figure
-loglog(Experiment_2_20k.Ic(2:end),diff(Experiment_2_20k.Ic)./diff(Experiment_2_20k.Vb),'b*')
+loglog(Experiment_2_20k.Ic,(1/20000)*(1+((U_T/20000)./Experiment_2_20k.Ic)),'b*')
 hold on
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 20 k\Omega')
 xlabel('Collector Current [A]')
@@ -219,7 +228,6 @@ ylabel('G_{m}')
 legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Southeast')
 grid on
 hold off
-
 
 %% Experiment 3
 
