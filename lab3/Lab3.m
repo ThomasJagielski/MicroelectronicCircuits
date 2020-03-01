@@ -204,12 +204,11 @@ hold off
 
 Theoretical_Beta = 150;
 
-x200Rb = linspace(5e-9,5e-6,200);
-fit200Rb = polyfit((Experiment_2_200.Ib(11:13)),(Theoretical_Beta*200*(1 + U_T./(200*Theoretical_Beta*Experiment_2_200.Ib(11:13)))),1);
-line200Rb = (exp(fit200Rb(1))*(x200Rb)) + ((fit200Rb(2)));
+x200Rb = linspace(5e-9,5e-6,100);
+fit200Rb = polyfit(log(Experiment_2_200.Ib(11:13)),log(Theoretical_Beta*200*(1 + U_T./(200*Theoretical_Beta*Experiment_2_200.Ib(11:13)))),1);
+line200Rb = exp((fit200Rb(1))*log(x200Rb) + ((fit200Rb(2))));
 slope200Rb = fit200Rb(1);
 intercept200Rb = exp(fit200Rb(2));
-
 
 % Rb for each resistor
 figure
