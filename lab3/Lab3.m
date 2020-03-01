@@ -332,7 +332,7 @@ hold off
 %% Experiment 3
 
 %--
-Experiment_1 = load('Experiment_1_NEW.mat');
+Experiment_1 = load('Experiment34_param.mat');
 Experiment_1.Ib = fliplr(Experiment_1.Ib);
 Experiment_1.Ib = Experiment_1.Ib + 1.350e-09;
 Experiment_1.Ie = (-1)*fliplr(Experiment_1.Ie);
@@ -346,7 +346,7 @@ U_T = 1/(fit(1));
 I_s = exp(fit(2));
 %--
 
-Experiment_3 = load('Experiment_3-20k_NEW.mat');
+Experiment_3 = load('Experiment_3-20k_3-2.mat');
 Experiment_3.Ib = fliplr(Experiment_3.Ib);
 Experiment_3.Vb = fliplr(Experiment_3.Vb);
 Experiment_3.Ve = fliplr(Experiment_3.Ve);
@@ -374,7 +374,7 @@ hold off
 %% Experiment 4
 
 %--
-Experiment_1 = load('Experiment_1_NEW.mat');
+Experiment_1 = load('Experiment34_param.mat');
 Experiment_1.Ib = fliplr(Experiment_1.Ib);
 Experiment_1.Ib = Experiment_1.Ib + 1.350e-09;
 Experiment_1.Ie = (-1)*fliplr(Experiment_1.Ie);
@@ -388,24 +388,7 @@ U_T = 1/(fit(1));
 I_s = exp(fit(2));
 %--
 
-Experiment_4_51k = load('Experiment_4-51k.mat');
-Experiment_4_51k.Ib = fliplr(Experiment_4_51k.Ib);
-Experiment_4_51k.Vb = fliplr(Experiment_4_51k.Vb);
-Experiment_4_51k.Vout = fliplr(Experiment_4_51k.Vout);
-
-x51 = linspace(0.5,3.6,200);
-fit51 = polyfit(Experiment_4_51k.Vb(10:70),Experiment_4_51k.Vout(10:70),1);
-line51 = fit51(1)*x51 + fit51(2);
-slope51 = fit51(1);
-intercept51 = fit51(2);
-
-x512 = linspace(3.5,5,200);
-fit512 = polyfit(Experiment_4_51k.Vb(70:end),Experiment_4_51k.Vout(70:end),1);
-line512 = fit512(1)*x512 + fit512(2); 
-slope512 = fit512(1);
-intercept512 = fit512(2);
-
-Experiment_4_60k = load('Experiment_4-60k.mat');
+Experiment_4_60k = load('Experiment_4-60k_NEW.mat');
 Experiment_4_60k.Ib = fliplr(Experiment_4_60k.Ib);
 Experiment_4_60k.Vb = fliplr(Experiment_4_60k.Vb);
 Experiment_4_60k.Vout = fliplr(Experiment_4_60k.Vout);
@@ -422,34 +405,51 @@ line602 = fit602(1)*x602 + fit602(2);
 slope602 = fit602(1);
 intercept602 = fit602(2);
 
-Experiment_4_71k = load('Experiment_4-71k.mat');
-Experiment_4_71k.Ib = fliplr(Experiment_4_71k.Ib);
-Experiment_4_71k.Vb = fliplr(Experiment_4_71k.Vb);
-Experiment_4_71k.Vout = fliplr(Experiment_4_71k.Vout);
+Experiment_4_80k = load('Experiment_4-80k_NEW.mat');
+Experiment_4_80k.Ib = fliplr(Experiment_4_80k.Ib);
+Experiment_4_80k.Vb = fliplr(Experiment_4_80k.Vb);
+Experiment_4_80k.Vout = fliplr(Experiment_4_80k.Vout);
 
-x71 = linspace(0.5,3.1,200);
-fit71 = polyfit(Experiment_4_71k.Vb(10:60),Experiment_4_71k.Vout(10:60),1);
-line71 = fit71(1)*x71 + fit71(2);
-slope71= fit71(1);
-intercept71 = fit71(2);
+x80 = linspace(0.5,3.1,200);
+fit80 = polyfit(Experiment_4_80k.Vb(10:60),Experiment_4_80k.Vout(10:60),1);
+line80 = fit80(1)*x80 + fit80(2);
+slope80= fit80(1);
+intercept80 = fit80(2);
 
-x712 = linspace(3.1,5,200);
-fit712 = polyfit(Experiment_4_71k.Vb(60:end),Experiment_4_71k.Vout(60:end),1);
-line712 = fit712(1)*x712 + fit712(2); 
-slope712 = fit712(1);
-intercept712 = fit712(2);
+x802 = linspace(3.1,5,200);
+fit802 = polyfit(Experiment_4_80k.Vb(60:end),Experiment_4_80k.Vout(60:end),1);
+line802 = fit802(1)*x802 + fit802(2); 
+slope802 = fit802(1);
+intercept802 = fit802(2);
+
+Experiment_4_100k = load('Experiment_4-100k_NEW.mat');
+Experiment_4_100k.Ib = fliplr(Experiment_4_100k.Ib);
+Experiment_4_100k.Vb = fliplr(Experiment_4_100k.Vb);
+Experiment_4_100k.Vout = fliplr(Experiment_4_100k.Vout);
+
+x100 = linspace(0.5,3.6,200);
+fit100 = polyfit(Experiment_4_100k.Vb(10:70),Experiment_4_100k.Vout(10:70),1);
+line100 = fit100(1)*x100 + fit100(2);
+slope100 = fit100(1);
+intercept100 = fit100(2);
+
+x1002 = linspace(3.5,5,200);
+fit1002 = polyfit(Experiment_4_100k.Vb(70:end),Experiment_4_100k.Vout(70:end),1);
+line1002 = fit1002(1)*x1002 + fit1002(2); 
+slope1002 = fit1002(1);
+intercept1002 = fit1002(2);
 
 figure
-plot(Experiment_4_51k.Vb,Experiment_4_51k.Vout,'b*')
+plot(Experiment_4_100k.Vb,Experiment_4_100k.Vout,'b*')
 hold on
-plot(x51, line51, 'r-');
-plot(x512, line512, 'r-');
+plot(x100, line100, 'r-');
+plot(x1002, line1002, 'r-');
 plot(Experiment_4_60k.Vb,Experiment_4_60k.Vout,'g*')
 plot(x60, line60, 'k-');
 plot(x602, line602, 'k-');
-plot(Experiment_4_71k.Vb,Experiment_4_71k.Vout,'m*')
-plot(x71, line71, 'c-');
-plot(x712, line712, 'c-');
+plot(Experiment_4_80k.Vb,Experiment_4_80k.Vout,'m*')
+plot(x80, line80, 'c-');
+plot(x802, line802, 'c-');
 plot(Experiment_3.Vb(1:2:end),Experiment_3.Ve(1:2:end),'y*')
 xlabel('V_{in} [V]')
 ylabel('V_{out} [V]')
