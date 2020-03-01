@@ -41,7 +41,7 @@ semilogy(Experiment_1.Vb,Experiment_1.Ib,'m*')
 semilogy(Experiment_1.Vb,Theoretical_1.Ic,'r-')
 semilogy(Experiment_1.Vb,Theoretical_1.Ib,'g-')
 title('Experimental I-V Characteristic of a Bipolar Transistor Terminals')
-xlabel('Voltage [V]')
+xlabel('Base Voltage [V]')
 ylabel('Current [A]')
 legend('Experimental Collector Current','Experimental Base Current','Theoretical Collector Current','Theoretical Base Current','Location','Southeast')
 grid on
