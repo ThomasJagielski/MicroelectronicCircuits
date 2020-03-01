@@ -256,14 +256,21 @@ legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resist
 grid on
 hold off
 
+x200Gm = linspace(1e-9,5e-4,200);
+fit200Gm = polyfit(log(Experiment_2_200.Ic(1:13)),log((1/200)*(1+((U_T/200)./Experiment_2_200.Ic(1:13)))),1);
+line200Gm = exp((fit200Gm(1))*log(x200Gm) + ((fit200Gm(2))));
+slope200Gm = fit200Gm(1);
+intercept200Gm = exp(fit200Gm(2));
+
 % Gm for each resistor
 figure
 loglog(Experiment_2_200.Ic,(1/200)*(1+((U_T/200)./Experiment_2_200.Ic)),'b*')
 hold on
+loglog(x200Gm,line200Gm,'-r')
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 200 \Omega')
 xlabel('Collector Current [A]')
 ylabel('G_{m}')
-legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Southeast')
+legend('Experimental Incremental Transconductance Gain (G_{m})','Theoretical Incremental Transconductance Gain (G_{m})','Location','Northeast')
 grid on
 hold off
 
