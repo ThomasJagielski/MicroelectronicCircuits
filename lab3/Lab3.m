@@ -20,6 +20,7 @@ Theoretical_Beta = 150;
 Theoretical_1.Ib = (I_s./Theoretical_Beta)*exp(Experiment_1.Vb/U_T);
 Theoretical_1.Ic = I_s*exp((Experiment_1.Vb)/U_T);
 Theoretical_1.Ie = Theoretical_1.Ic + Theoretical_1.Ib;
+Experiment_1.rb = diff(Experiment_1.Vb)./diff(Experiment_1.Ib);
 Theoretical_1.rb = diff(Experiment_1.Vb)./diff(Theoretical_1.Ib);
 Theoretical_1.gm = diff(Theoretical_1.Ic)./diff(Experiment_1.Vb);
 
@@ -72,13 +73,14 @@ grid on
 hold off
 
 fit1rb = polyfit(log(Theoretical_1.Ib(2:end)),log(Theoretical_1.rb),1);
-sloperb = exp(fit1rb(1));
+sloperb = (fit1rb(1));
 interceptrb = exp(fit1rb(2));
 
 figure
 loglog(Experiment_1.Ib(2:end),diff(Experiment_1.Vb)./diff(Experiment_1.Ib),'b*')
 hold on
 loglog(Theoretical_1.Ib(2:end),Theoretical_1.rb,'r-')
+plot(logspace(-11,-4),slopecalc*logspace(-11,-4)+intercalc)
 title('Incremental Base Resistance (r_{b})')
 xlabel('Base Current [A]')
 ylabel('r_{b}')
