@@ -75,10 +75,10 @@ figure
 loglog(Experiment_1.Ib(2:end),diff(Experiment_1.Vb)./diff(Experiment_1.Ib),'b*')
 hold on
 loglog(Theoretical_1.Ib(2:end),diff(Experiment_1.Vb)./diff(Theoretical_1.Ib),'r-')
-title('Incremental Base Resistance (R_{b})')
+title('Incremental Base Resistance (r_{b})')
 xlabel('Base Current [A]')
-ylabel('R_{b}')
-legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resistance(R_{b})','Location','Southeast')
+ylabel('r_{b}')
+legend('Incremental Base Resistance(r_{b})','Theoretical Incremental Base Resistance(r_{b})','Location','Southeast')
 grid on
 hold off
 
@@ -201,6 +201,12 @@ ylabel('Collector Current [A]')
 legend('Experimental R = 20k \Omega','Theoretical R = 20k \Omega','Location','Southeast')
 grid on
 hold off
+
+x20kIc = linspace(0.6,4.85,200);
+fit20kIc = polyfit(Experiment_2_20k.Vb(13:98),(Experiment_2_20k.Ic(13:98)),1);
+line20kIc = (fit20kIc(1)*x20kIc + fit20kIc(2));
+slope20kIc = fit20kIc(1);
+intercept20kIc = (fit20kIc(2));
 
 Theoretical_Beta = 150;
 % Rb for each resistor
