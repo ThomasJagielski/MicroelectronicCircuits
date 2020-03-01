@@ -222,9 +222,16 @@ legend('Incremental Base Resistance(R_{b})','Theoretical Incremental Base Resist
 grid on
 hold off
 
+x2kRb = linspace(1e-10,1e-6,100);
+fit2kRb = polyfit(log(Experiment_2_2k.Ib(10:13)),log(Theoretical_Beta*2000*(1 + U_T./(2000*Theoretical_Beta*Experiment_2_2k.Ib(10:13)))),1);
+line2kRb = exp((fit2kRb(1))*log(x2kRb) + ((fit2kRb(2))));
+slope2kRb = fit2kRb(1);
+intercept2kRb = exp(fit2kRb(2));
+
 figure
 loglog(Experiment_2_2k.Ib,Theoretical_Beta*2000*(1 + U_T./(2000*Theoretical_Beta*Experiment_2_2k.Ib)),'b*')
 hold on
+loglog(x2kRb,line2kRb,'-r')
 title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 2 k\Omega')
 xlabel('Base Current [A]')
 ylabel('R_{b}')
