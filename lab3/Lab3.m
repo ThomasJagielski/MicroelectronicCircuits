@@ -125,6 +125,7 @@ Experiment_1.Ib = Experiment_1.Ib + 1.350e-09;
 Experiment_1.Ie = (-1)*fliplr(Experiment_1.Ie);
 Experiment_1.Vb = fliplr(Experiment_1.Vb);
 Experiment_1.Ic = Experiment_1.Ie - Experiment_1.Ib;
+
 Theoretical_1.Vb = Experiment_1.Vb(22:95);
 x = linspace(0.3, 0.8, 100);
 fit = polyfit(Theoretical_1.Vb,log(Experiment_1.Ic(22:95)),1);
@@ -137,17 +138,20 @@ Experiment_2_200 = load('Experiment_2-200_NEW.mat');
 Experiment_2_200.Ib = fliplr(Experiment_2_200.Ib)+5.4e-9;
 Experiment_2_200.Ie = (-1)*fliplr(Experiment_2_200.Ie);
 Experiment_2_200.Vb = fliplr(Experiment_2_200.Vb);
-
-x200 = linspace(0.35,0.75,200);
+Experiment_2_200.Ic = Experiment_2_200.Ie - Experiment_2_200.Ib;
+x200 = linspace(0.35,0.75,101);
 fit200 = polyfit(Experiment_2_200.Vb(8:13),log(Experiment_2_200.Ie(8:13)),1);
 line200 = exp(fit200(1)*x200 + fit200(2));
 slope200 = fit200(1);
 intercept200 = exp(fit200(2));
 
+% error200 = (Experiment_2_200.Ie(15:end-15)-line200(15:end-15))*100./Experiment_2_200.Ie(15:end-15);
+
 Experiment_2_2k = load('Experiment_2-2k_NEW.mat');
 Experiment_2_2k.Ib = fliplr(Experiment_2_2k.Ib)+4.77e-10;
 Experiment_2_2k.Ie = (-1)*fliplr(Experiment_2_2k.Ie);
 Experiment_2_2k.Vb = fliplr(Experiment_2_2k.Vb);
+Experiment_2_2k.Ic = Experiment_2_2k.Ie - Experiment_2_2k.Ib;
 
 x2k = linspace(0.35,0.65,200);
 fit2k = polyfit(Experiment_2_2k.Vb(8:13),log(Experiment_2_2k.Ie(8:13)),1);
@@ -155,10 +159,13 @@ line2k = exp(fit2k(1)*x2k + fit2k(2));
 slope2k = fit2k(1);
 intercept2k = exp(fit2k(2));
 
+% error2l = (Experiment_2_2k.Ic(15:end-15)-line2k(15:end-15))*100./Experiment_2_2k.Ic(15:end-15);
+
 Experiment_2_20k = load('Experiment_2-20k_NEW.mat');
 Experiment_2_20k.Ib = fliplr(Experiment_2_20k.Ib)+1e-8;
 Experiment_2_20k.Ie = (-1)*fliplr(Experiment_2_20k.Ie);
 Experiment_2_20k.Vb = fliplr(Experiment_2_20k.Vb);
+Experiment_2_20k.Ic = Experiment_2_20k.Ie - Experiment_2_20k.Ib;
 
 x20k = linspace(0.4,0.65,200);
 fit20k = polyfit(Experiment_2_20k.Vb(9:13),log(Experiment_2_20k.Ie(9:13)),1);
@@ -166,9 +173,7 @@ line20k = exp(fit20k(1)*x20k + fit20k(2));
 slope20k = fit20k(1);
 intercept20k = exp(fit20k(2));
 
-Experiment_2_200.Ic = Experiment_2_200.Ie - Experiment_2_200.Ib;
-Experiment_2_2k.Ic = Experiment_2_2k.Ie - Experiment_2_2k.Ib;
-Experiment_2_20k.Ic = Experiment_2_20k.Ie - Experiment_2_20k.Ib;
+% error20k = (Experiment_2_20k.Ie(15:end-15)-line20k(15:end-15))*100./Experiment_2_20k.Ie(15:end-15);
 
 figure
 semilogy(Experiment_2_200.Vb,Experiment_2_200.Ic,'b*')
@@ -190,11 +195,15 @@ grid on
 hold off
 
 %x200Ic = linspace(0.6,4.85,200);
-x200Ic = linspace(0.6,5,200);
+x200Ic = linspace(0.6,5,101);
 fit200Ic = polyfit(Experiment_2_200.Vb(13:98),(Experiment_2_200.Ic(13:98)),1);
 line200Ic = (fit200Ic(1)*x200Ic + fit200Ic(2));
 slope200Ic = fit200Ic(1);
 intercept200Ic = (fit200Ic(2));
+
+line200IcEr = (fit200Ic(1)*Experiment_2_200.Vb + fit200Ic(2));
+error200Ic = mean(abs(Experiment_2_200.Ic(20:end-20)-line200IcEr(20:end-20))*100./Experiment_2_200.Ic(20:end-20));
+
 
 figure
 plot(Experiment_2_200.Vb,Experiment_2_200.Ic,'b*')
@@ -214,6 +223,9 @@ line2kIc = (fit2kIc(1)*x2kIc + fit2kIc(2));
 slope2kIc = fit2kIc(1);
 intercept2kIc = (fit2kIc(2));
 
+line2kIcEr = (fit2kIc(1)*Experiment_2_2k.Vb + fit2kIc(2));
+error2kIc = mean(abs(Experiment_2_2k.Ic(20:end-20)-line2kIcEr(20:end-20))*100./Experiment_2_2k.Ic(20:end-20));
+
 figure
 plot(Experiment_2_2k.Vb,Experiment_2_2k.Ic,'b*')
 hold on
@@ -231,6 +243,9 @@ fit20kIc = polyfit(Experiment_2_20k.Vb(13:98),(Experiment_2_20k.Ic(13:98)),1);
 line20kIc = (fit20kIc(1)*x20kIc + fit20kIc(2));
 slope20kIc = fit20kIc(1);
 intercept20kIc = (fit20kIc(2));
+
+line20kIcEr = (fit20kIc(1)*Experiment_2_20k.Vb + fit20kIc(2));
+error20kIc = mean(abs(Experiment_2_20k.Ic(20:end-20)-line20kIcEr(20:end-20))*100./Experiment_2_20k.Ic(20:end-20));
 
 figure
 plot(Experiment_2_20k.Vb,Experiment_2_20k.Ic,'b*')
@@ -274,7 +289,7 @@ loglog(Experiment_2_20k.Ib,Theoretical_Beta*20000*(1 + U_T./(20000*Theoretical_B
 loglog(x20kRb,line20kRb,'-r')
 title('Incremental Base Resistance(R_{b}) of Degenerated Bipolar Transistor Terminals with R = 200 \Omega, R = 2 k\Omega, and R = 20 k\Omega')
 xlabel('Base Current [A]')
-ylabel('R_{b}')
+ylabel('R_{b} [\Omega]')
 legend('Incremental Base Resistance(R_{b}) with R = 200 \Omega','Theoretical Incremental Base Resistance(R_{b}) with R = 200 \Omega',...
     'Incremental Base Resistance(R_{b}) with R = 2k \Omega','Theoretical Incremental Base Resistance(R_{b} with R = 2k \Omega)',...
     'Incremental Base Resistance(R_{b}) with R = 20k \Omega','Theoretical Incremental Base Resistance(R_{b} with R = 20k \Omega)','Location','Southeast')
@@ -310,7 +325,7 @@ loglog(Experiment_2_20k.Ic,(1/20000)*(1+((U_T/20000)./Experiment_2_20k.Ic)),'b*'
 loglog(x20kGm,line20kGm,'-r')
 title('Incremental Transconductance Gain (G_{m}) of Degenerated Bipolar Transistor with R = 200 \Omega, R = 2 k\Omega, and R = 20 k\Omega')
 xlabel('Collector Current [A]')
-ylabel('G_{m}')
+ylabel('G_{m} [S]')
 legend('Experimental Incremental Transconductance Gain (G_{m}) with R = 200 \Omega','Theoretical Incremental Transconductance Gain with R = 200 \Omega (G_{m})',...
     'Experimental Incremental Transconductance Gain (G_{m}) with R = 2 k\Omega','Theoretical Incremental Transconductance Gain (G_{m}) with R = 2 k\Omega',...
     'Experimental Incremental Transconductance Gain (G_{m}) with R = 20 k\Omega','Theoretical Incremental Transconductance Gain (G_{m}) with R = 20 k\Omega',...
