@@ -76,16 +76,28 @@ fit1rb = polyfit(log(Theoretical_1.Ib(2:end)),log(Theoretical_1.rb),1);
 sloperb = (fit1rb(1));
 interceptrb = exp(fit1rb(2));
 
+slope = (log(345734133.1367/125.4105)/(log((7.9252e-11)/0.00021848)));
+x = logspace(-12,-3,101);
+b = 345734133.1367 / ((7.9252e-11)^slope);
+y = b*(x.^slope);
+
 figure
 loglog(Experiment_1.Ib(2:end),diff(Experiment_1.Vb)./diff(Experiment_1.Ib),'b*')
 hold on
 loglog(Theoretical_1.Ib(2:end),Theoretical_1.rb,'r-')
+loglog(x,y)
 title('Incremental Base Resistance (r_{b})')
 xlabel('Base Current [A]')
 ylabel('r_{b}')
 legend('Incremental Base Resistance(r_{b})','Theoretical Incremental Base Resistance(r_{b})','Location','Southeast')
 grid on
 hold off
+
+
+slope = (0.98654-1.9911e-8)/(0.027031-5.4555e-10);
+x = logspace(-10,-1,101);
+b = 0.98654 - slope*0.027031;
+y = slope * x + b;
 
 figure
 loglog(Experiment_1.Ic(2:end),diff(Experiment_1.Ic)./diff(Experiment_1.Vb),'b*')
