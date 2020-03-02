@@ -72,13 +72,12 @@ legend('Experimental \beta','Location','Southeast')
 grid on
 hold off
 
-fit1rb = polyfit(log(Theoretical_1.Ib(2:end)),log(Theoretical_1.rb),1);
-sloperb = (fit1rb(1));
-interceptrb = exp(fit1rb(2));
-
+% slope = (log(y2/y1)/log(x2/x1))
 slope = (log(345734133.1367/125.4105)/(log((7.9252e-11)/0.00021848)));
 x = logspace(-12,-3,101);
-b = 345734133.1367 / ((7.9252e-11)^slope);
+% b = y2/(x2^slope)
+b = 345734133.1367/((7.9252e-11)^slope);
+% y = b*(x.^slope)
 y = b*(x.^slope);
 
 y_error = b*(Experiment_1.Ib(2:end).^slope);
@@ -92,11 +91,10 @@ hold on
 loglog(Theoretical_1.Ib(2:end),Theoretical_1.rb,'r-')
 title('Incremental Base Resistance (r_{b})')
 xlabel('Base Current [A]')
-ylabel('r_{b}')
+ylabel('r_{b} [\Omega]')
 legend('Incremental Base Resistance(r_{b})','Theoretical Incremental Base Resistance(r_{b})','Location','Southeast')
 grid on
 hold off
-
 
 slope = (0.98654-1.9911e-8)/(0.027031-5.4555e-10);
 x = logspace(-10,-1,101);
@@ -114,7 +112,7 @@ hold on
 loglog(Theoretical_1.Ic(2:end),Theoretical_1.gm,'r-')
 title('Incremental Transconductance Gain (g_{m})')
 xlabel('Collector Current [A]')
-ylabel('g_{m}')
+ylabel('g_{m} [S]')
 legend('Experimental Incremental Transconductance Gain (g_{m})','Theoretical Incremental Transconductance Gain (g_{m})','Location','Southeast')
 grid on
 hold off
