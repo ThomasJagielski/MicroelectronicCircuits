@@ -81,11 +81,15 @@ x = logspace(-12,-3,101);
 b = 345734133.1367 / ((7.9252e-11)^slope);
 y = b*(x.^slope);
 
+y_error = b*(Experiment_1.Ib(2:end).^slope);
+experimental_rb = diff(Experiment_1.Vb)./diff(Experiment_1.Ib);
+% Region from [3.07700000000000e-08] to 8.280134999999999e-05
+error_rb = abs(y_error(50:end-7)-experimental_rb(50:end-7))*100/y_error(50:end-7);
+
 figure
 loglog(Experiment_1.Ib(2:end),diff(Experiment_1.Vb)./diff(Experiment_1.Ib),'b*')
 hold on
 loglog(Theoretical_1.Ib(2:end),Theoretical_1.rb,'r-')
-loglog(x,y)
 title('Incremental Base Resistance (r_{b})')
 xlabel('Base Current [A]')
 ylabel('r_{b}')
@@ -98,6 +102,11 @@ slope = (0.98654-1.9911e-8)/(0.027031-5.4555e-10);
 x = logspace(-10,-1,101);
 b = 0.98654 - slope*0.027031;
 y = slope * x + b;
+
+y_error = slope * Experiment_1.Ic(2:end) + b;
+
+experimental_gm = diff(Experiment_1.Ic)./diff(Experiment_1.Vb);
+error_gm = abs(y_error(15:end-15)-experimental_gm(15:end-15))*100/y_error(15:end-15);
 
 figure
 loglog(Experiment_1.Ic(2:end),diff(Experiment_1.Ic)./diff(Experiment_1.Vb),'b*')
