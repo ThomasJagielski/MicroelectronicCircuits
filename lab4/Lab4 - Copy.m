@@ -27,36 +27,6 @@ Exp_Q4.I_e = (-1)*fliplr(Exp_Q4.I_e);
 Exp_Q4.V_b = fliplr(Exp_Q4.V_in);
 Exp_Q4.I_c = Exp_Q4.I_e - Exp_Q4.I_b;
 
-% Transistor 1
-Theoretical_1.V_b = Exp_Q1.V_b(34:89);
-x = linspace(0.3, 0.8, 100);
-fit = polyfit(Theoretical_1.V_b,log(Exp_Q1.I_c(34:89)),1);
-line = exp(fit(1) * x + fit(2));
-Q1_U_T = 1/(fit(1));
-Q1_I_s = exp(fit(2));
-
-% Transistor 2
-Theoretical_2.V_b = Exp_Q2.V_b(34:89);
-fit = polyfit(Theoretical_2.V_b,log(Exp_Q2.I_c(34:89)),1);
-line = exp(fit(1) * x + fit(2));
-Q2_U_T = 1/(fit(1));
-Q2_I_s = exp(fit(2));
-
-% Transistor 3
-Theoretical_3.V_b = Exp_Q3.V_b(34:89);
-fit = polyfit(Theoretical_3.V_b,log(Exp_Q3.I_c(34:89)),1);
-line = exp(fit(1) * x + fit(2));
-Q3_U_T = 1/(fit(1));
-Q3_I_s = exp(fit(2));
-
-% Transistor 4
-Theoretical_4.V_b = Exp_Q4.V_b(34:89);
-fit = polyfit(Theoretical_4.V_b,log(Exp_Q4.I_c(34:89)),1);
-line = exp(fit(1) * x + fit(2));
-Q4_U_T = 1/(fit(1));
-Q4_I_s = exp(fit(2));
-
-
 figure
 semilogy(Exp_Q1.V_b,Exp_Q1.I_c,'r*')
 hold on
@@ -100,24 +70,6 @@ legend('Percentage difference for Q1 Collector Current',...
     'Percentage difference for Q2 Collector Current',...
     'Percentage difference for Q3 Collector Current',...
     'Percentage difference for Q4 Collector Current',...
-    'Location','Southeast')
-grid on
-hold off
-
-figure
-semilogx(Exp_Q1.I_b,Exp_Q1.I_c./Exp_Q1.I_b,'r*')
-hold on
-semilogx(Exp_Q2.I_b,Exp_Q2.I_c./Exp_Q2.I_b,'g*')
-semilogx(Exp_Q3.I_b,Exp_Q3.I_c./Exp_Q3.I_b,'b*')
-semilogx(Exp_Q4.I_b,Exp_Q4.I_c./Exp_Q4.I_b,'k*')
-title('\beta Forward Current Gain')
-xlabel('Base Current [A]')
-ylabel('\beta')
-axis([10e-10 10e-3 0 200])
-legend('Experimental \beta of Transistor 1 (Pins 1,2,15,16)',...
-    'Experimental \beta of Transistor 2 (Pins 3,4,13,14)',...
-    'Experimental \beta of Transistor 3 (Pins 5,6,11,12)',...
-    'Experimental \beta of Transistor 4 (Pins 7,8,9,10)',...
     'Location','Southeast')
 grid on
 hold off

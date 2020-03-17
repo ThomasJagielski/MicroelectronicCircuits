@@ -27,36 +27,6 @@ Exp_Q4.I_e = (-1)*fliplr(Exp_Q4.I_e);
 Exp_Q4.V_b = fliplr(Exp_Q4.V_in);
 Exp_Q4.I_c = Exp_Q4.I_e - Exp_Q4.I_b;
 
-% Transistor 1
-Theoretical_1.V_b = Exp_Q1.V_b(34:89);
-x = linspace(0.3, 0.8, 100);
-fit = polyfit(Theoretical_1.V_b,log(Exp_Q1.I_c(34:89)),1);
-line = exp(fit(1) * x + fit(2));
-Q1_U_T = 1/(fit(1));
-Q1_I_s = exp(fit(2));
-
-% Transistor 2
-Theoretical_2.V_b = Exp_Q2.V_b(34:89);
-fit = polyfit(Theoretical_2.V_b,log(Exp_Q2.I_c(34:89)),1);
-line = exp(fit(1) * x + fit(2));
-Q2_U_T = 1/(fit(1));
-Q2_I_s = exp(fit(2));
-
-% Transistor 3
-Theoretical_3.V_b = Exp_Q3.V_b(34:89);
-fit = polyfit(Theoretical_3.V_b,log(Exp_Q3.I_c(34:89)),1);
-line = exp(fit(1) * x + fit(2));
-Q3_U_T = 1/(fit(1));
-Q3_I_s = exp(fit(2));
-
-% Transistor 4
-Theoretical_4.V_b = Exp_Q4.V_b(34:89);
-fit = polyfit(Theoretical_4.V_b,log(Exp_Q4.I_c(34:89)),1);
-line = exp(fit(1) * x + fit(2));
-Q4_U_T = 1/(fit(1));
-Q4_I_s = exp(fit(2));
-
-
 figure
 semilogy(Exp_Q1.V_b,Exp_Q1.I_c,'r*')
 hold on
@@ -78,49 +48,7 @@ grid on
 hold off
 
 % Percentage difference calculations
-MeanI_c = (Exp_Q1.I_c + Exp_Q2.I_c + Exp_Q3.I_c + Exp_Q4.I_c)/4;
-DiffQ1I_c = abs(Exp_Q1.I_c - MeanI_c)*100./Exp_Q1.I_c; 
-DiffQ2I_c = abs(Exp_Q2.I_c - MeanI_c)*100./Exp_Q2.I_c; 
-DiffQ3I_c = abs(Exp_Q3.I_c - MeanI_c)*100./Exp_Q3.I_c; 
-DiffQ4I_c = abs(Exp_Q4.I_c - MeanI_c)*100./Exp_Q4.I_c; 
-
-figure
-plot(Exp_Q1.V_b,DiffQ1I_c,'r*')
-hold on
-plot(Exp_Q2.V_b,DiffQ2I_c,'g*')
-plot(Exp_Q3.V_b,DiffQ3I_c,'b*')
-plot(Exp_Q4.V_b,DiffQ4I_c,'k*')
-%semilogy(Experiment_1.Vb,Experiment_1.Ib,'m*')
-%semilogy(Experiment_1.Vb,Theoretical_1.Ic,'r-')
-%semilogy(Experiment_1.Vb,Theoretical_1.Ib,'g-')
-title('Percentage difference between each transistor’s collector current and the mean value of all four collector currents as a function of base voltage')
-xlabel('Base Voltage [V]')
-ylabel('Percentage Difference [%]')
-legend('Percentage difference for Q1 Collector Current',...
-    'Percentage difference for Q2 Collector Current',...
-    'Percentage difference for Q3 Collector Current',...
-    'Percentage difference for Q4 Collector Current',...
-    'Location','Southeast')
-grid on
-hold off
-
-figure
-semilogx(Exp_Q1.I_b,Exp_Q1.I_c./Exp_Q1.I_b,'r*')
-hold on
-semilogx(Exp_Q2.I_b,Exp_Q2.I_c./Exp_Q2.I_b,'g*')
-semilogx(Exp_Q3.I_b,Exp_Q3.I_c./Exp_Q3.I_b,'b*')
-semilogx(Exp_Q4.I_b,Exp_Q4.I_c./Exp_Q4.I_b,'k*')
-title('\beta Forward Current Gain')
-xlabel('Base Current [A]')
-ylabel('\beta')
-axis([10e-10 10e-3 0 200])
-legend('Experimental \beta of Transistor 1 (Pins 1,2,15,16)',...
-    'Experimental \beta of Transistor 2 (Pins 3,4,13,14)',...
-    'Experimental \beta of Transistor 3 (Pins 5,6,11,12)',...
-    'Experimental \beta of Transistor 4 (Pins 7,8,9,10)',...
-    'Location','Southeast')
-grid on
-hold off
+MeanI_C = (
 
 %% Experiment 2
 % Part A
