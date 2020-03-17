@@ -122,6 +122,14 @@ legend('Experimental \beta of Transistor 1 (Pins 1,2,15,16)',...
 grid on
 hold off
 
+Q1_beta = Exp_Q1.I_c./Exp_Q1.I_b;
+Q1_beta = mean(Q1_beta(62:90))
+Q2_beta = Exp_Q2.I_c./Exp_Q2.I_b;
+Q2_beta = mean(Q2_beta(62:90))
+Q3_beta = Exp_Q3.I_c./Exp_Q3.I_b;
+Q3_beta = mean(Q3_beta(62:90))
+Q4_beta = Exp_Q4.I_c./Exp_Q4.I_b;
+Q4_beta = mean(Q4_beta(62:90))
 %% Experiment 2
 % Part A
 Exp_2a_2k = load('Exp_2a_2k.mat');
