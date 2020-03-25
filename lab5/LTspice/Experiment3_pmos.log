@@ -1,0 +1,23 @@
+Circuit: * C:\Users\sbansal\Desktop\Circuits\MicroelectronicCircuits\lab5\LTspice\Experiment3_pmos.asc
+
+WARNING: Node $G_VDD is floating.
+
+WARNING: Less than two connections to node $G_VDD.  This node is used by M:U1:P1.
+
+Date: Thu Mar 26 00:22:41 2020
+Total elapsed time: 0.077 seconds.
+
+tnom = 27
+temp = 27
+method = trap
+totiter = 1024
+traniter = 0
+tranpoints = 0
+accept = 0
+rejected = 0
+matrix size = 7
+fillins = 0
+solver = Normal
+Matrix Compiler1:      21 opcodes  0.1/[0.0]/0.0
+Matrix Compiler2:      43 opcodes  0.0/[0.0]/0.0
+
