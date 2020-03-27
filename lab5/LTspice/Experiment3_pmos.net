@@ -1,9 +1,0 @@
-* C:\Users\sbansal\Desktop\Circuits\MicroelectronicCircuits\lab5\LTspice\Experiment3_pmos.asc
-Vdd N001 0 5
-VG N002 0 0
-XU1 P001 N002 N001 pmos3
-Vin P001 0 1
-.dc Vin 0 5 0.01
-.include engr2420.sub
-.backanno
-.end
