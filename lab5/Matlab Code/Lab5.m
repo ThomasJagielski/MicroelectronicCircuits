@@ -158,7 +158,89 @@ hold off
 [ex3_nmos_MI.Vg,ex3_nmos_MI.I] = importSimulationData('Experiment3_nmos_mi.txt', [1, Inf]);
 [ex3_nmos_SI.Vg,ex3_nmos_SI.I] = importSimulationData('Experiment3_nmos_si.txt', [1, Inf]);
 
+figure
+semilogy(ex3_nmos_WI.Vg,ex3_nmos_WI.I,'.')
+hold on
+semilogy(ex3_nmos_MI.Vg,ex3_nmos_MI.I,'.')
+semilogy(ex3_nmos_SI.Vg,ex3_nmos_SI.I,'.')
+title('NMOS Current-Source Voltage Characteristics')
+xlabel('Source Voltage [V]')
+ylabel('Current Through Transistor [A]')
+%legend()
+%hold off
+
+fit_nmos_WI = polyfit(ex3_nmos_WI.Vg(35:end),log(ex3_nmos_WI.I(35:end)),1);
+line_nmos_WI = exp(fit_nmos_WI(1) * ex3_nmos_WI.Vg(1:end) + fit_nmos_WI(2));
+slope_nmos_WI = fit_nmos_WI(1);
+intercept_nmos_WI = fit_nmos_WI(2);
+
+fit_nmos_MI = polyfit(ex3_nmos_MI.Vg(35:end),log(ex3_nmos_MI.I(35:end)),1);
+line_nmos_MI = exp(fit_nmos_MI(1) * ex3_nmos_MI.Vg(1:end) + fit_nmos_MI(2));
+slope_nmos_MI = fit_nmos_MI(1);
+intercept_nmos_MI = fit_nmos_MI(2);
+
+fit_nmos_SI = polyfit(ex3_nmos_SI.Vg(205:end),log(ex3_nmos_SI.I(205:end)),1);
+line_nmos_SI = exp(fit_nmos_SI(1) * ex3_nmos_SI.Vg(1:end) + fit_nmos_SI(2));
+slope_nmos_SI = fit_nmos_SI(1);
+intercept_nmos_SI = fit_nmos_SI(2);
+
+ex3_nmos_WI.ro = 1/(slope_nmos_WI);
+ex3_nmos_MI.ro = 1/slope_nmos_MI;
+ex3_nmos_SI.ro = 1/slope_nmos_SI;
+
+ex3_nmos_WI.Isat = exp(intercept_nmos_WI);
+ex3_nmos_MI.Isat = exp(intercept_nmos_MI);
+ex3_nmos_SI.Isat = exp(intercept_nmos_SI);
+
+ex3_nmos_WI.VA = ex3_nmos_WI.ro*ex3_nmos_WI.Isat;
+ex3_nmos_MI.VA = ex3_nmos_MI.ro*ex3_nmos_MI.Isat;
+ex3_nmos_SI.VA = ex3_nmos_SI.ro*ex3_nmos_SI.Isat;
+
+%semilogy(ex3_nmos_WI.Vg(1:end),line_nmos_WI,'g');
+%semilogy(ex3_nmos_MI.Vg(1:end),line_nmos_MI,'g');
+%semilogy(ex3_nmos_SI.Vg(1:end),line_nmos_SI,'g');
+hold off
+
+
+
 % PMOS Transistors
 [ex3_pmos_WI.Vg,ex3_pmos_WI.I] = importSimulationData('Experiment3_pmos_wi.txt', [1, Inf]);
 [ex3_pmos_MI.Vg,ex3_pmos_MI.I] = importSimulationData('Experiment3_pmos_mi.txt', [1, Inf]);
 [ex3_pmos_SI.Vg,ex3_pmos_SI.I] = importSimulationData('Experiment3_pmos_si.txt', [1, Inf]);
+
+ex3_pmos_WI.Vg = 5 - ex3_pmos_WI.Vg;
+ex3_pmos_MI.Vg = 5 - ex3_pmos_MI.Vg;
+ex3_pmos_SI.Vg = 5 - ex3_pmos_SI.Vg;
+
+figure
+semilogy(ex3_pmos_WI.Vg,ex3_pmos_WI.I,'.')
+hold on
+semilogy(ex3_pmos_MI.Vg,ex3_pmos_MI.I,'.')
+semilogy(ex3_pmos_SI.Vg,ex3_pmos_SI.I,'.')
+title('PMOS Current-Source Voltage Characteristics')
+xlabel('Source Voltage [V]')
+ylabel('Current Through Transistor [A]')
+axis([0 5 10e-7 10e-4])
+%legend()
+%hold off
+
+fit_pmos_WI = polyfit(ex3_pmos_WI.Vg(300:end),log(ex3_pmos_WI.I(1:end-299)),1);
+line_pmos_WI = exp(fit_pmos_WI(1) * ex3_pmos_WI.Vg(1:end) + fit_pmos_WI(2));
+slope_pmos_WI = fit_pmos_WI(1);
+intercept_pmos_WI = fit_pmos_WI(2);
+
+fit_pmos_MI = polyfit(ex3_pmos_MI.Vg(1:400),log(ex3_pmos_MI.I(1:400)),1);
+line_pmos_MI = exp(fit_pmos_MI(1) * ex3_pmos_MI.Vg(1:end) + fit_pmos_MI(2));
+slope_pmos_MI = fit_pmos_MI(1);
+intercept_pmos_MI = fit_pmos_MI(2);
+
+fit_pmos_SI = polyfit(ex3_pmos_SI.Vg(200:end),log(ex3_pmos_SI.I(1:end-199)),1);
+line_pmos_SI = exp(fit_pmos_SI(1) * ex3_pmos_SI.Vg(1:end) + fit_pmos_SI(2));
+slope_pmos_SI = fit_pmos_SI(1);
+intercept_pmos_SI = fit_pmos_SI(2);
+
+semilogy(ex3_pmos_WI.Vg(1:end),line_pmos_WI,'g');
+semilogy(ex3_pmos_MI.Vg(1:end),line_pmos_MI,'g');
+semilogy(ex3_pmos_SI.Vg(1:end),line_pmos_SI,'g');
+hold off
+
