@@ -35,14 +35,13 @@ xlabel('Current Through Transistor [A]')
 ylabel('Incremental Transconductance Gain [S = A/V]')
 legend('Simulated Results','Theoretical Results')
 hold off
-%%
+
 % PMOS TRANSISTOR
 [ex1_pmos.Vin,ex1_pmos.I] = importSimulationData('Experiment1_pmos.txt', [1, Inf]);
 ex1_pmos.Vin_adj = Vdd-ex1_pmos.Vin([1:5:387,390:end]);
 ex1_pmos.I_adj = ex1_pmos.I([1:5:387,390:end]);
 [ex1_pmos.Is, ex1_pmos.VT, ex1_pmos.kappa] = ekvfit(ex1_pmos.Vin_adj, ex1_pmos.I_adj, epsilon);
 
-%ex1_pmos.Ut = 0.0416;
 % MAKE PLOT OF EKV FIT
 ex1_pmos.I_theo = ex1_pmos.Is * (log(1 + exp(ex1_pmos.kappa*((Vdd-ex1_pmos.Vin) - ex1_pmos.VT)/(2*0.0258)))).^2;
 figure
@@ -58,7 +57,8 @@ hold off
 ex1_pmos.gm = diff(ex1_pmos.I)./diff(Vdd-ex1_pmos.Vin);
 
 %NEED TO FIND Ut
-ex1_nmos.Ut = 0.0256;
+ex1_pmos.Ut = 0.0256;
+%ex1_pmos.Ut = 0.0416;
 ex1_pmos.gm_theo = ex1_pmos.kappa*((sqrt(ex1_pmos.Is.*ex1_pmos.I)/ex1_pmos.Ut).*(1-(exp(-sqrt(ex1_pmos.I/ex1_pmos.Is)))));
 
 figure
@@ -94,6 +94,25 @@ Ut_nmos = -1/fit(1);
 semilogy(ex2_nmos.Vin(330:380),line)
 hold off
 
+
+ex2_nmos.gm = abs(diff(ex2_nmos.I)./diff(ex2_nmos.Vin));
+
+%NEED TO FIND Ut
+ex2_nmos.Ut = 0.0286;   % Extracted
+%ex1_nmos.Ut = 0.0256;
+ex2_nmos.gm_theo = ((sqrt(ex1_nmos.Is.*ex2_nmos.I)/ex2_nmos.Ut).*(1-(exp(-sqrt(ex2_nmos.I/ex1_nmos.Is)))));
+
+figure
+loglog(ex2_nmos.I(2:end),ex2_nmos.gm,'.')
+hold on
+loglog(ex2_nmos.I,ex2_nmos.gm_theo)
+title('Incremental Transconductance Gain of NMOS Transistor')
+xlabel('Current Through Transistor [A]')
+ylabel('Incremental Source Conductance [S = A/V]')
+legend('Simulated Results','Theoretical Results')
+hold off
+
+% PMOS Transistor
 [ex2_pmos.Vin,ex2_pmos.I] = importSimulationData('Experiment2_pmos.txt', [1, Inf]);
 
 figure
@@ -114,7 +133,23 @@ intercept = fit(2);
 
 Ut_pmos = 1/fit(1);
 semilogy(ex2_pmos.Vin(20:80),line);
+hold off
 
+ex2_pmos.gm = (diff(ex2_pmos.I)./diff(ex2_pmos.Vin));
+
+%NEED TO FIND Ut
+%ex2_pmos.Ut = 0.0416;   % Extracted
+ex2_pmos.Ut = 0.0256;
+ex2_pmos.gm_theo = ((sqrt(ex1_pmos.Is.*ex2_pmos.I)/ex2_pmos.Ut).*(1-(exp(-sqrt(ex2_pmos.I/ex1_pmos.Is)))));
+
+figure
+loglog(ex2_pmos.I(2:end),ex2_pmos.gm,'.')
+hold on
+loglog(ex2_pmos.I,ex2_pmos.gm_theo)
+title('Incremental Transconductance Gain of PMOS Transistor')
+xlabel('Current Through Transistor [A]')
+ylabel('Incremental Source Conductance Gain [S = A/V]')
+legend('Simulated Results','Theoretical Results')
 hold off
 
 %% Experiment 3
