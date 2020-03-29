@@ -179,7 +179,7 @@ hold on
 loglog(ex2_nmos.I,ex2_nmos.gm_theo)
 loglog(ex2_pmos.I(2:end),ex2_pmos.gm,'.')
 loglog(ex2_pmos.I,ex2_pmos.gm_theo)
-title('Incremental Transconductance Gain of MOS Transistors')
+title('Incremental Source Conductance Gain of MOS Transistors')
 xlabel('Current Through Transistor [A]')
 ylabel('Incremental Source Conductance Gain [S = A/V]')
 legend('Simulated Results for NMOS Transistor','Theoretical Results for NMOS Transistor',...
@@ -356,10 +356,10 @@ hold off
 
 
 figure
-semilogx(nmos_Isat,nmos_early_voltage,'.')
+semilogx(nmos_Isat,nmos_early_voltage,'o')
 hold on
 semilogx(nmos_Isat_theo,nmos_line_early_voltage)
-semilogx(pmos_Isat,pmos_early_voltage,'g.')
+semilogx(pmos_Isat,pmos_early_voltage,'go')
 semilogx(pmos_Isat_theo,pmos_line_early_voltage)
 title('Early Voltage with respect to Saturation Current for MOS Transistors')
 xlabel('Saturation Current [A]')
@@ -465,7 +465,7 @@ loglog(ex3_pmos_Isat,ex3_pmos_intrinsic_gain,'o')
 title('Intrinsic Gain of NMOS Transistor')
 xlabel('Saturation Current [A]')
 % ADD UNITS
-ylabel('Intrinsic Gain')
+ylabel('Intrinsic Gain [A^{2}/V^{2}]')
 legend('NMOS Intrinsic Gain','PMOS Intrinsic Gain')
 hold off
 
