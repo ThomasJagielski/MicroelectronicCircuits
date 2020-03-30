@@ -198,15 +198,10 @@ hold on
 loglog(ex2_nmos.I,ex2_nmos.gm_theo_WI)
 loglog(ex2_nmos.I,ex2_nmos.gm_theo_SI)
 loglog(ex2_pmos.I(2:end),ex2_pmos.gm,'.')
-<<<<<<< HEAD:lab5/Matlab Code/Lab5_Thomas.m
 %loglog(ex2_pmos.I,ex2_pmos.gm_theo)
 loglog(ex2_pmos.I,ex2_pmos.gm_theo_WI)
 loglog(ex2_pmos.I,ex2_pmos.gm_theo_SI)
 title('Incremental Source Conductance of MOS Transistors')
-=======
-loglog(ex2_pmos.I,ex2_pmos.gm_theo)
-title('Incremental Source Conductance Gain of MOS Transistors')
->>>>>>> 5cea18dc2e4d15b3be6f20a76e2fd6f2d24c6dc0:lab5/Matlab Code/Lab5.m
 xlabel('Current Through Transistor [A]')
 ylabel('Incremental Source Conductance Gain [S = A/V]')
 %legend('Simulated Results for NMOS Transistor','Theoretical Results for NMOS Transistor',...
@@ -489,7 +484,7 @@ loglog(ex3_pmos_Isat,ex3_pmos_intrinsic_gain,'o')
 title('Intrinsic Gain of MOS Transistor')
 xlabel('Saturation Current [A]')
 % ADD UNITS
-ylabel('Intrinsic Gain [A^{2}/V^{2}]')
+ylabel('Intrinsic Gain')
 legend('NMOS Intrinsic Gain','PMOS Intrinsic Gain')
 hold off
 
