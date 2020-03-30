@@ -24,17 +24,19 @@ ex1_nmos.gm = diff(ex1_nmos.I)./diff(ex1_nmos.Vin);
 %NEED TO FIND Ut
 ex1_nmos.Ut = 0.0286;   % Extracted
 %ex1_nmos.Ut = 0.0256;
-ex1_nmos.gm_theo = ex1_nmos.kappa*((sqrt(ex1_nmos.Is.*ex1_nmos.I)/ex1_nmos.Ut).*(1-(exp(-sqrt(ex1_nmos.I/ex1_nmos.Is)))));
+%ex1_nmos.gm_theo = ex1_nmos.kappa*((sqrt(ex1_nmos.Is.*ex1_nmos.I)/ex1_nmos.Ut).*(1-(exp(-sqrt(ex1_nmos.I/ex1_nmos.Is)))));
+ex1_nmos.gm_theo_WI = ex1_nmos.kappa * (ex1_nmos.I./ex1_nmos.Ut);
+ex1_nmos.gm_theo_SI = ex1_nmos.kappa * ((sqrt(ex1_nmos.Is.*ex1_nmos.I)/ex1_nmos.Ut));
 
-figure
-loglog(ex1_nmos.I(2:end),ex1_nmos.gm,'.')
-hold on
-loglog(ex1_nmos.I,ex1_nmos.gm_theo)
-title('Incremental Transconductance Gain of NMOS Transistor')
-xlabel('Current Through Transistor [A]')
-ylabel('Incremental Transconductance Gain [S = A/V]')
-legend('Simulated Results','Theoretical Results')
-hold off
+%figure
+%loglog(ex1_nmos.I(2:end),ex1_nmos.gm,'.')
+%hold on
+%loglog(ex1_nmos.I,ex1_nmos.gm_theo)
+%title('Incremental Transconductance Gain of NMOS Transistor')
+%xlabel('Current Through Transistor [A]')
+%ylabel('Incremental Transconductance Gain [S = A/V]')
+%legend('Simulated Results','Theoretical Results')
+%hold off
 
 % PMOS TRANSISTOR
 [ex1_pmos.Vin,ex1_pmos.I] = importSimulationData('Experiment1_pmos.txt', [1, Inf]);
@@ -57,19 +59,21 @@ hold off
 ex1_pmos.gm = diff(ex1_pmos.I)./diff(Vdd-ex1_pmos.Vin);
 
 %NEED TO FIND Ut
-ex1_pmos.Ut = 0.0256;
-%ex1_pmos.Ut = 0.0416;
-ex1_pmos.gm_theo = ex1_pmos.kappa*((sqrt(ex1_pmos.Is.*ex1_pmos.I)/ex1_pmos.Ut).*(1-(exp(-sqrt(ex1_pmos.I/ex1_pmos.Is)))));
+%ex1_pmos.Ut = 0.0232; % Extracted
+ex1_pmos.Ut = 0.0295; % Extracted
+%ex1_pmos.gm_theo = ex1_pmos.kappa*((sqrt(ex1_pmos.Is.*ex1_pmos.I)/ex1_pmos.Ut).*(1-(exp(-sqrt(ex1_pmos.I/ex1_pmos.Is)))));
+ex1_pmos.gm_theo_WI = ex1_pmos.kappa * (ex1_pmos.I./ex1_pmos.Ut);
+ex1_pmos.gm_theo_SI = ex1_pmos.kappa *(sqrt(ex1_pmos.Is.*ex1_pmos.I)/ex1_pmos.Ut);
 
-figure
-loglog(ex1_pmos.I(2:end),ex1_pmos.gm,'.')
-hold on
-loglog(ex1_pmos.I,ex1_pmos.gm_theo)
-title('Incremental Transconductance Gain of PMOS Transistor')
-xlabel('Current Through Transistor [A]')
-ylabel('Incremental Transconductance Gain [S = A/V]')
-legend('Simulated Results','Theoretical Results')
-hold off
+%figure
+%loglog(ex1_pmos.I(2:end),ex1_pmos.gm,'.')
+%hold on
+%loglog(ex1_pmos.I,ex1_pmos.gm_theo)
+%title('Incremental Transconductance Gain of PMOS Transistor')
+%xlabel('Current Through Transistor [A]')
+%ylabel('Incremental Transconductance Gain [S = A/V]')
+%legend('Simulated Results','Theoretical Results')
+%hold off
 
 % Experiment 1 Plots
 figure
@@ -90,14 +94,18 @@ hold off
 figure
 loglog(ex1_nmos.I(2:end),ex1_nmos.gm,'.')
 hold on
-loglog(ex1_nmos.I,ex1_nmos.gm_theo)
+%loglog(ex1_nmos.I,ex1_nmos.gm_theo)
+loglog(ex1_nmos.I,ex1_nmos.gm_theo_WI)
+loglog(ex1_nmos.I,ex1_nmos.gm_theo_SI)
 loglog(ex1_pmos.I(2:end),ex1_pmos.gm,'.')
-loglog(ex1_pmos.I,ex1_pmos.gm_theo)
+%loglog(ex1_pmos.I,ex1_pmos.gm_theo)
+loglog(ex1_pmos.I,ex1_pmos.gm_theo_WI)
+loglog(ex1_pmos.I,ex1_pmos.gm_theo_SI)
 title('Incremental Transconductance Gain of MOS Transistors')
 xlabel('Current Through Transistor [A]')
 ylabel('Incremental Transconductance Gain [S = A/V]')
-legend('Simulated Results for NMOS Transistor','Theoretical Results for NMOS Transistor',...
-    'Simulated Results for PMOS Transistor','Theoretical Results for PMOS Transistor',...
+legend('Simulated Results for NMOS Transistor','Theoretical NMOS Weak Inversion Fit','Theoretical NMOS Strong Inversion Fit',...
+    'Simulated Results for PMOS Transistor','Theoretical PMOS Weak Inversion Fit','Theoretical PMOS Strong Inversion Fit',...
     'Location','Southeast')
 hold off
 
@@ -106,7 +114,7 @@ hold off
 [ex2_nmos.Vin,ex2_nmos.I] = importSimulationData('Experiment2_nmos.txt', [1, Inf]);
 
 % FIND Ut
-fit = polyfit(ex2_nmos.Vin(341:367),log(ex2_nmos.I(341:367)),1);
+fit = polyfit(ex2_nmos.Vin(341:370),log(ex2_nmos.I(341:370)),1);
 %line = exp((fit(1))*log(ex1_nmos.I) + ((fit(2))));
 line = exp(fit(1) * ex2_nmos.Vin + fit(2));
 slope = fit(1);
@@ -129,9 +137,12 @@ hold off
 ex2_nmos.gm = abs(diff(ex2_nmos.I)./diff(ex2_nmos.Vin));
 
 %NEED TO FIND Ut
-ex2_nmos.Ut = 0.0286;   % Extracted
+%ex2_nmos.Ut = 0.0286;   % Extracted
+ex2_nmos.Ut = Ut_nmos;
 %ex1_nmos.Ut = 0.0256;
-ex2_nmos.gm_theo = ((sqrt(ex1_nmos.Is.*ex2_nmos.I)/ex2_nmos.Ut).*(1-(exp(-sqrt(ex2_nmos.I/ex1_nmos.Is)))));
+%ex2_nmos.gm_theo = ((sqrt(ex1_nmos.Is.*ex2_nmos.I)/ex2_nmos.Ut).*(1-(exp(-sqrt(ex2_nmos.I/ex1_nmos.Is)))));
+ex2_nmos.gm_theo_WI = (ex2_nmos.I./ex2_nmos.Ut);
+ex2_nmos.gm_theo_SI = (sqrt(ex1_nmos.Is.*ex2_nmos.I)./ex2_nmos.Ut);
 
 %figure
 %loglog(ex2_nmos.I(2:end),ex2_nmos.gm,'.')
@@ -144,15 +155,18 @@ ex2_nmos.gm_theo = ((sqrt(ex1_nmos.Is.*ex2_nmos.I)/ex2_nmos.Ut).*(1-(exp(-sqrt(e
 %hold off
 
 % PMOS Transistor
-[ex2_pmos.Vin,ex2_pmos.I] = importSimulationData('Experiment2_pmos.txt', [1, Inf]);
+[ex2_pmos.Vin,ex2_pmos.I] = importSimulationData('Experiment2_pmos_new.txt', [1, Inf]);
+
+ex2_pmos.Vin = Vdd - ex2_pmos.Vin;
 
 % FIND Ut
-fit = polyfit(ex2_pmos.Vin(35:65),log(ex2_pmos.I(35:65)),1);
+fit = polyfit(ex2_pmos.Vin(94:126),log(ex2_pmos.I(94:126)),1);
 %line = exp((fit(1))*log(ex1_nmos.I) + ((fit(2))));
 line = exp(fit(1) * ex2_pmos.Vin + fit(2));
 slope = fit(1);
 intercept = fit(2);
-Ut_pmos = 1/fit(1);
+%Ut_pmos = 1/fit(1);
+Ut_pmos = -1/fit(1);
 
 figure
 semilogy(ex2_pmos.Vin,ex2_pmos.I,'.')
@@ -163,27 +177,38 @@ xlabel('Source Voltage [V]')
 ylabel('Current Through Transistor [A]')
 semilogy(ex2_pmos.Vin,line);
 legend('Simualted Results','Line of Best Fit for Weak Inversion Region',...
-    'Location','Southeast')
+    'Location','Southwest')
 hold off
 
-ex2_pmos.gm = (diff(ex2_pmos.I)./diff(ex2_pmos.Vin));
+ex2_pmos.gm = abs(diff(ex2_pmos.I)./diff(ex2_pmos.Vin));
 
 %NEED TO FIND Ut
 %ex2_pmos.Ut = 0.0416;   % Extracted
-ex2_pmos.Ut = 0.0256;
-ex2_pmos.gm_theo = ((sqrt(ex1_pmos.Is.*ex2_pmos.I)/ex2_pmos.Ut).*(1-(exp(-sqrt(ex2_pmos.I/ex1_pmos.Is)))));
+ex2_pmos.Ut = Ut_pmos;
+%ex2_pmos.Ut = 0.0286;
+%ex2_pmos.gm_theo = ((sqrt(ex1_pmos.Is.*ex2_pmos.I)/ex2_pmos.Ut).*(1-(exp(-sqrt(ex2_pmos.I/ex1_pmos.Is)))));
+ex2_pmos.gm_theo_WI = (ex2_pmos.I./ex2_pmos.Ut);
+ex2_pmos.gm_theo_SI = (sqrt(ex1_pmos.Is.*ex2_pmos.I)./ex2_pmos.Ut);
+
 
 figure
 loglog(ex2_nmos.I(2:end),ex2_nmos.gm,'.')
 hold on
-loglog(ex2_nmos.I,ex2_nmos.gm_theo)
+%loglog(ex2_nmos.I,ex2_nmos.gm_theo)
+loglog(ex2_nmos.I,ex2_nmos.gm_theo_WI)
+loglog(ex2_nmos.I,ex2_nmos.gm_theo_SI)
 loglog(ex2_pmos.I(2:end),ex2_pmos.gm,'.')
-loglog(ex2_pmos.I,ex2_pmos.gm_theo)
-title('Incremental Transconductance Gain of MOS Transistors')
+%loglog(ex2_pmos.I,ex2_pmos.gm_theo)
+loglog(ex2_pmos.I,ex2_pmos.gm_theo_WI)
+loglog(ex2_pmos.I,ex2_pmos.gm_theo_SI)
+title('Incremental Source Conductance of MOS Transistors')
 xlabel('Current Through Transistor [A]')
 ylabel('Incremental Source Conductance Gain [S = A/V]')
-legend('Simulated Results for NMOS Transistor','Theoretical Results for NMOS Transistor',...
-    'Simulated Results for PMOS Transistor','Theoretical Results for PMOS Transistor',...
+%legend('Simulated Results for NMOS Transistor','Theoretical Results for NMOS Transistor',...
+%    'Simulated Results for PMOS Transistor','Theoretical Results for PMOS Transistor',...
+%    'Location','Southeast')
+legend('Simulated Results for NMOS Transistor','Theoretical NMOS Weak Inversion Fit','Theoretical NMOS Strong Inversion Fit',...
+    'Simulated Results for PMOS Transistor','Theoretical PMOS Weak Inversion Fit','Theoretical PMOS Strong Inversion Fit',...
     'Location','Southeast')
 hold off
 
@@ -356,10 +381,10 @@ hold off
 
 
 figure
-semilogx(nmos_Isat,nmos_early_voltage,'.')
+semilogx(nmos_Isat,nmos_early_voltage,'o')
 hold on
 semilogx(nmos_Isat_theo,nmos_line_early_voltage)
-semilogx(pmos_Isat,pmos_early_voltage,'g.')
+semilogx(pmos_Isat,pmos_early_voltage,'go')
 semilogx(pmos_Isat_theo,pmos_line_early_voltage)
 title('Early Voltage with respect to Saturation Current for MOS Transistors')
 xlabel('Saturation Current [A]')
@@ -368,12 +393,6 @@ legend('Extracted Points For NMOS Transistor','Line of Best Fit for NMOS Transis
     'Extracted Points For PMOS Transistor','Line of Best Fit for PMOS Transistor',...
     'Location','Southeast')
 hold off
-
-
-%%
-
-
-
 
 
 % Intrinsic Gain of NMOS
@@ -462,7 +481,7 @@ figure
 loglog(ex3_nmos_Isat,ex3_nmos_intrinsic_gain,'o')
 hold on
 loglog(ex3_pmos_Isat,ex3_pmos_intrinsic_gain,'o')
-title('Intrinsic Gain of NMOS Transistor')
+title('Intrinsic Gain of MOS Transistor')
 xlabel('Saturation Current [A]')
 % ADD UNITS
 ylabel('Intrinsic Gain')
