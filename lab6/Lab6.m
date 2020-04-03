@@ -134,16 +134,17 @@ Q2_drain_slope = (Q2_drain_line(70)-Q2_drain_line(20))/(I_in(70)-I_in(20));
 Q2_drain_intercept = exp(Q2_drain_fit(2));
 
 figure
-loglog(exp3_a.I_in,exp3_a.Q1_drain,'.')
+loglog(I_in,Q1_drain_line, 'r')
 hold on
-plot(I_in,Q1_drain_line)
-loglog(exp3_a.I_in,exp3_a.Q2_drain,'.')
-plot(I_in,Q2_drain_line)
+loglog(exp3_a.I_in,exp3_a.Q1_drain,'k.', 'MarkerSize',12)
+loglog(I_in,Q2_drain_line, 'g')
+loglog(exp3_a.I_in,exp3_a.Q2_drain,'b.', 'MarkerSize',12)
+
 title('Current Divider Current Sink')
 xlabel('I_{in} [A]')
 ylabel('I_{out} [A]')
-legend('U1 Experimental Drain','U1 Line of Best Fit (Slope = 0.6326)',...
-    'U2 Experimental Drain','U2 Line of Best Fit (Slope = 0.3676)',...
+legend('U1 Line of Best Fit (Slope = 0.6326)','U1 Experimental Drain',...
+    'U2 Line of Best Fit (Slope = 0.3676)','U2 Experimental Drain',...
     'Location','Southeast')
 hold off
 
@@ -167,15 +168,15 @@ I_out2_slope = (I_out2_line(70)-I_out2_line(20))/(I_in(70)-I_in(20));
 I_out2_intercept = exp(I_out2_fit(2));
 
 figure
-loglog(exp3_b.I_in,exp3_b.I_out1,'.')
+loglog(I_in,I_out1_line, 'r')
 hold on
-plot(I_in,I_out1_line)
-loglog(exp3_b.I_in,exp3_b.I_out2,'.')
-plot(I_in,I_out2_line)
+loglog(exp3_b.I_in,exp3_b.I_out1,'k.', 'MarkerSize',12)
+loglog(I_in,I_out2_line, 'g')
+loglog(exp3_b.I_in,exp3_b.I_out2,'b.', 'MarkerSize',12)
 title('Current Divider Current Source')
 xlabel('I_{in} [A]')
 ylabel('I_{out} [A]')
-legend('I_{out1} Experimental Data','I_{out1} Line of Best Fit (Slope = 0.6443)',...
-    'I_{out2} Experimental Data','I_{out2} Line of Best Fit (Slope = 0.3558)',...
+legend('I_{out1} Line of Best Fit (Slope = 0.6443)','I_{out1} Experimental Data',...
+    'I_{out2} Line of Best Fit (Slope = 0.3558)','I_{out2} Experimental Data',...
     'Location','Southeast')
 hold off
