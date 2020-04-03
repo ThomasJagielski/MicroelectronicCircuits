@@ -89,8 +89,28 @@ hold off
 
 % Plotting the ratio
 Exp2.Iohmic_par_ind_ratio = Exp2.Iohmic_par./Exp2.Iohmic;
-Exp2.Iohmic_par_ind_ratio = Exp2.Iohmic_par./Exp2.Iohmic;
+Exp2.Iohmic_ser_ind_ratio = Exp2.Iohmic_ser./Exp2.Iohmic;
+Exp2.Isat_par_ind_ratio = Exp2.Isat_par./Exp2.Isat;
+Exp2.Isat_ser_ind_ratio = Exp2.Isat_ser./Exp2.Isat;
+
 figure
 semilogy(Exp2.Vg, Exp2.Iohmic_par_ind_ratio, 'b.')
+hold on
+semilogy(Exp2.Vg, Exp2.Isat_par_ind_ratio, 'r.')
+title('Ratio of Measurements from Parallel Connection to Individual Transistor')
+xlabel('Gate Voltage [V]')
+ylabel('Ratio')
+legend('V_{DS} = 10mV','V_{DS} = 5V','Location','Southeast')
+hold off
+
+figure
+semilogy(Exp2.Vg, Exp2.Iohmic_ser_ind_ratio, 'b.')
+hold on
+semilogy(Exp2.Vg, Exp2.Isat_ser_ind_ratio, 'r.')
+title('Ratio of Measurements from Series Connection to Individual Transistor')
+xlabel('Gate Voltage [V]')
+ylabel('Ratio')
+legend('V_{DS} = 10mV','V_{DS} = 5V','Location','Southeast')
+hold off
 
 %% Experiment 3
