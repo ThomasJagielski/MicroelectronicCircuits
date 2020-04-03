@@ -83,14 +83,9 @@ title('Current-Voltage Characteristics for Different Configurations')
 xlabel('Gate Voltage [V]')
 ylabel('Channel Current [A]')
 legend('Individual Transistor, V_{DS} = 10mV','Parallel Connection, V_{DS} = 10mV',...
-    'Series Connection, V_{DS} = 10mV','Indivdual Transistor, V_{DS} = V_{dd}',...
-    'Parallel Connection, V_{DS} = V_{dd}','Series Connection, V_{DS} = V_{dd}','Location','Southeast')
+    'Series Connection, V_{DS} = 10mV','Indivdual Transistor, V_{DS} = V_{dd','Location','Northeast')
 hold off
 
-% Plotting the ratio
-Exp2.Iohmic_par_ind_ratio = Exp2.Iohmic_par./Exp2.Iohmic;
-Exp2.Iohmic_par_ind_ratio = Exp2.Iohmic_par./Exp2.Iohmic;
-figure
-semilogy(Exp2.Vg, Exp2.Iohmic_par_ind_ratio, 'b.')
+
 
 %% Experiment 3
