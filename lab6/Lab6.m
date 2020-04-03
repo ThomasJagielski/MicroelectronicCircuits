@@ -37,10 +37,10 @@ legend('Simulated for Q1','Theoretical EKV Fit for Q1','Simulated for Q2','Theor
     'Simulated for Q3','Theoretical EKV Fit for Q3','Simulated for Q4','Theoretical EKV Fit for Q4',...
     'Location','Southeast')
 hold off
-
+%%
 % Mean error plot
 
-Exp1.Isatm = (Exp1.Isat1 + Exp1.Isat2 + Exp1.Isat3 + Exp1.Isat4)/4;
+Exp1.Isatm = (Exp1.Isat1 + Exp1.Isat2 + Exp1.Isat3 + Exp1.Isat4)./4;
 Exp1.Isat1d = 100*abs(Exp1.Isat1 - Exp1.Isatm)./Exp1.Isat1;
 Exp1.Isat2d = 100*abs(Exp1.Isat2 - Exp1.Isatm)./Exp1.Isat2;
 Exp1.Isat3d = 100*abs(Exp1.Isat3 - Exp1.Isatm)./Exp1.Isat3;
@@ -110,7 +110,72 @@ semilogy(Exp2.Vg, Exp2.Isat_ser_ind_ratio, 'r.')
 title('Ratio of Measurements from Series Connection to Individual Transistor')
 xlabel('Gate Voltage [V]')
 ylabel('Ratio')
-legend('V_{DS} = 10mV','V_{DS} = 5V','Location','Southeast')
+legend('V_{DS} = 10mV','V_{DS} = 5V','Location','Northeast')
 hold off
 
 %% Experiment 3
+% Current Sink
+exp3_a.data = load('Experiment3_circuit_a.txt');
+exp3_a.I_in = exp3_a.data(:,1);
+exp3_a.Q1_drain = exp3_a.data(:,2);
+exp3_a.Q2_drain = exp3_a.data(:,3);
+
+% Q1 Current Fit
+I_in = exp3_a.I_in(2:end);
+Q1_drain_fit = polyfit(log(exp3_a.I_in(2:end-20)),log(exp3_a.Q1_drain(2:end-20)),1);
+Q1_drain_line = exp((Q1_drain_fit(1))*log(I_in) + ((Q1_drain_fit(2))));
+Q1_drain_slope = (Q1_drain_line(70)-Q1_drain_line(20))/(I_in(70)-I_in(20));
+Q1_drain_intercept = exp(Q1_drain_fit(2));
+
+% Q2 Current Fit
+Q2_drain_fit = polyfit(log(exp3_a.I_in(2:end-20)),log(exp3_a.Q2_drain(2:end-20)),1);
+Q2_drain_line = exp((Q2_drain_fit(1))*log(I_in) + ((Q2_drain_fit(2))));
+Q2_drain_slope = (Q2_drain_line(70)-Q2_drain_line(20))/(I_in(70)-I_in(20));
+Q2_drain_intercept = exp(Q2_drain_fit(2));
+
+figure
+loglog(exp3_a.I_in,exp3_a.Q1_drain,'.')
+hold on
+plot(I_in,Q1_drain_line)
+loglog(exp3_a.I_in,exp3_a.Q2_drain,'.')
+plot(I_in,Q2_drain_line)
+title('Current Divider Current Sink')
+xlabel('I_{in} [A]')
+ylabel('I_{out} [A]')
+legend('U1 Experimental Drain','U1 Line of Best Fit (Slope = 0.6326)',...
+    'U2 Experimental Drain','U2 Line of Best Fit (Slope = 0.3676)',...
+    'Location','Southeast')
+hold off
+
+% Current Source
+exp3_b.data = load('Experiment3_circuit_b.txt');
+exp3_b.I_in = exp3_b.data(:,1);
+exp3_b.I_out1 = exp3_b.data(:,2);
+exp3_b.I_out2 = exp3_b.data(:,3);
+
+% Iout1 Current Fit
+I_in = exp3_b.I_in(2:end);
+I_out1_fit = polyfit(log(exp3_b.I_in(2:end-30)),log(exp3_b.I_out1(2:end-30)),1);
+I_out1_line = exp((I_out1_fit(1))*log(I_in) + ((I_out1_fit(2))));
+I_out1_slope = (I_out1_line(70)-I_out1_line(20))/(I_in(70)-I_in(20));
+I_out1_intercept = exp(I_out1_fit(2));
+
+% Iout2 Current Fit
+I_out2_fit = polyfit(log(exp3_b.I_in(2:end-30)),log(exp3_b.I_out2(2:end-30)),1);
+I_out2_line = exp((I_out2_fit(1))*log(I_in) + ((I_out2_fit(2))));
+I_out2_slope = (I_out2_line(70)-I_out2_line(20))/(I_in(70)-I_in(20));
+I_out2_intercept = exp(I_out2_fit(2));
+
+figure
+loglog(exp3_b.I_in,exp3_b.I_out1,'.')
+hold on
+plot(I_in,I_out1_line)
+loglog(exp3_b.I_in,exp3_b.I_out2,'.')
+plot(I_in,I_out2_line)
+title('Current Divider Current Source')
+xlabel('I_{in} [A]')
+ylabel('I_{out} [A]')
+legend('I_{out1} Experimental Data','I_{out1} Line of Best Fit (Slope = 0.6443)',...
+    'I_{out2} Experimental Data','I_{out2} Line of Best Fit (Slope = 0.3558)',...
+    'Location','Southeast')
+hold off
