@@ -104,3 +104,14 @@ xlabel('V_{1} - V_{2} [V]')
 ylabel('Node Voltage [V]')
 legend('V_{2} = 3 [V]','Location','Southeast','NumColumns',1)
 hold off
+
+
+avg_slope = (MI_Idm_slope_2+MI_Idm_slope_3+MI_Idm_slope_4)/3;
+percent_diff_V2_2 = ((MI_Idm_slope_2-avg_slope)/(avg_slope))*100;
+percent_diff_V2_3 = ((MI_Idm_slope_3-avg_slope)/(avg_slope))*100;
+percent_diff_V2_4 = ((MI_Idm_slope_4-avg_slope)/(avg_slope))*100;
+
+SI_Idm_fit_3 = polyfit(SI.V2_3(365:456,1)-2,SI.V2_3(365:456,3)-SI.V2_3(365:456,4),1);
+SI_Idm_line_3 = SI_Idm_fit_3(1)*(SI.V2_3(365:456,1)-2) + SI_Idm_fit_3(2);
+SI_Idm_slope_3 = (SI_Idm_line_3(end) - SI_Idm_line_3(1))/(SI.V2_3(456,1)-SI.V2_3(365,1));
+
