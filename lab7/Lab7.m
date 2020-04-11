@@ -24,7 +24,7 @@ plot(MI.V2_4(1:5:end,1)-4, MI.V2_4(1:5:end,3),'+','Color',[250,128,114]./255)
 plot(MI.V2_4(1:5:end,1)-4, MI.V2_4(1:5:end,4),'*','Color',[255,127,80]./255)
 plot(MI.V2_4(1:5:end,1)-4, MI.V2_4(1:5:end,3) - MI.V2_4(1:5:end,4),'.','Color',[255,0,0]./255)
 plot(MI.V2_4(1:5:end,1)-4, MI.V2_4(1:5:end,3) + MI.V2_4(1:5:end,4),'x','Color',[128,0,0]./255)
-title('Current-Gate Voltage Characteristics for NMOS Differential Pair')
+title('Current-Voltage Characteristics for NMOS Differential Pair')
 xlabel('Voltage [V]')
 ylabel('Current [A]')
 legend('I_{1} as a function of V_{1}-V_{2}; V_{2} = 2 [V]',...
@@ -85,7 +85,7 @@ grid on
 plot(SI.V2_3(1:5:end,1)-3, SI.V2_3(1:5:end,4),'*','Color',[0,255,0]./255)
 plot(SI.V2_3(1:5:end,1)-3, SI.V2_3(1:5:end,3) - SI.V2_3(1:5:end,4),'.','Color',[107,142,35]./255)
 plot(SI.V2_3(1:5:end,1)-3, SI.V2_3(1:5:end,3) + SI.V2_3(1:5:end,4),'x','Color',[0,128,0]./255)
-title('Current-Gate Voltage Characteristics for NMOS Differential Pair')
+title('Current Voltage Characteristics for NMOS Differential Pair')
 xlabel('Voltage [V]')
 ylabel('Current [A]')
 legend('I_{1} as a function of V_{1}-V_{2}; V_{2} = 3 [V]',...
