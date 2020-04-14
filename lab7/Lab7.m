@@ -115,3 +115,81 @@ SI_Idm_fit_3 = polyfit(SI.V2_3(365:456,1)-2,SI.V2_3(365:456,3)-SI.V2_3(365:456,4
 SI_Idm_line_3 = SI_Idm_fit_3(1)*(SI.V2_3(365:456,1)-2) + SI_Idm_fit_3(2);
 SI_Idm_slope_3 = (SI_Idm_line_3(end) - SI_Idm_line_3(1))/(SI.V2_3(456,1)-SI.V2_3(365,1));
 
+%% pMOS
+
+SI.V2_2 = (importdata("PMOS_diff_pair_part_2_V2_2.txt"));
+MI.V2_1 = (importdata("PMOS_diff_pair_V2_1.txt"));
+MI.V2_2 = (importdata("PMOS_diff_pair_V2_2.txt"));
+MI.V2_3 = (importdata("PMOS_diff_pair_V2_3.txt"));
+
+figure()
+plot(MI.V2_1(1:5:end,1)-1, MI.V2_1(1:5:end,3),'+','Color',[0,191,255]./255)
+hold on
+grid on
+plot(MI.V2_1(1:5:end,1)-1, MI.V2_1(1:5:end,4),'*','Color',[135,206,250]./255)
+plot(MI.V2_1(1:5:end,1)-1, MI.V2_1(1:5:end,3) - MI.V2_1(1:5:end,4),'.','Color',[65,105,225]./255)
+plot(MI.V2_1(1:5:end,1)-1, MI.V2_1(1:5:end,3) + MI.V2_1(1:5:end,4),'x','Color',[30,144,255]./255)
+plot(MI.V2_2(1:5:end,1)-2, MI.V2_2(1:5:end,3),'+','Color',[144,238,144]./255)
+plot(MI.V2_2(1:5:end,1)-2, MI.V2_2(1:5:end,4),'*','Color',[0,255,0]./255)
+plot(MI.V2_2(1:5:end,1)-2, MI.V2_2(1:5:end,3) - MI.V2_2(1:5:end,4),'.','Color',[107,142,35]./255)
+plot(MI.V2_2(1:5:end,1)-2, MI.V2_2(1:5:end,3) + MI.V2_2(1:5:end,4),'x','Color',[0,128,0]./255)
+plot(MI.V2_3(1:5:end,1)-3, MI.V2_3(1:5:end,3),'+','Color',[250,128,114]./255)
+plot(MI.V2_3(1:5:end,1)-3, MI.V2_3(1:5:end,4),'*','Color',[255,127,80]./255)
+plot(MI.V2_3(1:5:end,1)-3, MI.V2_3(1:5:end,3) - MI.V2_3(1:5:end,4),'.','Color',[255,0,0]./255)
+plot(MI.V2_3(1:5:end,1)-3, MI.V2_3(1:5:end,3) + MI.V2_3(1:5:end,4),'x','Color',[128,0,0]./255)
+title('Current-Voltage Characteristics for PMOS Differential Pair')
+xlabel('Voltage [V]')
+ylabel('Current [A]')
+legend('I_{1} as a function of V_{1}-V_{2}; V_{2} = 1 [V]',...
+    'I_{2} as a function of V_{1}-V_{2}; V_{2} = 1 [V]',...
+    'I_{1} - I_{2} as a function of V_{1}-V_{2}; V_{2} = 1 [V]',...
+    'I_{1} + I_{2} as a function of V_{1}-V_{2}; V_{2} = 1 [V]',...
+    'I_{1} as a function of V_{1}-V_{2}; V_{2} = 2 [V]',...
+    'I_{2} as a function of V_{1}-V_{2}; V_{2} = 2 [V]',...
+    'I_{1} - I_{2} as a function of V_{1}-V_{2}; V_{2} = 2 [V]',...
+    'I_{1} + I_{2} as a function of V_{1}-V_{2}; V_{2} = 2 [V]',...
+    'I_{1} as a function of V_{1}-V_{2}; V_{2} = 3 [V]',...
+    'I_{2} as a function of V_{1}-V_{2}; V_{2} = 3 [V]',...
+    'I_{1} - I_{2} as a function of V_{1}-V_{2}; V_{2} = 3 [V]',...
+    'I_{1} + I_{2} as a function of V_{1}-V_{2}; V_{2} = 3 [V]',...
+    'Location','South Outside','NumColumns',3)
+hold off
+
+figure()
+plot(MI.V2_1(1:5:end,1)-1, MI.V2_1(1:5:end,2),'.','Color',[1,0,0])
+hold on
+grid on
+plot(MI.V2_2(1:5:end,1)-2, MI.V2_2(1:5:end,2),'.','Color',[0,0,1])
+plot(MI.V2_3(1:5:end,1)-3, MI.V2_3(1:5:end,2),'.','Color',[0,1,0])
+title('Common-source node voltage, V , as a function of V_{1} - V_{2}')
+xlabel('V_{1} - V_{2} [V]')
+ylabel('Node Voltage [V]')
+legend('V_{2} = 1 [V]','V_{2} = 2 [V]','V_{2} = 3 [V]','Location','Southeast','NumColumns',1)
+hold off
+
+figure()
+plot(SI.V2_2(1:5:end,1)-2, SI.V2_2(1:5:end,3),'+','Color',[144,238,144]./255)
+hold on
+grid on
+plot(SI.V2_2(1:5:end,1)-2, SI.V2_2(1:5:end,4),'*','Color',[0,255,0]./255)
+plot(SI.V2_2(1:5:end,1)-2, SI.V2_2(1:5:end,3) - SI.V2_2(1:5:end,4),'.','Color',[107,142,35]./255)
+plot(SI.V2_2(1:5:end,1)-2, SI.V2_2(1:5:end,3) + SI.V2_2(1:5:end,4),'x','Color',[0,128,0]./255)
+title('Current Voltage Characteristics for PMOS Differential Pair')
+xlabel('Voltage [V]')
+ylabel('Current [A]')
+legend('I_{1} as a function of V_{1}-V_{2}; V_{2} = 2 [V]',...
+    'I_{2} as a function of V_{1}-V_{2}; V_{2} = 2 [V]',...
+    'I_{1} - I_{2} as a function of V_{1}-V_{2}; V_{2} = 2 [V]',...
+    'I_{1} + I_{2} as a function of V_{1}-V_{2}; V_{2} = 2 [V]',...
+    'Location','Southeast','NumColumns',2)
+hold off
+
+figure()
+plot(SI.V2_2(1:5:end,1)-2, SI.V2_2(1:5:end,2),'.','Color',[1,0,0])
+hold on
+grid on
+title('Common-source node voltage, V , as a function of V_{1} - V_{2}')
+xlabel('V_{1} - V_{2} [V]')
+ylabel('Node Voltage [V]')
+legend('V_{2} = 2 [V]','Location','Southeast','NumColumns',1)
+hold off
