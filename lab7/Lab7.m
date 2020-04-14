@@ -123,20 +123,20 @@ MI.V2_2 = (importdata("PMOS_diff_pair_V2_2.txt"));
 MI.V2_3 = (importdata("PMOS_diff_pair_V2_3.txt"));
 
 figure()
-plot(MI.V2_1(1:5:end,1)-1, MI.V2_1(1:5:end,3),'+','Color',[0,191,255]./255)
+plot(MI.V2_1(1:9:end,1)-1, MI.V2_1(1:9:end,4),'+','Color',[0,191,255]./255)
 hold on
 grid on
-plot(MI.V2_1(1:5:end,1)-1, MI.V2_1(1:5:end,4),'*','Color',[135,206,250]./255)
-plot(MI.V2_1(1:5:end,1)-1, MI.V2_1(1:5:end,3) - MI.V2_1(1:5:end,4),'.','Color',[65,105,225]./255)
-plot(MI.V2_1(1:5:end,1)-1, MI.V2_1(1:5:end,3) + MI.V2_1(1:5:end,4),'x','Color',[30,144,255]./255)
-plot(MI.V2_2(1:5:end,1)-2, MI.V2_2(1:5:end,3),'+','Color',[144,238,144]./255)
-plot(MI.V2_2(1:5:end,1)-2, MI.V2_2(1:5:end,4),'*','Color',[0,255,0]./255)
-plot(MI.V2_2(1:5:end,1)-2, MI.V2_2(1:5:end,3) - MI.V2_2(1:5:end,4),'.','Color',[107,142,35]./255)
-plot(MI.V2_2(1:5:end,1)-2, MI.V2_2(1:5:end,3) + MI.V2_2(1:5:end,4),'x','Color',[0,128,0]./255)
-plot(MI.V2_3(1:5:end,1)-3, MI.V2_3(1:5:end,3),'+','Color',[250,128,114]./255)
-plot(MI.V2_3(1:5:end,1)-3, MI.V2_3(1:5:end,4),'*','Color',[255,127,80]./255)
-plot(MI.V2_3(1:5:end,1)-3, MI.V2_3(1:5:end,3) - MI.V2_3(1:5:end,4),'.','Color',[255,0,0]./255)
-plot(MI.V2_3(1:5:end,1)-3, MI.V2_3(1:5:end,3) + MI.V2_3(1:5:end,4),'x','Color',[128,0,0]./255)
+plot(MI.V2_1(1:9:end,1)-1, MI.V2_1(1:9:end,5),'*','Color',[135,206,250]./255)
+plot(MI.V2_1(1:9:end,1)-1, MI.V2_1(1:9:end,4) - MI.V2_1(1:9:end,5),'.','Color',[65,105,225]./255)
+plot(MI.V2_1(1:9:end,1)-1, MI.V2_1(1:9:end,4) + MI.V2_1(1:9:end,5),'x','Color',[30,144,255]./255)
+plot(MI.V2_2(1:9:end,1)-2, MI.V2_2(1:9:end,4),'+','Color',[144,238,144]./255)
+plot(MI.V2_2(1:9:end,1)-2, MI.V2_2(1:9:end,5),'*','Color',[0,255,0]./255)
+plot(MI.V2_2(1:9:end,1)-2, MI.V2_2(1:9:end,4) - MI.V2_2(1:9:end,5),'.','Color',[107,142,35]./255)
+plot(MI.V2_2(1:9:end,1)-2, MI.V2_2(1:9:end,4) + MI.V2_2(1:9:end,5),'x','Color',[0,128,0]./255)
+plot(MI.V2_3(1:9:end,1)-3, MI.V2_3(1:9:end,4),'+','Color',[250,128,114]./255)
+plot(MI.V2_3(1:9:end,1)-3, MI.V2_3(1:9:end,5),'*','Color',[255,127,80]./255)
+plot(MI.V2_3(1:9:end,1)-3, MI.V2_3(1:9:end,4) - MI.V2_3(1:9:end,5),'.','Color',[255,0,0]./255)
+plot(MI.V2_3(1:9:end,1)-3, MI.V2_3(1:9:end,4) + MI.V2_3(1:9:end,5),'x','Color',[128,0,0]./255)
 title('Current-Voltage Characteristics for PMOS Differential Pair')
 xlabel('Voltage [V]')
 ylabel('Current [A]')
@@ -168,12 +168,12 @@ legend('V_{2} = 1 [V]','V_{2} = 2 [V]','V_{2} = 3 [V]','Location','Southeast','N
 hold off
 
 figure()
-plot(SI.V2_2(1:5:end,1)-2, SI.V2_2(1:5:end,3),'+','Color',[144,238,144]./255)
+plot(SI.V2_2(1:9:end,1)-2, SI.V2_2(1:9:end,4),'+','Color',[144,238,144]./255)
 hold on
 grid on
-plot(SI.V2_2(1:5:end,1)-2, SI.V2_2(1:5:end,4),'*','Color',[0,255,0]./255)
-plot(SI.V2_2(1:5:end,1)-2, SI.V2_2(1:5:end,3) - SI.V2_2(1:5:end,4),'.','Color',[107,142,35]./255)
-plot(SI.V2_2(1:5:end,1)-2, SI.V2_2(1:5:end,3) + SI.V2_2(1:5:end,4),'x','Color',[0,128,0]./255)
+plot(SI.V2_2(1:9:end,1)-2, SI.V2_2(1:9:end,5),'*','Color',[0,255,0]./255)
+plot(SI.V2_2(1:9:end,1)-2, SI.V2_2(1:9:end,4) - SI.V2_2(1:9:end,5),'.','Color',[107,142,35]./255)
+plot(SI.V2_2(1:9:end,1)-2, SI.V2_2(1:9:end,4) + SI.V2_2(1:9:end,5),'x','Color',[0,128,0]./255)
 title('Current Voltage Characteristics for PMOS Differential Pair')
 xlabel('Voltage [V]')
 ylabel('Current [A]')
