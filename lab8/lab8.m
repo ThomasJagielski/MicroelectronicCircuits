@@ -33,3 +33,37 @@ legend('V_{2} = 2 [V]','V_{2} = 3 [V]','V_{2} = 4 [V]','Location','Southeast','N
 xlabel('V_{in} = V_{1} [V]')
 ylabel('V_{out} [V]')
 hold off
+
+%% Exp 2
+
+Exp2_MI.V2_2 = (importdata("Experiment2_Threshold_V2_2.txt"));
+Exp2_MI.V2_3 = (importdata("Experiment2_Threshold_V2_3.txt"));
+Exp2_MI.V2_4 = (importdata("Experiment2_Threshold_V2_4.txt"));
+Exp2_SI.V2_2 = (importdata("Experiment2_SI_V2_2.txt"));
+Exp2_SI.V2_3 = (importdata("Experiment2_SI_V2_3.txt"));
+Exp2_SI.V2_4 = (importdata("Experiment2_SI_V2_4.txt"));
+
+figure()
+plot(Exp2_MI.V2_2(:,1)-2,Exp2_MI.V2_2(:,2),'ro')
+hold on
+grid on
+plot(Exp2_MI.V2_3(:,1)-3,Exp2_MI.V2_3(:,2),'b+')
+plot(Exp2_MI.V2_4(:,1)-4,Exp2_MI.V2_4(:,2),'k.')
+title('Voltage Characteristics for NMOS Differential Pair for bias current just at threshold')
+legend('V_{2} = 2 [V]','V_{2} = 3 [V]','V_{2} = 4 [V]','Location','Southeast','NumColumns',1)
+xlabel('V_{dm} = V_{1} - V_{2} [V]')
+ylabel('V_{out} [V]')
+hold off
+
+figure()
+plot(Exp2_SI.V2_2(:,1)-2,Exp2_SI.V2_2(:,2),'ro')
+hold on
+grid on
+plot(Exp2_SI.V2_3(:,1)-3,Exp2_SI.V2_3(:,2),'b+')
+plot(Exp2_SI.V2_4(:,1)-4,Exp2_SI.V2_4(:,2),'k.')
+title('Voltage Characteristics for NMOS Differential Pair for bias current above threshold')
+legend('V_{2} = 2 [V]','V_{2} = 3 [V]','V_{2} = 4 [V]','Location','Southeast','NumColumns',1)
+xlabel('V_{dm} = V_{1} - V_{2} [V]')
+ylabel('V_{out} [V]')
+hold off
+
