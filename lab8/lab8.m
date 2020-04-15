@@ -42,6 +42,7 @@ Exp2_MI.V2_4 = (importdata("Experiment2_Threshold_V2_4.txt"));
 Exp2_SI.V2_2 = (importdata("Experiment2_SI_V2_2.txt"));
 Exp2_SI.V2_3 = (importdata("Experiment2_SI_V2_3.txt"));
 Exp2_SI.V2_4 = (importdata("Experiment2_SI_V2_4.txt"));
+Exp_Vout = (importdata("Experiment2_Vout_sweep_Iout.txt"));
 
 figure()
 plot(Exp2_MI.V2_2(1:20:3700,1)-2,Exp2_MI.V2_2(1:20:3700,2),'r.')
@@ -87,9 +88,20 @@ xlabel('V_{dm} = V_{1} - V_{2} [V]')
 ylabel('V_{out} [V]')
 hold off
 
-%% Fitting
-
-A = (importdata("Experiment2_Vout_sweep_Iout.txt"));
+% Fits
+MI_V2_2_fit = polyfit(Exp2_MI.V2_2(3900:4000,1)-2,Exp2_MI.V2_2(3900:4000,2),1);
+MI_V2_2_line = MI_V2_2_fit(1)*(Exp2_MI.V2_2(3900:4000,1)-2) + MI_V2_2_fit(2);
+MI_V2_2_slope = (MI_V2_2_line(end) - MI_V2_2_line(1))/(Exp2_MI.V2_2(4000,1)-Exp2_MI.V2_2(3900,1));
 
 figure()
-plot(A(450:500,1),A(450:500,2),'.')
+plot(Exp2_SI.V2_2(3900:4000,1)-2,MI_V2_2_line,'r.')
+hold on
+grid on
+plot(Exp2_SI.V2_2(3900:4000,1)-2,Exp2_SI.V2_2(3900:4000,2),'g.')
+hold off
+
+figure()
+plot(Exp_Vout(1:480,1),Exp_Vout(1:480,2),'.')
+hold on
+grid on
+hold off
