@@ -1,0 +1,23 @@
+* C:\Users\tjagielski\Documents\Projects\School\Sophomore - Semester 2\Circuits\MicroelectronicCircuits\lab8\Simulation\Experiment1.asc
+XU1 P001 N001 P002 pmos3
+XU2 P003 N001 P004 pmos3
+XU3 N001 V1 N002 nmos3
+XU4 N003 V2 Vout nmos3
+XU5 N005 Vb 0 nmos3
+Vdd P005 0 5
+Vb Vb 0 1
+V1 V1 0 0
+V2 V2 0 2
+XU6 P005 vdd
+XU7 P003 vdd
+XU8 P002 vdd
+V§I3 P004 N001 0
+V§I4 P001 Vout 0
+V§I1 N002 N004 0
+V§I2 N003 N004 0
+V§Ib N004 N005 0
+.include engr2420.sub
+.dc V1 0 5 0.01
+* Threshold = 0.6152 V\nStrong Inversion = 1 V
+.backanno
+.end
