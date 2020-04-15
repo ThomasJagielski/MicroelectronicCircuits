@@ -56,22 +56,40 @@ plot(Exp2_MI.V2_4(1:25:3700,1)-4,Exp2_MI.V2_4(1:25:3700,2),'k.')
 plot(Exp2_MI.V2_4(4300:25:end,1)-4,Exp2_MI.V2_4(4300:25:end,2),'k.')
 plot(Exp2_MI.V2_4(3700:4300,1)-4,Exp2_MI.V2_4(3700:4300,2),'k.')
 title('Voltage Characteristics for NMOS Differential Pair for bias current just at threshold')
-legend('V_{2} = 2 [V]','V_{2} = 2 [V]','V_{2} = 2 [V]','V_{2} = 3 [V]','V_{2} = 3 [V]',...
-    'V_{2} = 3 [V]','V_{2} = 3 [V]','V_{2} = 3 [V]','V_{2} = 3 [V]','Location','Southeast',...
-    'NumColumns',1)
+legend('V_{2} = 2 [V], V_{1} < V_{2}','V_{2} = 2 [V], V_{1} \approx V_{2}',...
+    'V_{2} = 2 [V], V_{1} > V_{2}','V_{2} = 3 [V], V_{1} < V_{2}',...
+    'V_{2} = 3 [V], V_{1} \approx V_{2}','V_{2} = 3 [V], V_{1} > V_{2}',...
+    'V_{2} = 4 [V], V_{1} < V_{2}','V_{2} = 4 [V], V_{1} \approx V_{2}',...
+    'V_{2} = 4 [V], V_{1} > V_{2}','Location','Southeast','NumColumns',1)
 xlabel('V_{dm} = V_{1} - V_{2} [V]')
 ylabel('V_{out} [V]')
 hold off
 
 figure()
-plot(Exp2_SI.V2_2(1:5:end,1)-2,Exp2_SI.V2_2(1:5:end,2),'r.')
+plot(Exp2_SI.V2_2(1:20:3700,1)-2,Exp2_SI.V2_2(1:20:3700,2),'r.')
 hold on
 grid on
-plot(Exp2_SI.V2_3(1:5:end,1)-3,Exp2_SI.V2_3(1:5:end,2),'b.')
-plot(Exp2_SI.V2_4(1:5:end,1)-4,Exp2_SI.V2_4(1:5:end,2),'k.')
+plot(Exp2_SI.V2_2(4300:25:end,1)-2,Exp2_SI.V2_2(4300:25:end,2),'r.')
+plot(Exp2_SI.V2_2(3700:4300,1)-2,Exp2_SI.V2_2(3700:4300,2),'r.')
+plot(Exp2_SI.V2_3(1:25:3700,1)-3,Exp2_SI.V2_3(1:25:3700,2),'b.')
+plot(Exp2_SI.V2_3(4300:25:end,1)-3,Exp2_SI.V2_3(4300:25:end,2),'b.')
+plot(Exp2_SI.V2_3(3700:4300,1)-3,Exp2_SI.V2_3(3700:4300,2),'b.')
+plot(Exp2_SI.V2_4(1:25:3700,1)-4,Exp2_SI.V2_4(1:25:3700,2),'k.')
+plot(Exp2_SI.V2_4(4300:25:end,1)-4,Exp2_SI.V2_4(4300:25:end,2),'k.')
+plot(Exp2_SI.V2_4(3700:4300,1)-4,Exp2_SI.V2_4(3700:4300,2),'k.')
 title('Voltage Characteristics for NMOS Differential Pair for bias current above threshold')
-legend('V_{2} = 2 [V]','V_{2} = 3 [V]','V_{2} = 4 [V]','Location','Southeast','NumColumns',1)
+legend('V_{2} = 2 [V], V_{1} < V_{2}','V_{2} = 2 [V], V_{1} \approx V_{2}',...
+    'V_{2} = 2 [V], V_{1} > V_{2}','V_{2} = 3 [V], V_{1} < V_{2}',...
+    'V_{2} = 3 [V], V_{1} \approx V_{2}','V_{2} = 3 [V], V_{1} > V_{2}',...
+    'V_{2} = 4 [V], V_{1} < V_{2}','V_{2} = 4 [V], V_{1} \approx V_{2}',...
+    'V_{2} = 4 [V], V_{1} > V_{2}','Location','Southeast','NumColumns',1)
 xlabel('V_{dm} = V_{1} - V_{2} [V]')
 ylabel('V_{out} [V]')
 hold off
 
+%% Fitting
+
+A = (importdata("Experiment2_Vout_sweep_Iout.txt"));
+
+figure()
+plot(A(450:500,1),A(450:500,2),'.')
