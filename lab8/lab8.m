@@ -42,66 +42,65 @@ Exp2_MI.V2_4 = (importdata("Experiment2_Threshold_V2_4.txt"));
 Exp2_SI.V2_2 = (importdata("Experiment2_SI_V2_2.txt"));
 Exp2_SI.V2_3 = (importdata("Experiment2_SI_V2_3.txt"));
 Exp2_SI.V2_4 = (importdata("Experiment2_SI_V2_4.txt"));
-Exp_Vout = (importdata("Experiment2_Vout_sweep_Iout.txt"));
+Exp2_Vout = (importdata("Experiment2_Vout_sweep_Iout.txt"));
 
 figure()
-plot(Exp2_MI.V2_2(1:20:3700,1)-2,Exp2_MI.V2_2(1:20:3700,2),'r.')
+plot(Exp2_MI.V2_3(1:25:3700,1)-3,Exp2_MI.V2_3(1:25:3700,2),'r.')
 hold on
 grid on
-plot(Exp2_MI.V2_2(4300:25:end,1)-2,Exp2_MI.V2_2(4300:25:end,2),'r.')
-plot(Exp2_MI.V2_2(3700:4300,1)-2,Exp2_MI.V2_2(3700:4300,2),'r.')
-plot(Exp2_MI.V2_3(1:25:3700,1)-3,Exp2_MI.V2_3(1:25:3700,2),'b.')
 plot(Exp2_MI.V2_3(4300:25:end,1)-3,Exp2_MI.V2_3(4300:25:end,2),'b.')
-plot(Exp2_MI.V2_3(3700:4300,1)-3,Exp2_MI.V2_3(3700:4300,2),'b.')
-plot(Exp2_MI.V2_4(1:25:3700,1)-4,Exp2_MI.V2_4(1:25:3700,2),'k.')
-plot(Exp2_MI.V2_4(4300:25:end,1)-4,Exp2_MI.V2_4(4300:25:end,2),'k.')
-plot(Exp2_MI.V2_4(3700:4300,1)-4,Exp2_MI.V2_4(3700:4300,2),'k.')
+plot(Exp2_MI.V2_3(3700:4300,1)-3,Exp2_MI.V2_3(3700:4300,2),'k.')
 title('Voltage Characteristics for NMOS Differential Pair for bias current just at threshold')
-legend('V_{2} = 2 [V], V_{1} < V_{2}','V_{2} = 2 [V], V_{1} \approx V_{2}',...
-    'V_{2} = 2 [V], V_{1} > V_{2}','V_{2} = 3 [V], V_{1} < V_{2}',...
-    'V_{2} = 3 [V], V_{1} \approx V_{2}','V_{2} = 3 [V], V_{1} > V_{2}',...
-    'V_{2} = 4 [V], V_{1} < V_{2}','V_{2} = 4 [V], V_{1} \approx V_{2}',...
-    'V_{2} = 4 [V], V_{1} > V_{2}','Location','Southeast','NumColumns',1)
+legend('V_{2} = 3 [V], V_{1} < V_{2}','V_{2} = 3 [V], V_{1} \approx V_{2}',...
+    'V_{2} = 3 [V], V_{1} > V_{2}','Location','Southeast','NumColumns',1)
 xlabel('V_{dm} = V_{1} - V_{2} [V]')
 ylabel('V_{out} [V]')
 hold off
 
 figure()
-plot(Exp2_SI.V2_2(1:20:3700,1)-2,Exp2_SI.V2_2(1:20:3700,2),'r.')
+plot(Exp2_SI.V2_3(1:25:3700,1)-3,Exp2_SI.V2_3(1:25:3700,2),'r.')
 hold on
 grid on
-plot(Exp2_SI.V2_2(4300:25:end,1)-2,Exp2_SI.V2_2(4300:25:end,2),'r.')
-plot(Exp2_SI.V2_2(3700:4300,1)-2,Exp2_SI.V2_2(3700:4300,2),'r.')
-plot(Exp2_SI.V2_3(1:25:3700,1)-3,Exp2_SI.V2_3(1:25:3700,2),'b.')
 plot(Exp2_SI.V2_3(4300:25:end,1)-3,Exp2_SI.V2_3(4300:25:end,2),'b.')
-plot(Exp2_SI.V2_3(3700:4300,1)-3,Exp2_SI.V2_3(3700:4300,2),'b.')
-plot(Exp2_SI.V2_4(1:25:3700,1)-4,Exp2_SI.V2_4(1:25:3700,2),'k.')
-plot(Exp2_SI.V2_4(4300:25:end,1)-4,Exp2_SI.V2_4(4300:25:end,2),'k.')
-plot(Exp2_SI.V2_4(3700:4300,1)-4,Exp2_SI.V2_4(3700:4300,2),'k.')
+plot(Exp2_SI.V2_3(3700:2:4300,1)-3,Exp2_SI.V2_3(3700:2:4300,2),'k.')
 title('Voltage Characteristics for NMOS Differential Pair for bias current above threshold')
-legend('V_{2} = 2 [V], V_{1} < V_{2}','V_{2} = 2 [V], V_{1} \approx V_{2}',...
-    'V_{2} = 2 [V], V_{1} > V_{2}','V_{2} = 3 [V], V_{1} < V_{2}',...
-    'V_{2} = 3 [V], V_{1} \approx V_{2}','V_{2} = 3 [V], V_{1} > V_{2}',...
-    'V_{2} = 4 [V], V_{1} < V_{2}','V_{2} = 4 [V], V_{1} \approx V_{2}',...
-    'V_{2} = 4 [V], V_{1} > V_{2}','Location','Southeast','NumColumns',1)
+legend('V_{2} = 3 [V], V_{1} < V_{2}','V_{2} = 3 [V], V_{1} \approx V_{2}',...
+    'V_{2} = 3 [V], V_{1} > V_{2}','Location','Southeast','NumColumns',1)
 xlabel('V_{dm} = V_{1} - V_{2} [V]')
 ylabel('V_{out} [V]')
 hold off
 
-% Fits
-MI_V2_2_fit = polyfit(Exp2_MI.V2_2(3900:4000,1)-2,Exp2_MI.V2_2(3900:4000,2),1);
-MI_V2_2_line = MI_V2_2_fit(1)*(Exp2_MI.V2_2(3900:4000,1)-2) + MI_V2_2_fit(2);
-MI_V2_2_slope = (MI_V2_2_line(end) - MI_V2_2_line(1))/(Exp2_MI.V2_2(4000,1)-Exp2_MI.V2_2(3900,1));
+% Fit
+MI_V2_3_fit = polyfit(Exp2_MI.V2_3(4000:4040,1)-3,Exp2_MI.V2_3(4000:4040,2),1);
+MI_V2_3_line = MI_V2_3_fit(1)*(Exp2_MI.V2_3(3750:2:4100,1)-3) + MI_V2_3_fit(2);
+MI_V2_3_slope = (MI_V2_3_line(end) - MI_V2_3_line(1))/(Exp2_MI.V2_3(4050,1)-Exp2_MI.V2_3(4000,1));
 
 figure()
-plot(Exp2_SI.V2_2(3900:4000,1)-2,MI_V2_2_line,'r.')
+plot(Exp2_SI.V2_3(1:25:3700,1)-3,Exp2_SI.V2_3(1:25:3700,2),'r.')
 hold on
 grid on
-plot(Exp2_SI.V2_2(3900:4000,1)-2,Exp2_SI.V2_2(3900:4000,2),'g.')
+plot(Exp2_SI.V2_3(4300:25:end,1)-3,Exp2_SI.V2_3(4300:25:end,2),'b.')
+plot(Exp2_SI.V2_3(3700:2:4300,1)-3,Exp2_SI.V2_3(3700:2:4300,2),'k.')
+plot(Exp2_SI.V2_3(3750:2:4100,1)-3,MI_V2_3_line,'g.')
+title('Voltage Characteristics for NMOS Differential Pair for bias current above threshold')
+legend('V_{2} = 3 [V], V_{1} < V_{2}','V_{2} = 3 [V], V_{1} \approx V_{2}',...
+    'V_{2} = 3 [V], V_{1} > V_{2}','Line of Best Fit','Location','Southeast','NumColumns',1)
+xlabel('V_{dm} = V_{1} - V_{2} [V]')
+ylabel('V_{out} [V]')
 hold off
 
+% Fit
+Exp2_Vout_fit = polyfit(Exp2_Vout(200:480,1),Exp2_Vout(200:480,2),1);
+Exp2_Vout_line = Exp2_Vout_fit(1)*(Exp2_Vout(200:480,1)) + Exp2_Vout_fit(2);
+Exp2_Vout_slope = (Exp2_Vout_line(end) - Exp2_Vout_line(1))/(Exp2_Vout(480,1)-Exp2_Vout(200,1));
+
 figure()
-plot(Exp_Vout(1:480,1),Exp_Vout(1:480,2),'.')
+plot(Exp2_Vout(190:490,1),Exp2_Vout(190:490,2),'b.')
 hold on
 grid on
+plot(Exp2_Vout(200:480,1),Exp2_Vout_line,'r.')
+title('Current Voltage Characteristics for NMOS Differential Pair')
+legend('Experimental Data','Fit Data','Location','Northeast','NumColumns',1)
+xlabel('V_{out} [V]')
+ylabel('I_{out} [A]')
 hold off
