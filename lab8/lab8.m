@@ -74,9 +74,9 @@ Exp2_MI.Vout_line = Exp2_MI.Vout_fit(1)*(Exp2_MI.Vout(200:480,1)) + Exp2_MI.Vout
 Exp2_MI.Vout_slope = Exp2_MI.Vout_fit(1);
 
 figure()
-%axis([0 5 -1e-6 1e-6])
+axis([0 5 -1e-6 1e-6])
 plot(Exp2_MI.Vout(185:500,1),Exp2_MI.Vout(185:500,2),'b.')
-axis([1.7 5 -1.5e-8 1e-8])
+%axis([1.7 5 -1.5e-8 1e-8])
 hold on
 grid on
 plot(Exp2_MI.Vout(200:480,1),Exp2_MI.Vout_line,'r-')
@@ -106,20 +106,21 @@ hold off
 
 Exp2_MI.R_out = 1/Exp2_MI.Vout_slope;
 Exp2_MI.Gm = Exp2_MI.Vdm_slope;
-Exp2_MI.Adm = Exp2_MI.R_out*Exp2_MI.Gm
-Exp2_MI.Adm_error = 100*(abs(Exp2_MI.Adm - MI_V2_2_5_slope)/MI_V2_2_5_slope)
+Exp2_MI.Adm = Exp2_MI.R_out*Exp2_MI.Gm;
+Exp2_MI.Adm_error = 100*(abs(Exp2_MI.Adm - MI_V2_2_5_slope)/MI_V2_2_5_slope);
 
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Above Threshold
 
-SI_V2_2_5_fit = polyfit(Exp2_SI.V2_2_5(1408:1505,1)-2.5,Exp2_SI.V2_2_5(1408:1505,2),1);
+SI_V2_2_5_fit = polyfit(Exp2_SI.V2_2_5(1408:1540,1)-2.5,Exp2_SI.V2_2_5(1408:1540,2),1);
 SI_V2_2_5_line = SI_V2_2_5_fit(1)*(Exp2_SI.V2_2_5(1370:1540,1)-2.5) + SI_V2_2_5_fit(2);
 SI_V2_2_5_slope = SI_V2_2_5_fit(1);
 
 figure()
 plot(Exp2_SI.V2_2_5(:,1)-2.5,Exp2_SI.V2_2_5(:,2),'b.')
+axis([-25e-3 25e-3 0 5])
 hold on
 grid on
 plot(Exp2_SI.V2_2_5(1370:1540,1)-2.5,SI_V2_2_5_line,'g')
