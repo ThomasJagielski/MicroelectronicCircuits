@@ -71,7 +71,8 @@ hold off
 Exp2_MI.Vout(:,2) = -1 * Exp2_MI.Vout(:,2);
 Exp2_MI.Vout_fit = polyfit(Exp2_MI.Vout(200:480,1),Exp2_MI.Vout(200:480,2),1);
 Exp2_MI.Vout_line = Exp2_MI.Vout_fit(1)*(Exp2_MI.Vout(200:480,1)) + Exp2_MI.Vout_fit(2);
-Exp2_MI.Vout_slope = (Exp2_MI.Vout_line(end) - Exp2_MI.Vout_line(1))/(Exp2_MI.Vout(480,1)-Exp2_MI.Vout(200,1));
+%Exp2_MI.Vout_slope = (Exp2_MI.Vout_line(end) - Exp2_MI.Vout_line(1))/(Exp2_MI.Vout(480,1)-Exp2_MI.Vout(200,1));
+Exp2_MI.Vout_slope = Exp2_MI.Vout_fit(1);
 
 figure()
 axis([0 5 -1e-6 1e-6])
@@ -87,15 +88,16 @@ hold off
 
 x_intercept = (-1*Exp2_MI.Vout_fit(2))/Exp2_MI.Vout_fit(1);
 
-Exp2_MI.Vdm_fit = polyfit(Exp2_MI.Vdm(46:55,1),Exp2_MI.Vdm(46:55,2),1);
-Exp2_MI.Vdm_line = Exp2_MI.Vdm_fit(1)*(Exp2_MI.Vdm(46:55,1)) + Exp2_MI.Vdm_fit(2);
-Exp2_MI.Vdm_slope = (Exp2_MI.Vdm_line(end) - Exp2_MI.Vdm_line(1))/(Exp2_MI.Vdm(55,1)-Exp2_MI.Vdm(46,1));
+Exp2_MI.Vdm_fit = polyfit(Exp2_MI.Vdm(47:56,1),Exp2_MI.Vdm(47:56,2),1);
+Exp2_MI.Vdm_line = Exp2_MI.Vdm_fit(1)*(Exp2_MI.Vdm(47:56,1)) + Exp2_MI.Vdm_fit(2);
+%Exp2_MI.Vdm_slope = (Exp2_MI.Vdm_line(end) - Exp2_MI.Vdm_line(1))/(Exp2_MI.Vdm(59,1)-Exp2_MI.Vdm(46,1));
+Exp2_MI.Vdm_slope = Exp2_MI.Vdm_fit(1);
 
 figure()
 plot(Exp2_MI.Vdm(:,1)-2.5,Exp2_MI.Vdm(:,2),'b.')
 hold on
 grid on
-plot(Exp2_MI.Vdm(46:55,1)-2.5,Exp2_MI.Vdm_line,'r-')
+plot(Exp2_MI.Vdm(47:56,1)-2.5,Exp2_MI.Vdm_line,'r-')
 title('Current Voltage Characteristics for NMOS Differential Pair')
 legend('Experimental Data','Fit Data','Location','Southeast','NumColumns',1)
 xlabel('V_{dm} [V]')
@@ -105,7 +107,7 @@ hold off
 Exp2_MI.R_out = 1/Exp2_MI.Vout_slope;
 Exp2_MI.Gm = Exp2_MI.Vdm_slope;
 Exp2_MI.Adm = Exp2_MI.R_out*Exp2_MI.Gm;
-Exp2_MI.Adm_error = 100*(abs(Exp2_MI.Adm - MI_V2_2_5_slope)/Exp2_MI.Adm);
+Exp2_MI.Adm_error = 100*(abs(Exp2_MI.Adm - MI_V2_2_5_slope)/MI_V2_2_5_slope);
 
 
 %%
@@ -149,8 +151,8 @@ ylabel('I_{out} [A]')
 hold off
 
 SI_x_intercept = (-1*Exp2_SI.Vout_fit(2))/Exp2_SI.Vout_fit(1);
-Exp2_SI.Vdm_fit = polyfit(Exp2_SI.Vdm(40:65,1),Exp2_SI.Vdm(40:65,2),1);
-Exp2_SI.Vdm_line = Exp2_SI.Vdm_fit(1)*(Exp2_SI.Vdm(35:70,1)) + Exp2_SI.Vdm_fit(2);
+Exp2_SI.Vdm_fit = polyfit(Exp2_SI.Vdm(35:61,1),Exp2_SI.Vdm(35:61,2),1);
+Exp2_SI.Vdm_line = Exp2_SI.Vdm_fit(1)*(Exp2_SI.Vdm(35:61,1)) + Exp2_SI.Vdm_fit(2);
 %Exp2_SI.Vdm_slope = (Exp2_SI.Vdm_line(end) - Exp2_SI.Vdm_line(1))/(Exp2_SI.Vdm(61,1)-Exp2_SI.Vdm(35,1));
 Exp2_SI.Vdm_slope = Exp2_SI.Vdm_fit(1);
 
@@ -158,7 +160,7 @@ figure()
 plot(Exp2_SI.Vdm(:,1)-2.5,Exp2_SI.Vdm(:,2),'b.')
 hold on
 grid on
-plot(Exp2_SI.Vdm(35:70,1)-2.5,Exp2_SI.Vdm_line,'r-')
+plot(Exp2_SI.Vdm(35:61,1)-2.5,Exp2_SI.Vdm_line,'r-')
 title('Current Voltage Characteristics for NMOS Differential Pair, I_{b} in Strong Inversion')
 legend('Experimental Data','Fit Data','Location','Southeast','NumColumns',1)
 xlabel('V_{dm} [V]')
