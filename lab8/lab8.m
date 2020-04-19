@@ -45,7 +45,7 @@ Exp2_SI.V2_2_5 = (importdata("Experiment2_SI_V2_2_5_USE.txt"));
 Exp2_SI.V2_3 = (importdata("Experiment2_SI_V2_3.txt"));
 Exp2_SI.V2_4 = (importdata("Experiment2_SI_V2_4.txt"));
 Exp2_MI.Vout = (importdata("Experiment2_Threshold_Vout_sweep_Iout.txt"));
-Exp2_MI.Vdm = (importdata("Experiment2_Threshold_Vdm_about_2_5_Iout.txt"));
+Exp2_MI.Vdm = (importdata("Experiment2_Threshold_Vdm_about_2_5_Iout_USE.txt"));
 
 % Bias Current at Threshold
 
@@ -109,8 +109,6 @@ Exp2_MI.Gm = Exp2_MI.Vdm_slope;
 Exp2_MI.Adm = Exp2_MI.R_out*Exp2_MI.Gm;
 Exp2_MI.Adm_error = 100*(abs(Exp2_MI.Adm - MI_V2_2_5_slope)/MI_V2_2_5_slope);
 
-
-%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Above Threshold
 
