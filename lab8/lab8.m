@@ -122,7 +122,7 @@ axis([-25e-3 25e-3 0 5])
 hold on
 grid on
 plot(Exp2_SI.V2_2_5(1370:1540,1)-2.5,SI_V2_2_5_line,'g')
-title('Voltage Characteristics for NMOS Differential Pair for bias current at threshold')
+title('Voltage Characteristics for NMOS Differential Pair for bias current above threshold')
 legend('Simulated Data','Line of Best Fit','Location','Southeast','NumColumns',1)
 xlabel('V_{dm} = V_{1} - V_{2} [V]')
 ylabel('V_{out} [V]')
@@ -224,7 +224,7 @@ figure
 plot(Exp3_SI(1:5:end,1),Exp3_SI(1:5:end,2)-Exp3_SI(1:5:end,1),'.')
 hold on
 grid on
-title('Unity-Gain Follower for NMOS Differential Pair, I_{b} at Threshold')
+title('Unity-Gain Follower for NMOS Differential Pair, I_{b} in Strong Inversion')
 %legend('Experimental Data','Fit Data','Location','Southeast','NumColumns',1)
 xlabel('V_{in} [V]')
 ylabel('V_{out} [V]')
