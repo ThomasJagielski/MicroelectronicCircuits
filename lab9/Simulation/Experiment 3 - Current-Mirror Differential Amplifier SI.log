@@ -1,0 +1,21 @@
+Circuit: * C:\Users\sbansal\Desktop\Circuits\MicroelectronicCircuits\lab9\Simulation\Experiment 3 - Current-Mirror Differential Amplifier SI.asc
+
+Direct Newton iteration for .op point succeeded.
+
+Date: Sat Apr 25 00:56:23 2020
+Total elapsed time: 16.868 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 260085
+traniter = 260066
+tranpoints = 130033
+accept = 130033
+rejected = 0
+matrix size = 35
+fillins = 21
+solver = Normal
+Matrix Compiler1: 2.28 KB object code size  0.4/0.3/[0.1]
+Matrix Compiler2: 3.08 KB object code size  0.2/0.3/[0.2]
+
