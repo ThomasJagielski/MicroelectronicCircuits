@@ -222,6 +222,60 @@ xlabel('Time [s]')
 ylabel('Voltage [V]')
 hold off
 
+
+%% Experiment 3 - trial
+
+Exp3_MI_P1 = (importdata("Experiment 3 - Threshold Part 1.txt"));
+Exp3_MI_P2 = (importdata("Experiment 3 - Threshold Part 2.txt"));
+Exp3_SI_P1 = (importdata("Experiment 3 - Strong Inversion Part 1.txt"));
+Exp3_SI_P2 = (importdata("Experiment 3 - Strong Inversion Part 2.txt"));
+
+figure()
+
+semilogy(Exp3_MI_P1(27:159,1),Exp3_MI_P1(27:159,3),'r.')
+hold on
+grid on
+title('Unity-Gain Follower Step Response, I_{b} in Moderate Inversion')
+legend('V_{in} [V]','V_{out} [V]','Location','Southeast','NumColumns',1)
+xlabel('Time [s]')
+ylabel('Voltage [V]')
+hold off
+
+figure()
+plot(Exp3_MI_P2(:,1),Exp3_MI_P2(:,2),'b.')
+hold on
+grid on
+plot(Exp3_MI_P2(1:3:end,1),Exp3_MI_P2(1:3:end,3),'r.')
+title('Unity-Gain Follower Step Response with Slewing, I_{b} in Moderate Inversion')
+legend('V_{in} [V]','V_{out} [V]','Location','Southeast','NumColumns',1)
+xlabel('Time [s]')
+ylabel('Voltage [V]')
+hold off
+
+%%%%%%%%%%%% ABOVE THRESHOLD
+
+figure()
+plot(Exp3_SI_P1(:,1),Exp3_SI_P1(:,2),'b.')
+hold on
+grid on
+plot(Exp3_SI_P1(:,1),Exp3_SI_P1(:,3),'r.')
+title('Unity-Gain Follower Step Response, I_{b} in Strong Inversion')
+legend('V_{in} [V]','V_{out} [V]','Location','Southeast','NumColumns',1)
+xlabel('Time [s]')
+ylabel('Voltage [V]')
+hold off
+
+figure()
+plot(Exp3_SI_P2(:,1),Exp3_SI_P2(:,2),'b.')
+hold on
+grid on
+plot(Exp3_SI_P2(1:end,1),Exp3_SI_P2(1:end,3),'r.')
+title('Unity-Gain Follower Step Response with Slewing, I_{b} in Strong Inversion')
+legend('V_{in} [V]','V_{out} [V]','Location','Southeast','NumColumns',1)
+xlabel('Time [s]')
+ylabel('Voltage [V]')
+hold off
+
 %% Experiment 3 - Leftover
 
 Exp3_MI = (importdata("Experiment3_Threshold.txt"));
