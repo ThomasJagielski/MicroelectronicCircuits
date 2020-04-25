@@ -198,6 +198,8 @@ xlabel('Time [s]')
 ylabel('Voltage [V]')
 hold off
 
+%%%%%%%%%%%% ABOVE THRESHOLD
+
 figure()
 plot(Exp3_SI_P1(:,1),Exp3_SI_P1(:,2),'b.')
 hold on
