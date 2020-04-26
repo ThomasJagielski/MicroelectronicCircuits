@@ -238,16 +238,34 @@ plot(Exp3_MI_P1(1:end-1,1),(Exp3_MI_P1(1:end-1,2)-Exp3_MI_P1(1:end-1,3))./(diff(
 grid on
 hold off
 
+Exp3_MI_P1_tau = (Exp3_MI_P1(1:end-1,2)-Exp3_MI_P1(1:end-1,3))./(diff(Exp3_MI_P1(1:end,3))./(diff(Exp3_MI_P1(1:end,1))));
+Exp3_MI_P1_tau_up = mean(tau(27:40));
+Exp3_MI_P1_tau_down = mean(tau(160:190));
+%%
+Exp3_MI_P2_slew_up_fit = polyfit(Exp3_MI_P2(95:395,1),Exp3_MI_P2(95:395,3),1);
+Exp3_MI_P2_slew_up_line = Exp3_MI_P2_slew_up_fit(1)*(Exp3_MI_P2(95:395,1)) + Exp3_MI_P2_slew_up_fit(2);
+%Exp3_MI_slope = (Exp3_MI_line(end) - Exp3_MI_line(1))/(Exp3_MI(400,1)-Exp3_MI(100,1));
+Exp3_MI_P2_slew_up_slope = Exp3_MI_P2_slew_up_fit(1);
+
+Exp3_MI_P2_slew_down_fit = polyfit(Exp3_MI_P2(654:922,1),Exp3_MI_P2(654:922,3),1);
+Exp3_MI_P2_slew_down_line = Exp3_MI_P2_slew_down_fit(1)*(Exp3_MI_P2(654:922,1)) + Exp3_MI_P2_slew_down_fit(2);
+%Exp3_MI_slope = (Exp3_MI_line(end) - Exp3_MI_line(1))/(Exp3_MI(400,1)-Exp3_MI(100,1));
+Exp3_MI_P2_slew_down_slope = Exp3_MI_P2_slew_down_fit(1);
+
+
 figure()
 plot(Exp3_MI_P2(:,1),Exp3_MI_P2(:,2),'b.')
 hold on
 grid on
 plot(Exp3_MI_P2(1:3:end,1),Exp3_MI_P2(1:3:end,3),'r.')
+plot(Exp3_MI_P2(95:395,1),Exp3_MI_P2_slew_up_line,'g')
+plot(Exp3_MI_P2(654:922,1),Exp3_MI_P2_slew_down_line,'m')
 title('Unity-Gain Follower Step Response with Slewing, I_{b} in Moderate Inversion')
-legend('V_{in} [V]','V_{out} [V]','Location','Southeast','NumColumns',1)
+legend('V_{in} [V]','V_{out} [V]','Slew Fit Up-Going','Slew Fit Down-Going','Location','Northeast','NumColumns',1)
 xlabel('Time [s]')
 ylabel('Voltage [V]')
 hold off
+%%
 
 %%%%%%%%%%%% ABOVE THRESHOLD
 
