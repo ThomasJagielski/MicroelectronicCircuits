@@ -230,6 +230,27 @@ Exp3_MI_P2 = (importdata("Experiment 3 - Threshold Part 2.txt"));
 Exp3_SI_P1 = (importdata("Experiment 3 - Strong Inversion Part 1.txt"));
 Exp3_SI_P2 = (importdata("Experiment 3 - Strong Inversion Part 2.txt"));
 
+semilogy(Exp3_MI_P1(40:150,1),Exp3_MI_P1(40:150,3)-max(Exp3_MI_P1(40:150,3)),'k.')
+hold on
+Exp3_MI_tau_up_fit = polyfit(Exp3_MI_P1(40:90,1),log(Exp3_MI_P1(40:90,3)-max(Exp3_MI_P1(40:149,3))),1);
+Exp3_MI_tau_up_line = exp(Exp3_MI_tau_up_fit(1)*(Exp3_MI_P1(40:90,1)) + Exp3_MI_tau_up_fit(2));
+Exp3_MI_slope_up = Exp3_MI_tau_up_fit(1);
+plot(Exp3_MI_P1(40:90,1),Exp3_MI_tau_up_line,'g')
+hold off
+tau_up = real(1/Exp3_MI_slope_up)
+
+semilogy(Exp3_MI_P1(160:end-50,1),Exp3_MI_P1(160:end-50,3)-min(Exp3_MI_P1(160:end-50,3)),'k.')
+hold on
+Exp3_MI_tau_down_fit = polyfit(Exp3_MI_P1(160:end-100,1),log(Exp3_MI_P1(160:end-100,3)-min(Exp3_MI_P1(160:end-50,3))),1);
+Exp3_MI_tau_down_line = exp(Exp3_MI_tau_down_fit(1)*(Exp3_MI_P1(160:end-100,1)) + Exp3_MI_tau_down_fit(2));
+Exp3_MI_slope_down = Exp3_MI_tau_down_fit(1);
+plot(Exp3_MI_P1(160:end-100,1),Exp3_MI_tau_down_line,'g')
+hold off
+tau_down = real(1/Exp3_MI_slope_down)
+
+
+
+%%
 figure()
 %plot(Exp3_MI_P1(160:end-50,1),(Exp3_MI_P1(160:end-50,2)-Exp3_MI_P1(160:end-50,3))./(diff(Exp3_MI_P1(159:end-50,3))./(diff(Exp3_MI_P1(159:end-50,1)))),'r.')
 hold on
