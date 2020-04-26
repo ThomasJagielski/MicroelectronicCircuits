@@ -231,10 +231,13 @@ Exp3_SI_P1 = (importdata("Experiment 3 - Strong Inversion Part 1.txt"));
 Exp3_SI_P2 = (importdata("Experiment 3 - Strong Inversion Part 2.txt"));
 
 figure()
-plot(Exp3_MI_P1(160:end-50,1),(Exp3_MI_P1(160:end-50,2)-Exp3_MI_P1(160:end-50,3))./(diff(Exp3_MI_P1(159:end-50,3))./(diff(Exp3_MI_P1(159:end-50,1)))),'r.')
+%plot(Exp3_MI_P1(160:end-50,1),(Exp3_MI_P1(160:end-50,2)-Exp3_MI_P1(160:end-50,3))./(diff(Exp3_MI_P1(159:end-50,3))./(diff(Exp3_MI_P1(159:end-50,1)))),'r.')
 hold on
-plot(Exp3_MI_P1(40:150,1),(Exp3_MI_P1(40:150,2)-Exp3_MI_P1(40:150,3))./(diff(Exp3_MI_P1(39:150,3))./(diff(Exp3_MI_P1(39:150,1)))),'b.')
+%plot(Exp3_MI_P1(40:150,1),(Exp3_MI_P1(40:150,2)-Exp3_MI_P1(40:150,3))./(diff(Exp3_MI_P1(39:150,3))./(diff(Exp3_MI_P1(39:150,1)))),'b.')
 plot(Exp3_MI_P1(1:end-1,1),(Exp3_MI_P1(1:end-1,2)-Exp3_MI_P1(1:end-1,3))./(diff(Exp3_MI_P1(1:end,3))./(diff(Exp3_MI_P1(1:end,1)))),'k.')
+xlabel('Time [s]')
+ylabel('\tau [s^{-1}]')
+title('\tau with Respect to Time')
 grid on
 hold off
 
