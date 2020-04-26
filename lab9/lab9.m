@@ -237,7 +237,7 @@ Exp3_MI_tau_up_line = exp(Exp3_MI_tau_up_fit(1)*(Exp3_MI_P1(40:90,1)) + Exp3_MI_
 Exp3_MI_slope_up = Exp3_MI_tau_up_fit(1);
 plot(Exp3_MI_P1(40:90,1),Exp3_MI_tau_up_line,'g')
 hold off
-tau_up = real(1/Exp3_MI_slope_up)
+tau_up = abs(real(1/Exp3_MI_slope_up))
 
 semilogy(Exp3_MI_P1(160:end-50,1),Exp3_MI_P1(160:end-50,3)-min(Exp3_MI_P1(160:end-50,3)),'k.')
 hold on
@@ -246,7 +246,12 @@ Exp3_MI_tau_down_line = exp(Exp3_MI_tau_down_fit(1)*(Exp3_MI_P1(160:end-100,1)) 
 Exp3_MI_slope_down = Exp3_MI_tau_down_fit(1);
 plot(Exp3_MI_P1(160:end-100,1),Exp3_MI_tau_down_line,'g')
 hold off
-tau_down = real(1/Exp3_MI_slope_down)
+tau_down = abs(real(1/Exp3_MI_slope_down))
+
+tau_theoretical = 7.2591e-4;
+
+tau_up_error = abs((tau_up-tau_theoretical)/tau_theoretical) * 100;
+tau_down_error = abs((tau_down-tau_theoretical)/tau_theoretical) * 100;
 
 
 
