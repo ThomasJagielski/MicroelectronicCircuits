@@ -173,8 +173,6 @@ Exp2_SI.Adm_error = 100*(abs(Exp2_SI.Adm - SI_V2_2_5_slope)/SI_V2_2_5_slope);
 
 Exp3_MI_P1 = (importdata("Experiment 3 - Threshold Part 1.txt"));
 Exp3_MI_P2 = (importdata("Experiment 3 - Threshold Part 2.txt"));
-Exp3_SI_P1 = (importdata("Experiment 3 - Strong Inversion Part 1.txt"));
-Exp3_SI_P2 = (importdata("Experiment 3 - Strong Inversion Part 2.txt"));
 
 figure()
 plot(Exp3_MI_P1(:,1),Exp3_MI_P1(:,2),'b.')
@@ -198,79 +196,31 @@ xlabel('Time [s]')
 ylabel('Voltage [V]')
 hold off
 
-%%%%%%%%%%%% ABOVE THRESHOLD
-
 figure()
-plot(Exp3_SI_P1(:,1),Exp3_SI_P1(:,2),'b.')
-hold on
-grid on
-plot(Exp3_SI_P1(:,1),Exp3_SI_P1(:,3),'r.')
-title('Unity-Gain Follower Step Response, I_{b} in Strong Inversion')
-legend('V_{in} [V]','V_{out} [V]','Location','Southeast','NumColumns',1)
-xlabel('Time [s]')
-ylabel('Voltage [V]')
-hold off
-
-figure()
-plot(Exp3_SI_P2(:,1),Exp3_SI_P2(:,2),'b.')
-hold on
-grid on
-plot(Exp3_SI_P2(1:end,1),Exp3_SI_P2(1:end,3),'r.')
-title('Unity-Gain Follower Step Response with Slewing, I_{b} in Strong Inversion')
-legend('V_{in} [V]','V_{out} [V]','Location','Southeast','NumColumns',1)
-xlabel('Time [s]')
-ylabel('Voltage [V]')
-hold off
-
-
-%% Experiment 3 - trial
-
-Exp3_MI_P1 = (importdata("Experiment 3 - Threshold Part 1.txt"));
-Exp3_MI_P2 = (importdata("Experiment 3 - Threshold Part 2.txt"));
-Exp3_SI_P1 = (importdata("Experiment 3 - Strong Inversion Part 1.txt"));
-Exp3_SI_P2 = (importdata("Experiment 3 - Strong Inversion Part 2.txt"));
-
 semilogy(Exp3_MI_P1(40:150,1),Exp3_MI_P1(40:150,3)-max(Exp3_MI_P1(40:150,3)),'k.')
 hold on
-Exp3_MI_tau_up_fit = polyfit(Exp3_MI_P1(40:90,1),log(Exp3_MI_P1(40:90,3)-max(Exp3_MI_P1(40:149,3))),1);
-Exp3_MI_tau_up_line = exp(Exp3_MI_tau_up_fit(1)*(Exp3_MI_P1(40:90,1)) + Exp3_MI_tau_up_fit(2));
-Exp3_MI_slope_up = Exp3_MI_tau_up_fit(1);
-plot(Exp3_MI_P1(40:90,1),Exp3_MI_tau_up_line,'g')
+Exp3_MI_P1_tau_up_fit = polyfit(Exp3_MI_P1(40:90,1),log(Exp3_MI_P1(40:90,3)-max(Exp3_MI_P1(40:149,3))),1);
+Exp3_MI_P1_tau_up_line = exp(Exp3_MI_P1_tau_up_fit(1)*(Exp3_MI_P1(40:90,1)) + Exp3_MI_P1_tau_up_fit(2));
+Exp3_MI_P1_slope_up = Exp3_MI_P1_tau_up_fit(1);
+plot(Exp3_MI_P1(40:90,1),Exp3_MI_P1_tau_up_line,'g')
 hold off
-tau_up = abs(real(1/Exp3_MI_slope_up))
+tau_up_MI_P1 = abs(real(1/Exp3_MI_P1_slope_up));
 
+figure()
 semilogy(Exp3_MI_P1(160:end-50,1),Exp3_MI_P1(160:end-50,3)-min(Exp3_MI_P1(160:end-50,3)),'k.')
 hold on
-Exp3_MI_tau_down_fit = polyfit(Exp3_MI_P1(160:end-100,1),log(Exp3_MI_P1(160:end-100,3)-min(Exp3_MI_P1(160:end-50,3))),1);
-Exp3_MI_tau_down_line = exp(Exp3_MI_tau_down_fit(1)*(Exp3_MI_P1(160:end-100,1)) + Exp3_MI_tau_down_fit(2));
-Exp3_MI_slope_down = Exp3_MI_tau_down_fit(1);
-plot(Exp3_MI_P1(160:end-100,1),Exp3_MI_tau_down_line,'g')
+Exp3_MI_P1_tau_down_fit = polyfit(Exp3_MI_P1(160:end-100,1),log(Exp3_MI_P1(160:end-100,3)-min(Exp3_MI_P1(160:end-50,3))),1);
+Exp3_MI_P1_tau_down_line = exp(Exp3_MI_P1_tau_down_fit(1)*(Exp3_MI_P1(160:end-100,1)) + Exp3_MI_P1_tau_down_fit(2));
+Exp3_MI_P1_slope_down = Exp3_MI_P1_tau_down_fit(1);
+plot(Exp3_MI_P1(160:end-100,1),Exp3_MI_P1_tau_down_line,'g')
 hold off
-tau_down = abs(real(1/Exp3_MI_slope_down))
+tau_down_MI_P1 = abs(real(1/Exp3_MI_P1_slope_down));
 
-tau_theoretical = 7.2591e-4;
+tau_theoretical_MI_P1 = 7.2591e-4;
 
-tau_up_error = abs((tau_up-tau_theoretical)/tau_theoretical) * 100;
-tau_down_error = abs((tau_down-tau_theoretical)/tau_theoretical) * 100;
+tau_up_MI_P1_error = abs((tau_up_MI_P1-tau_theoretical_MI_P1)/tau_theoretical_MI_P1) * 100;
+tau_down_MI_P1_error = abs((tau_down_MI_P1-tau_theoretical_MI_P1)/tau_theoretical_MI_P1) * 100;
 
-
-
-%%
-figure()
-%plot(Exp3_MI_P1(160:end-50,1),(Exp3_MI_P1(160:end-50,2)-Exp3_MI_P1(160:end-50,3))./(diff(Exp3_MI_P1(159:end-50,3))./(diff(Exp3_MI_P1(159:end-50,1)))),'r.')
-hold on
-%plot(Exp3_MI_P1(40:150,1),(Exp3_MI_P1(40:150,2)-Exp3_MI_P1(40:150,3))./(diff(Exp3_MI_P1(39:150,3))./(diff(Exp3_MI_P1(39:150,1)))),'b.')
-plot(Exp3_MI_P1(1:end-1,1),(Exp3_MI_P1(1:end-1,2)-Exp3_MI_P1(1:end-1,3))./(diff(Exp3_MI_P1(1:end,3))./(diff(Exp3_MI_P1(1:end,1)))),'k.')
-xlabel('Time [s]')
-ylabel('\tau [s^{-1}]')
-title('\tau with Respect to Time')
-grid on
-hold off
-
-Exp3_MI_P1_tau = (Exp3_MI_P1(1:end-1,2)-Exp3_MI_P1(1:end-1,3))./(diff(Exp3_MI_P1(1:end,3))./(diff(Exp3_MI_P1(1:end,1))));
-Exp3_MI_P1_tau_up = mean(tau(27:40));
-Exp3_MI_P1_tau_down = mean(tau(160:190));
-%%
 Exp3_MI_P2_slew_up_fit = polyfit(Exp3_MI_P2(95:395,1),Exp3_MI_P2(95:395,3),1);
 Exp3_MI_P2_slew_up_line = Exp3_MI_P2_slew_up_fit(1)*(Exp3_MI_P2(95:395,1)) + Exp3_MI_P2_slew_up_fit(2);
 %Exp3_MI_slope = (Exp3_MI_line(end) - Exp3_MI_line(1))/(Exp3_MI(400,1)-Exp3_MI(100,1));
@@ -280,7 +230,6 @@ Exp3_MI_P2_slew_down_fit = polyfit(Exp3_MI_P2(654:922,1),Exp3_MI_P2(654:922,3),1
 Exp3_MI_P2_slew_down_line = Exp3_MI_P2_slew_down_fit(1)*(Exp3_MI_P2(654:922,1)) + Exp3_MI_P2_slew_down_fit(2);
 %Exp3_MI_slope = (Exp3_MI_line(end) - Exp3_MI_line(1))/(Exp3_MI(400,1)-Exp3_MI(100,1));
 Exp3_MI_P2_slew_down_slope = Exp3_MI_P2_slew_down_fit(1);
-
 
 figure()
 plot(Exp3_MI_P2(:,1),Exp3_MI_P2(:,2),'b.')
@@ -294,9 +243,11 @@ legend('V_{in} [V]','V_{out} [V]','Slew Fit Up-Going','Slew Fit Down-Going','Loc
 xlabel('Time [s]')
 ylabel('Voltage [V]')
 hold off
-%%
 
 %%%%%%%%%%%% ABOVE THRESHOLD
+
+Exp3_SI_P1 = (importdata("Experiment 3 - Strong Inversion Part 1.txt"));
+Exp3_SI_P2 = (importdata("Experiment 3 - Strong Inversion Part 2.txt"));
 
 figure()
 plot(Exp3_SI_P1(:,1),Exp3_SI_P1(:,2),'b.')
@@ -320,59 +271,49 @@ xlabel('Time [s]')
 ylabel('Voltage [V]')
 hold off
 
-%% Experiment 3 - Leftover
+tau_theoretical_SI_P1 = 4.91e-5;
 
-Exp3_MI = (importdata("Experiment3_Threshold.txt"));
-Exp3_SI = (importdata("Experiment3_SI.txt"));
-
-Exp3_MI_fit = polyfit(Exp3_MI(100:400,1),Exp3_MI(100:400,2),1);
-Exp3_MI_line = Exp3_MI_fit(1)*(Exp3_MI(100:400,1)) + Exp3_MI_fit(2);
-Exp3_MI_slope = (Exp3_MI_line(end) - Exp3_MI_line(1))/(Exp3_MI(400,1)-Exp3_MI(100,1));
-
-figure
-plot(Exp3_MI(1:5:end,1),Exp3_MI(1:5:end,2),'.')
+figure()
+semilogy(Exp3_SI_P1(100:230,1),Exp3_SI_P1(100:230,3)-max(Exp3_SI_P1(100:230,3)),'k.')
 hold on
-grid on
-plot(Exp3_MI(100:400,1),Exp3_MI_line,'r-')
-title('Unity-Gain Follower for NMOS Differential Pair, I_{b} at Threshold')
-legend('Experimental Data','Fit Data','Location','Southeast','NumColumns',1)
-xlabel('V_{in} [V]')
-ylabel('V_{out} [V]')
+Exp3_SI_P1_tau_up_fit = polyfit(Exp3_SI_P1(140:200,1),log(Exp3_SI_P1(140:200,3)-max(Exp3_SI_P1(140:230,3))),1);
+Exp3_SI_P1_tau_up_line = exp(Exp3_SI_P1_tau_up_fit(1)*(Exp3_SI_P1(140:200,1)) + Exp3_SI_P1_tau_up_fit(2));
+Exp3_SI_P1_slope_up = Exp3_SI_P1_tau_up_fit(1);
+plot(Exp3_SI_P1(140:200,1),Exp3_SI_P1_tau_up_line,'g')
 hold off
+tau_up_SI_P1 = abs(real(1/Exp3_SI_P1_slope_up));
 
-figure
-plot(Exp3_MI(1:5:end,1),Exp3_MI(1:5:end,2)-Exp3_MI(1:5:end,1),'.')
+tau_up_S1_P1_error = abs((tau_up_SI_P1-tau_theoretical_SI_P1)/tau_theoretical_SI_P1) * 100;
+
+figure()
+semilogy(Exp3_SI_P1(280:end-50,1),Exp3_SI_P1(280:end-50,3)-min(Exp3_SI_P1(280:end-50,3)),'k.')
 hold on
-grid on
-title('Unity-Gain Follower for NMOS Differential Pair, I_{b} at Threshold')
-%legend('Experimental Data','Fit Data','Location','Southeast','NumColumns',1)
-xlabel('V_{in} [V]')
-ylabel('V_{out} [V]')
+Exp3_SI_P1_tau_down_fit = polyfit(Exp3_SI_P1(320:end-100,1),log(Exp3_SI_P1(320:end-100,3)-min(Exp3_SI_P1(320:end-50,3))),1);
+Exp3_SI_P1_tau_down_line = exp(Exp3_SI_P1_tau_down_fit(1)*(Exp3_SI_P1(320:end-100,1)) + Exp3_SI_P1_tau_down_fit(2));
+Exp3_SI_P1_slope_down = Exp3_SI_P1_tau_down_fit(1);
+plot(Exp3_SI_P1(320:end-100,1),Exp3_SI_P1_tau_down_line,'g')
 hold off
+tau_down_SI_P1 = abs(real(1/Exp3_SI_P1_slope_down));
 
+tau_down_SI_P1_error = abs((tau_down_SI_P1-tau_theoretical_SI_P1)/tau_theoretical_SI_P1) * 100;
 
-% Above Threshold
-Exp3_SI_fit = polyfit(Exp3_SI(100:400,1),Exp3_SI(100:400,2),1);
-Exp3_SI_line = Exp3_SI_fit(1)*(Exp3_SI(100:400,1)) + Exp3_SI_fit(2);
-Exp3_SI_slope = (Exp3_SI_line(end) - Exp3_SI_line(1))/(Exp3_SI(400,1)-Exp3_SI(100,1));
+Exp3_SI_P2_slew_up_fit = polyfit(Exp3_SI_P2(50:75,1),Exp3_SI_P2(50:75,3),1);
+Exp3_SI_P2_slew_up_line = Exp3_SI_P2_slew_up_fit(1)*(Exp3_SI_P2(50:75,1)) + Exp3_SI_P2_slew_up_fit(2);
+Exp3_SI_P2_slew_up_slope = Exp3_SI_P2_slew_up_fit(1);
 
-figure
-plot(Exp3_SI(1:5:end,1),Exp3_SI(1:5:end,2),'.')
+Exp3_SI_P2_slew_down_fit = polyfit(Exp3_SI_P2(210:250,1),Exp3_SI_P2(210:250,3),1);
+Exp3_SI_P2_slew_down_line = Exp3_SI_P2_slew_down_fit(1)*(Exp3_SI_P2(210:250,1)) + Exp3_SI_P2_slew_down_fit(2);
+Exp3_SI_P2_slew_down_slope = Exp3_SI_P2_slew_down_fit(1);
+
+figure()
+plot(Exp3_SI_P2(:,1),Exp3_SI_P2(:,2),'b.')
 hold on
 grid on
-plot(Exp3_SI(100:400,1),Exp3_SI_line,'r-')
-title('Unity-Gain Follower for NMOS Differential Pair, I_{b} in Strong Inversion')
-legend('Experimental Data','Fit Data','Location','Southeast','NumColumns',1)
-xlabel('V_{in} [V]')
-ylabel('V_{out} [V]')
-hold off
-
-figure
-plot(Exp3_SI(1:5:end,1),Exp3_SI(1:5:end,2)-Exp3_SI(1:5:end,1),'.')
-hold on
-grid on
-title('Unity-Gain Follower for NMOS Differential Pair, I_{b} in Strong Inversion')
-%legend('Experimental Data','Fit Data','Location','Southeast','NumColumns',1)
-xlabel('V_{in} [V]')
-ylabel('V_{out} [V]')
+plot(Exp3_SI_P2(1:1:end,1),Exp3_SI_P2(1:1:end,3),'r.')
+plot(Exp3_SI_P2(50:75,1),Exp3_SI_P2_slew_up_line,'g')
+plot(Exp3_SI_P2(210:250,1),Exp3_SI_P2_slew_down_line,'m')
+title('Unity-Gain Follower Step Response with Slewing, I_{b} in Strong Inversion')
+legend('V_{in} [V]','V_{out} [V]','Slew Fit Up-Going','Slew Fit Down-Going','Location','Northeast','NumColumns',1)
+xlabel('Time [s]')
+ylabel('Voltage [V]')
 hold off
