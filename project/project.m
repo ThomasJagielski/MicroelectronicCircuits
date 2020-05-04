@@ -12,79 +12,26 @@ In.Bode_1200 = [a b c];
 
 
 figure()
-plot(In.Vout_1200(1:750,1),In.Vout_1200(1:750,2),'r.')
+yyaxis left
+plot(In.Vout_1200(1:800,1),In.Vout_1200(1:800,2),'.')
+ylabel('Input Votlage [V]')
 hold on
-plot(In.Vout_1200(1:750,1),In.Vout_1200(1:750,3),'b.')
+yyaxis right
+plot(In.Vout_1200(1:800,1),In.Vout_1200(1:800,3),'.')
+axis([ 0 9e-7 2.4 2.6])
+title('Output Voltage Response for a 10MHz Cycle for C = 1.2pF')
 legend('V_{in}','V_{out}','Location','Southeast','NumColumns',1)
 xlabel('time [s]')
-ylabel('Votlage [V]')
+ylabel('Output Votlage [V]')
 hold off
-
-figure()
-plot(In.Vout_800(1:700,1),In.Vout_800(1:700,2),'r.')
-hold on
-plot(In.Vout_800(1:700,1),In.Vout_800(1:700,3),'b.')
-legend('V_{in}','V_{out}','Location','Southeast','NumColumns',1)
-xlabel('time [s]')
-ylabel('Votlage [V]')
-hold off
-
-figure()
-plot(In.Vout_80(1:950,1),In.Vout_80(1:950,2),'r.')
-hold on
-plot(In.Vout_80(1:950,1),In.Vout_80(1:950,3),'b.')
-legend('V_{in}','V_{out}','Location','Southeast','NumColumns',1)
-xlabel('time [s]')
-ylabel('Votlage [V]')
-hold off
-
-figure()
-subplot(2,1,1)
-semilogx(In.Bode_80(1:end,1),In.Bode_80(1:end,2),'r.')
-hold on
-x = logspace(5, 8);
-plot(x, x*0, 'g')
-title('Bode Plot for C = 80f [F]')
-hold off
-axis([1e5 1e8 -60 20])
-xlabel('Frequency [Hz]')
-ylabel('Amplitude of Gain [dB]')
-subplot(2,1,2)
-semilogx(In.Bode_80(1:end,1),In.Bode_80(1:end,3),'b.')
-hold on
-x = logspace(5, 8);
-plot(x, x*0-180, 'g')
-hold off
-axis([1e5 1e8 -200 200])
-xlabel('Frequency [Hz]')
-ylabel('Phase Angle [°]')
-
-figure()
-subplot(2,1,1)
-semilogx(In.Bode_800(1:end,1),In.Bode_800(1:end,2),'r.')
-hold on
-x = logspace(5, 8);
-plot(x, x*0, 'g')
-title('Bode Plot for C = 800f [F]')
-hold off
-axis([1e5 1e8 -60 20])
-xlabel('Frequency [Hz]')
-ylabel('Amplitude of Gain [dB]')
-subplot(2,1,2)
-semilogx(In.Bode_800(1:end,1),In.Bode_800(1:end,3),'b.')
-hold on
-x = logspace(5, 8);
-plot(x, x*0-180, 'g')
-hold off
-axis([1e5 1e8 -200 200])
-xlabel('Frequency [Hz]')
-ylabel('Phase Angle [°]')
 
 figure()
 subplot(2,1,1)
 semilogx(In.Bode_1200(1:end,1),In.Bode_1200(1:end,2),'r.')
 hold on
 x = logspace(5, 8);
+crossover_index = crossover(In.Bode_1200,0);
+xline(In.Bode_1200(crossover_index,1), 'm')
 plot(x, x*0, 'g')
 title('Bode Plot for C = 1200f [F]')
 hold off
@@ -96,6 +43,86 @@ semilogx(In.Bode_1200(1:end,1),In.Bode_1200(1:end,3),'b.')
 hold on
 x = logspace(5, 8);
 plot(x, x*0-180, 'g')
+crossover_index = crossover(In.Bode_1200,-180);
+xline(In.Bode_1200(crossover_index,1), 'm')
+hold off
+axis([1e5 1e8 -200 200])
+xlabel('Frequency [Hz]')
+ylabel('Phase Angle [°]')
+
+figure()
+yyaxis left
+plot(In.Vout_800(1:750,1),In.Vout_800(1:750,2),'.')
+ylabel('Input Votlage [V]')
+hold on
+yyaxis right
+plot(In.Vout_800(1:750,1),In.Vout_800(1:750,3),'.')
+axis([ 0 8e-7 2.4 2.6])
+title('Output Voltage Response for a 10MHz Cycle for C = 800fF')
+legend('V_{in}','V_{out}','Location','Southeast','NumColumns',1)
+xlabel('time [s]')
+ylabel('Output Votlage [V]')
+hold off
+
+figure()
+subplot(2,1,1)
+semilogx(In.Bode_800(1:end,1),In.Bode_800(1:end,2),'r.')
+hold on
+x = logspace(5, 8);
+crossover_index = crossover(In.Bode_800,0);
+xline(In.Bode_800(crossover_index,1), 'm')
+plot(x, x*0, 'g')
+title('Bode Plot for C = 800f [F]')
+hold off
+axis([1e5 1e8 -60 20])
+xlabel('Frequency [Hz]')
+ylabel('Amplitude of Gain [dB]')
+subplot(2,1,2)
+semilogx(In.Bode_800(1:end,1),In.Bode_800(1:end,3),'b.')
+hold on
+x = logspace(5, 8);
+plot(x, x*0-180, 'g')
+crossover_index = crossover(In.Bode_800,-180);
+xline(In.Bode_800(crossover_index,1), 'm')
+hold off
+axis([1e5 1e8 -200 200])
+xlabel('Frequency [Hz]')
+ylabel('Phase Angle [°]')
+
+figure()
+yyaxis left
+plot(In.Vout_80(1:1050,1),In.Vout_80(1:1050,2),'.')
+ylabel('Input Votlage [V]')
+hold on
+yyaxis right
+plot(In.Vout_80(1:1050,1),In.Vout_80(1:1050,3),'.')
+axis([ 0 1.7e-6 2.4 2.6])
+title('Output Voltage Response for a 10MHz Cycle for C = 80fF')
+legend('V_{in}','V_{out}','Location','Southeast','NumColumns',1)
+xlabel('time [s]')
+ylabel('Output Votlage [V]')
+hold off
+
+figure()
+subplot(2,1,1)
+semilogx(In.Bode_80(1:end,1),In.Bode_80(1:end,2),'r.')
+hold on
+x = logspace(5, 8);
+crossover_index = crossover(In.Bode_80,0);
+xline(In.Bode_80(crossover_index,1), 'm')
+plot(x, x*0, 'g')
+title('Bode Plot for C = 80f [F]')
+hold off
+axis([1e5 1e8 -60 20])
+xlabel('Frequency [Hz]')
+ylabel('Amplitude of Gain [dB]')
+subplot(2,1,2)
+semilogx(In.Bode_80(1:end,1),In.Bode_80(1:end,3),'b.')
+hold on
+x = logspace(5, 8);
+plot(x, x*0-180, 'g')
+crossover_index = crossover(In.Bode_80,-180);
+xline(In.Bode_80(crossover_index,1), 'm')
 hold off
 axis([1e5 1e8 -200 200])
 xlabel('Frequency [Hz]')
@@ -107,12 +134,17 @@ Un.Vout = (importdata("Circuit_Uncompensated.txt"));
 Un.Bode = [a b c];
 
 figure()
-plot(Un.Vout(:,1),Un.Vout(:,2),'r.')
+yyaxis left
+plot(Un.Vout(:,1),Un.Vout(:,2),'.')
+ylabel('Input Votlage [V]')
 hold on
-plot(Un.Vout(:,1),Un.Vout(:,3),'b.')
+yyaxis right
+plot(Un.Vout(:,1),Un.Vout(:,3),'.')
+axis([ 0 3e-6 2 3])
+title('Output Voltage Response for a 1MHz Cycle')
 legend('V_{in}','V_{out}','Location','Southeast','NumColumns',1)
 xlabel('time [s]')
-ylabel('Votlage [V]')
+ylabel('Output Votlage [V]')
 hold off
 
 figure()
@@ -120,6 +152,8 @@ subplot(2,1,1)
 semilogx(Un.Bode(1:end,1),Un.Bode(1:end,2),'r.')
 hold on
 x = logspace(3, 10);
+crossover_index = crossover(Un.Bode,0);
+xline(Un.Bode(crossover_index,1), 'm')
 plot(x, x*0, 'g')
 title('Bode Plot for Uncompensated Amplifier')
 hold off
@@ -130,6 +164,8 @@ subplot(2,1,2)
 semilogx(Un.Bode(1:end,1),Un.Bode(1:end,3),'b.')
 hold on
 x = logspace(3, 10);
+crossover_index = crossover(Un.Bode,-180);
+xline(Un.Bode(crossover_index,1), 'm')
 plot(x, x*0-180, 'g')
 hold off
 axis([1e3 1e10 -200 50])
