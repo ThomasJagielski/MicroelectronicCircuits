@@ -1,0 +1,43 @@
+* C:\Users\tjagielski\Documents\Projects\School\Sophomore - Semester 2\Circuits\MicroelectronicCircuits\project\Schematics\Circuit_Indirect_Vout - Copy.asc
+XU1 N004 V1 N007 nmos3
+XU2 N005 Vout N007 nmos3
+XU3 N007 Vb P001 nmos3
+XU4 N006 Vb P002 nmos3
+XU5 N001 Vout N006 nmos3
+XU6 P003 N008 N008 nmos3
+XU7 Vout N008 P004 nmos3
+XU8 P005 N001 N001 pmos3
+XU9 N004 N001 N002 pmos3
+XU10 N005 N001 N003 pmos3
+XU11 N008 N005 P006 pmos3
+XU12 Vout N004 P007 pmos3
+XU13 P005 vdd
+XU16 P006 vdd
+XU17 P007 vdd
+XU18 P002 gnd
+XU19 P001 gnd
+XU20 P003 gnd
+XU21 P004 gnd
+V1 V1 P008 SINE(2.5 1 4168694 0 0 0 1) AC 0 0
+XU23 P008 gnd
+V2 V2 P009 2.5V
+XU25 P009 gnd
+XU26 P010 vdd
+Vdd P010 P011 5V
+XU27 P011 gnd
+Vb Vb P012 1V
+XU29 P012 gnd
+C1 Vout P013 50p
+XU30 P013 gnd
+C2 Vout N002 {C}
+XU22 N001 V1 N006 nmos3
+XU14 N002 N001 P014 pmos3
+XU15 N003 N001 P015 pmos3
+XU24 P014 vdd
+XU28 P015 vdd
+.include engr2420.sub
+* Strong Inversion - 1V
+.tran 0 0.0000015 0 0.0000000001
+.param C=80f
+.backanno
+.end
