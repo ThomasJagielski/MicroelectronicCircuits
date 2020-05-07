@@ -4,8 +4,8 @@
 #     return unidecode(unicode(text, encoding = "utf-8"))
 
 if __name__ == "__main__":
-    f = open("Circuit_Uncompensated_Bode.txt", "r")
-    g = open("Circuit_Uncompensated_Bode_p.txt", "w")
+    f = open("Circuit_Feedforward_Bode_20dB.txt", "r")
+    g = open("Circuit_Feedforward_Bode_20dB_p.txt", "w")
     for line in f:
         # line = remove_non_ascii(line)
         for char in line:
